@@ -240,10 +240,7 @@ export default function Index() {
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
-              <h1 className="font-display text-5xl md:text-6xl font-bold leading-[1.15] mb-6 animate-fade-in-up text-brand-navy">
-                ЗАКУПКИ В КИТАЕ{" "}
-                <span className="marker-red text-5xl">ПОД КЛЮЧ</span>
-              </h1>
+              <h1 className="font-display text-5xl md:text-6xl font-bold leading-[1.15] mb-6 animate-fade-in-up text-brand-navy">Платформа для закупок в Китае</h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
                 Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
               </p>
