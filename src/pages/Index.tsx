@@ -150,8 +150,8 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
-              <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center" style={{background: "linear-gradient(135deg, hsl(200,75%,85%), hsl(200,65%,92%))", border: "1.5px solid rgba(255,255,255,0.8)", boxShadow: "0 2px 8px rgba(176,220,240,0.4)"}}>
+              <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
               Tao<span className="text-primary">Seller</span>
@@ -621,8 +621,8 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center overflow-hidden">
-                  <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
+                <div className="w-10 h-10 rounded-xl overflow-hidden" style={{background: "linear-gradient(135deg, hsl(200,75%,85%), hsl(200,65%,92%))"}}>
+                  <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
                 </div>
                 <span className="font-display font-bold text-xl text-white">Tao<span className="text-primary">Seller</span></span>
               </div>
