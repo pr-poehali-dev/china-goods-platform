@@ -419,6 +419,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* SELLER VIDEOS */}
+      <SellerVideos />
+
       {/* MYTH vs REALITY */}
       <section className="py-24 px-4 bg-cream">
         <div className="container mx-auto max-w-5xl">
@@ -548,9 +551,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      {/* SELLER VIDEOS */}
-      <SellerVideos />
 
       {/* REVIEWS */}
       <section id="reviews" className="py-24 px-4 blob-bg">
