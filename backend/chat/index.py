@@ -146,19 +146,41 @@ def handler(event: dict, context) -> dict:
             return respond(200, {'messages': []})
         return respond(200, {'thread_id': row[0], 'messages': load_messages(row[0])})
 
-    # Продавец получает список своих чатов
+    # Продавец получает список своих чатов с количеством непрочитанных
     if method == 'GET' and action == 'seller_threads':
         sid = get_seller_id()
         if not sid:
             return respond(401, {'error': 'Требуется вход'})
         cur.execute(
-            f"SELECT id, seller_id, buyer_name, buyer_contact, last_message_at "
-            f"FROM chat_threads WHERE seller_id = {sid} ORDER BY last_message_at DESC"
+            f"SELECT t.id, t.seller_id, t.buyer_name, t.buyer_contact, t.last_message_at, "
+            f"COALESCE(SUM(CASE WHEN m.sender = 'buyer' AND m.read_by_seller = FALSE THEN 1 ELSE 0 END), 0) AS unread "
+            f"FROM chat_threads t LEFT JOIN chat_messages m ON m.thread_id = t.id "
+            f"WHERE t.seller_id = {sid} "
+            f"GROUP BY t.id, t.seller_id, t.buyer_name, t.buyer_contact, t.last_message_at "
+            f"ORDER BY t.last_message_at DESC"
         )
-        threads = [thread_to_dict(r) for r in cur.fetchall()]
-        return respond(200, {'threads': threads})
+        threads = []
+        total_unread = 0
+        for r in cur.fetchall():
+            d = thread_to_dict(r)
+            d['unread'] = int(r[5])
+            total_unread += int(r[5])
+            threads.append(d)
+        return respond(200, {'threads': threads, 'total_unread': total_unread})
 
-    # Продавец получает сообщения конкретного чата
+    # Продавец получает общее число непрочитанных сообщений
+    if method == 'GET' and action == 'unread_total':
+        sid = get_seller_id()
+        if not sid:
+            return respond(401, {'error': 'Требуется вход'})
+        cur.execute(
+            f"SELECT COUNT(*) FROM chat_messages m "
+            f"JOIN chat_threads t ON t.id = m.thread_id "
+            f"WHERE t.seller_id = {sid} AND m.sender = 'buyer' AND m.read_by_seller = FALSE"
+        )
+        return respond(200, {'total_unread': int(cur.fetchone()[0])})
+
+    # Продавец получает сообщения конкретного чата (отмечает прочитанными)
     if method == 'GET' and action == 'seller_messages':
         sid = get_seller_id()
         if not sid:
@@ -169,6 +191,11 @@ def handler(event: dict, context) -> dict:
         cur.execute(f"SELECT id FROM chat_threads WHERE id = {int(thread_id)} AND seller_id = {sid}")
         if not cur.fetchone():
             return respond(403, {'error': 'Нет доступа'})
+        cur.execute(
+            f"UPDATE chat_messages SET read_by_seller = TRUE "
+            f"WHERE thread_id = {int(thread_id)} AND sender = 'buyer' AND read_by_seller = FALSE"
+        )
+        conn.commit()
         return respond(200, {'messages': load_messages(int(thread_id))})
 
     return respond(404, {'error': 'Неизвестное действие'})

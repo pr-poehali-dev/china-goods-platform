@@ -5,6 +5,7 @@ import BuyerChat from "@/components/BuyerChat";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const CONTENT_URL = "https://functions.poehali.dev/497830cf-ab2d-4e0b-b5a1-497fa90b8d0d";
+const CHAT_URL = "https://functions.poehali.dev/e2bc4a3b-2c2f-4ed5-a331-28cca59b4a69";
 
 interface Product {
   id: number;
@@ -50,6 +51,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<"profile" | "products" | "videos" | "chats">("profile");
   const [chatWith, setChatWith] = useState<{ id: number; name: string } | null>(null);
+  const [unreadTotal, setUnreadTotal] = useState(0);
 
   const [profile, setProfile] = useState({ company_name: "", wechat_id: "", phone: "", description: "", city: "", avatar_url: "" });
   const [savedMsg, setSavedMsg] = useState("");
@@ -91,6 +93,21 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   useEffect(() => {
     if (token) loadMe(token);
   }, [token, loadMe]);
+
+  const loadUnread = useCallback(async (t: string) => {
+    const res = await fetch(`${CHAT_URL}?action=unread_total`, { headers: { "X-Auth-Token": t } });
+    if (res.ok) {
+      const data = await res.json();
+      setUnreadTotal(data.total_unread || 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    loadUnread(token);
+    const t = setInterval(() => loadUnread(token), 8000);
+    return () => clearInterval(t);
+  }, [token, loadUnread]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -258,13 +275,18 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id as typeof tab)}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
+                  className={`relative px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
                     tab === t.id
                       ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
                       : "bg-white text-brand-navy border-border hover:border-brand-navy"
                   }`}
                 >
                   <Icon name={t.icon} size={16} /> {t.label}
+                  {t.id === "chats" && unreadTotal > 0 && (
+                    <span className="min-w-5 h-5 px-1.5 rounded-full bg-brand-red text-white text-[11px] font-bold flex items-center justify-center border border-brand-navy">
+                      {unreadTotal}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -406,7 +428,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             )}
 
             {/* Сообщения от покупателей */}
-            {tab === "chats" && token && <SellerChats token={token} />}
+            {tab === "chats" && token && <SellerChats token={token} onUnreadChange={setUnreadTotal} />}
           </div>
         ) : (
           <div className="max-w-md mx-auto mb-16 text-center">

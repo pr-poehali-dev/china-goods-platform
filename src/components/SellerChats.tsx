@@ -8,6 +8,7 @@ interface Thread {
   buyer_name: string;
   buyer_contact: string;
   last_message_at: string;
+  unread: number;
 }
 interface Message {
   id: number;
@@ -18,7 +19,7 @@ interface Message {
   created_at: string;
 }
 
-export default function SellerChats({ token }: { token: string }) {
+export default function SellerChats({ token, onUnreadChange }: { token: string; onUnreadChange?: (n: number) => void }) {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -31,13 +32,15 @@ export default function SellerChats({ token }: { token: string }) {
     const res = await fetch(`${CHAT_URL}?action=seller_threads`, { headers: { "X-Auth-Token": token } });
     const data = await res.json();
     setThreads(data.threads || []);
-  }, [token]);
+    onUnreadChange?.(data.total_unread || 0);
+  }, [token, onUnreadChange]);
 
   const loadMessages = useCallback(async (id: number) => {
     const res = await fetch(`${CHAT_URL}?action=seller_messages&thread_id=${id}`, { headers: { "X-Auth-Token": token } });
     const data = await res.json();
     setMessages(data.messages || []);
-  }, [token]);
+    loadThreads();
+  }, [token, loadThreads]);
 
   useEffect(() => {
     loadThreads();
@@ -97,10 +100,15 @@ export default function SellerChats({ token }: { token: string }) {
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-display font-bold flex-shrink-0">
               {th.buyer_name?.[0]?.toUpperCase() || "?"}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="font-semibold text-sm text-brand-navy truncate">{th.buyer_name}</div>
               {th.buyer_contact && <div className="text-xs text-muted-foreground truncate">{th.buyer_contact}</div>}
             </div>
+            {th.unread > 0 && (
+              <span className="flex-shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center border border-brand-navy">
+                {th.unread}
+              </span>
+            )}
           </button>
         ))}
       </div>
