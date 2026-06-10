@@ -1,11 +1,36 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Icon from "@/components/ui/icon";
 import SellerChats from "@/components/SellerChats";
 import BuyerChat from "@/components/BuyerChat";
+import { toast } from "sonner";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const CONTENT_URL = "https://functions.poehali.dev/497830cf-ab2d-4e0b-b5a1-497fa90b8d0d";
 const CHAT_URL = "https://functions.poehali.dev/e2bc4a3b-2c2f-4ed5-a331-28cca59b4a69";
+
+const playNotificationSound = () => {
+  try {
+    const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const ctx = new AudioCtx();
+    const playTone = (freq: number, start: number, dur: number) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0, ctx.currentTime + start);
+      gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+      osc.start(ctx.currentTime + start);
+      osc.stop(ctx.currentTime + start + dur);
+    };
+    playTone(880, 0, 0.15);
+    playTone(1175, 0.13, 0.2);
+  } catch {
+    /* звук недоступен */
+  }
+};
 
 interface Product {
   id: number;
@@ -52,6 +77,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [tab, setTab] = useState<"profile" | "products" | "videos" | "chats">("profile");
   const [chatWith, setChatWith] = useState<{ id: number; name: string } | null>(null);
   const [unreadTotal, setUnreadTotal] = useState(0);
+  const prevUnreadRef = useRef<number | null>(null);
 
   const [profile, setProfile] = useState({ company_name: "", wechat_id: "", phone: "", description: "", city: "", avatar_url: "" });
   const [savedMsg, setSavedMsg] = useState("");
@@ -98,7 +124,16 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     const res = await fetch(`${CHAT_URL}?action=unread_total`, { headers: { "X-Auth-Token": t } });
     if (res.ok) {
       const data = await res.json();
-      setUnreadTotal(data.total_unread || 0);
+      const count = data.total_unread || 0;
+      const prev = prevUnreadRef.current;
+      if (prev !== null && count > prev) {
+        playNotificationSound();
+        toast("📩 Новое сообщение от покупателя", {
+          description: "Откройте вкладку «Сообщения», чтобы ответить",
+        });
+      }
+      prevUnreadRef.current = count;
+      setUnreadTotal(count);
     }
   }, []);
 
@@ -428,7 +463,15 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             )}
 
             {/* Сообщения от покупателей */}
-            {tab === "chats" && token && <SellerChats token={token} onUnreadChange={setUnreadTotal} />}
+            {tab === "chats" && token && (
+              <SellerChats
+                token={token}
+                onUnreadChange={(n) => {
+                  prevUnreadRef.current = n;
+                  setUnreadTotal(n);
+                }}
+              />
+            )}
           </div>
         ) : (
           <div className="max-w-md mx-auto mb-16 text-center">
