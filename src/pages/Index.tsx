@@ -306,14 +306,58 @@ export default function Index() {
             {/* Hero illustration */}
             <div className="relative animate-fade-in-up delay-200">
               <div
-                className="relative will-change-transform"
+                className="relative will-change-transform max-w-lg mx-auto"
                 style={{ transform: `translateY(${scrollY * -0.05}px)` }}
               >
-                <img
-                  src={HERO_ILLUSTRATION}
-                  alt="Закупки и доставка из Китая в Россию"
-                  className="w-full max-w-lg mx-auto drop-shadow-2xl rounded-3xl"
-                />
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border shadow-xl shadow-blue-500/15">
+                  <img
+                    src={HERO_ILLUSTRATION}
+                    alt="Закупки и доставка из Китая в Россию"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Плавающая карточка — доставлено */}
+                <div
+                  className="absolute -top-5 -left-4 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-4 py-3 flex items-center gap-3 animate-float"
+                  style={{ transform: `translateY(${scrollY * 0.08}px)` }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-brand-mint flex items-center justify-center">
+                    <Icon name="PackageCheck" size={20} className="text-brand-teal" />
+                  </div>
+                  <div>
+                    <div className="font-display font-bold text-lg text-brand-navy leading-none">47</div>
+                    <div className="text-[11px] text-muted-foreground">доставлено сегодня</div>
+                  </div>
+                </div>
+
+                {/* Плавающая карточка — рейтинг */}
+                <div
+                  className="absolute -bottom-5 -right-3 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-4 py-3 flex items-center gap-3 animate-float"
+                  style={{ animationDelay: "1.2s", transform: `translateY(${scrollY * -0.06}px)` }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-brand-peach flex items-center justify-center">
+                    <Icon name="Star" size={20} className="text-amber-500 fill-amber-500" />
+                  </div>
+                  <div>
+                    <div className="font-display font-bold text-lg text-brand-navy leading-none">4.9</div>
+                    <div className="text-[11px] text-muted-foreground">рейтинг клиентов</div>
+                  </div>
+                </div>
+
+                {/* Плавающая карточка — поставщики */}
+                <div
+                  className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex"
+                  style={{ animationDelay: "0.6s", transform: `translateY(calc(-50% + ${scrollY * 0.05}px))` }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-brand-sky flex items-center justify-center">
+                    <Icon name="Store" size={16} className="text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-display font-bold text-sm text-brand-navy leading-none">500+</div>
+                    <div className="text-[10px] text-muted-foreground">фабрик</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
