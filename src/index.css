@@ -4,52 +4,51 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 25% 20%;
+    --background: 40 33% 97%;
+    --foreground: 220 45% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 20%;
+    --card-foreground: 220 45% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 20%;
+    --popover-foreground: 220 45% 14%;
 
-    --primary: 168 60% 42%;
+    --primary: 354 78% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 30% 96%;
-    --secondary-foreground: 220 25% 25%;
+    --secondary: 40 30% 93%;
+    --secondary-foreground: 220 45% 14%;
 
-    --muted: 210 25% 96%;
-    --muted-foreground: 220 12% 55%;
+    --muted: 40 25% 92%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 168 55% 92%;
-    --accent-foreground: 168 60% 30%;
+    --accent: 354 70% 95%;
+    --accent-foreground: 354 78% 42%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 354 78% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 25% 91%;
-    --input: 214 25% 91%;
-    --ring: 168 60% 42%;
+    --border: 40 20% 86%;
+    --input: 40 20% 86%;
+    --ring: 354 78% 52%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 25% 25%;
-    --sidebar-primary: 168 60% 42%;
+    --sidebar-background: 220 45% 14%;
+    --sidebar-foreground: 40 30% 93%;
+    --sidebar-primary: 354 78% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 200 30% 96%;
-    --sidebar-accent-foreground: 220 25% 25%;
-    --sidebar-border: 214 25% 91%;
-    --sidebar-ring: 168 60% 42%;
+    --sidebar-accent: 220 40% 20%;
+    --sidebar-accent-foreground: 40 30% 93%;
+    --sidebar-border: 220 35% 25%;
+    --sidebar-ring: 354 78% 52%;
 
     /* Brand colors */
-    --brand-teal: 168 60% 42%;
-    --brand-blue: 215 80% 60%;
-    --brand-sky: 205 90% 70%;
-    --brand-mint: 160 50% 88%;
-    --brand-lavender: 250 60% 92%;
-    --brand-peach: 25 95% 88%;
+    --brand-red: 354 78% 52%;
+    --brand-navy: 220 45% 14%;
+    --brand-teal: 174 55% 38%;
+    --brand-yellow: 45 95% 55%;
+    --brand-cream: 40 33% 97%;
   }
 }
 
@@ -82,63 +81,89 @@
   }
 
   .text-gradient-teal {
-    background: linear-gradient(135deg, hsl(168, 60%, 42%), hsl(205, 90%, 60%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: hsl(354, 78%, 52%);
+  }
+
+  .text-red {
+    color: hsl(354, 78%, 52%);
+  }
+
+  .text-navy {
+    color: hsl(220, 45%, 14%);
+  }
+
+  .text-teal {
+    color: hsl(174, 55%, 38%);
   }
 
   .bg-gradient-brand {
-    background: linear-gradient(
-      135deg,
-      hsl(168, 60%, 45%) 0%,
-      hsl(190, 70%, 55%) 100%
-    );
+    background: hsl(354, 78%, 52%);
+  }
+
+  .bg-navy {
+    background: hsl(220, 45%, 14%);
+  }
+
+  .bg-cream {
+    background: hsl(40, 33%, 97%);
   }
 
   .bg-gradient-soft {
-    background: linear-gradient(
-      135deg,
-      hsl(200, 60%, 97%) 0%,
-      hsl(250, 60%, 97%) 100%
-    );
+    background: hsl(40, 30%, 93%);
   }
 
   .bg-hero-soft {
     background:
       radial-gradient(
-        circle at 80% 20%,
-        hsl(250, 70%, 95%) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 10% 90%,
-        hsl(160, 60%, 94%) 0%,
+        circle at 85% 15%,
+        hsl(354, 70%, 96%) 0%,
         transparent 45%
       ),
-      hsl(0, 0%, 100%);
+      hsl(40, 33%, 97%);
   }
 
+  /* Highlighter marker effect (like infographic) */
+  .marker-red {
+    background: hsl(354, 78%, 52%);
+    color: #fff;
+    padding: 0.1em 0.35em;
+    border-radius: 0.2em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .marker-navy {
+    background: hsl(220, 45%, 14%);
+    color: #fff;
+    padding: 0.1em 0.35em;
+    border-radius: 0.2em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .marker-yellow {
+    background: hsl(45, 95%, 60%);
+    color: hsl(220, 45%, 14%);
+    padding: 0.05em 0.3em;
+    border-radius: 0.2em;
+  }
+
+  /* Sticker-style card with thick offset shadow */
   .card-soft {
-    box-shadow: 0 8px 30px rgba(30, 50, 80, 0.06);
+    border: 2px solid hsl(220, 45%, 14%);
+    box-shadow: 5px 5px 0 hsl(220, 45%, 14%);
     transition:
-      box-shadow 0.3s ease,
-      transform 0.3s ease;
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
   }
 
   .card-soft:hover {
-    box-shadow: 0 14px 40px rgba(30, 50, 80, 0.12);
-    transform: translateY(-4px);
+    box-shadow: 8px 8px 0 hsl(220, 45%, 14%);
+    transform: translate(-2px, -2px);
   }
 
   .blob-bg {
-    background-image:
-      radial-gradient(
-        circle at 90% 10%,
-        hsl(250, 70%, 96%) 0%,
-        transparent 40%
-      ),
-      radial-gradient(circle at 5% 80%, hsl(160, 60%, 95%) 0%, transparent 40%);
+    background: hsl(40, 33%, 97%);
   }
 
   .scrollbar-hide {

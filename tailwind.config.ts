@@ -67,12 +67,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				brand: {
-					teal: 'hsl(168, 60%, 42%)',
-					blue: 'hsl(215, 80%, 60%)',
-					sky: 'hsl(205, 90%, 70%)',
-					mint: 'hsl(160, 50%, 88%)',
-					lavender: 'hsl(250, 60%, 92%)',
-					peach: 'hsl(25, 95%, 88%)',
+					red: 'hsl(354, 78%, 52%)',
+					navy: 'hsl(220, 45%, 14%)',
+					teal: 'hsl(174, 55%, 38%)',
+					yellow: 'hsl(45, 95%, 55%)',
+					cream: 'hsl(40, 33%, 97%)',
 				}
 			},
 			borderRadius: {
