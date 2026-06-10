@@ -153,7 +153,7 @@ export default function Index() {
     <div className="min-h-screen bg-background text-foreground font-body">
 
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
@@ -206,7 +206,7 @@ export default function Index() {
             )}
             <button
               onClick={() => scrollTo("contacts")}
-              className="hidden lg:flex px-5 py-2 bg-primary text-white font-bold text-sm rounded-lg shadow-md shadow-blue-500/25 hover:scale-105 transition-all"
+              className="hidden lg:flex btn-modern px-5 py-2 text-white font-bold text-sm rounded-xl"
             >
               Получить расчёт
             </button>
@@ -276,12 +276,12 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-2xl will-change-transform" style={{ transform: `translateY(${scrollY * 0.06}px)` }}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm text-primary font-medium mb-6 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
-              <h1 className="font-display text-5xl md:text-6xl font-bold leading-[1.15] mb-6 animate-fade-in-up text-brand-navy uppercase">
-                Платформа для <span className="marker-yellow px-3.5 text-5xl font-bold">закупок</span> в Китае
+              <h1 className="font-display text-4xl md:text-5xl font-bold leading-[1.12] mb-6 animate-fade-in-up text-brand-navy">
+                Платформа для <span className="text-grad">закупок</span> в Китае
               </h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
                 Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
@@ -289,13 +289,13 @@ export default function Index() {
               <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
                 <button
                   onClick={() => scrollTo("contacts")}
-                  className="px-8 py-4 bg-primary text-white font-display font-bold text-lg rounded-xl border border-border transition-all hover:scale-105 shadow-lg shadow-blue-500/20"
+                  className="btn-modern px-8 py-4 text-white font-body font-bold text-lg rounded-2xl"
                 >
                   Начать закупку
                 </button>
                 <button
                   onClick={() => scrollTo("services")}
-                  className="px-8 py-4 bg-white border border-border font-display font-semibold text-lg rounded-2xl hover:bg-secondary transition-all flex items-center gap-2 text-slate-600"
+                  className="px-8 py-4 glass font-body font-semibold text-lg rounded-2xl hover:scale-[1.02] transition-all flex items-center gap-2 text-brand-navy"
                 >
                   <Icon name="Play" size={18} className="text-primary" />
                   Как это работает
@@ -306,10 +306,10 @@ export default function Index() {
             {/* Hero illustration */}
             <div className="relative animate-fade-in-up delay-200">
               <div
-                className="relative will-change-transform max-w-lg mx-auto"
+                className="relative will-change-transform max-w-lg mx-auto glow-aura"
                 style={{ transform: `translateY(${scrollY * -0.05}px)` }}
               >
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border shadow-xl shadow-blue-500/15">
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-[2rem] glow-blue">
                   <img
                     src={HERO_ILLUSTRATION}
                     alt="Закупки и доставка из Китая в Россию"
@@ -425,8 +425,8 @@ export default function Index() {
       <section className="py-24 px-4 bg-cream">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12 reveal">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
-              ДУМАЕТЕ, ЗАКУПКИ В КИТАЕ — <span className="marker-yellow">ЭТО СЛОЖНО?</span>
+            <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
+              Думаете, закупки в Китае — <span className="text-grad">это сложно?</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Развеиваем главные мифы о заказах напрямую с фабрик</p>
           </div>
@@ -493,7 +493,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">Наши услуги</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ПОЛНЫЙ ЦИКЛ <span className="marker-yellow">ЗАКУПОК</span></h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Полный цикл <span className="text-grad">закупок</span></h2>
             <p className="text-muted-foreground max-w-lg mx-auto">От поиска поставщика до доставки к вашей двери — берём на себя весь процесс</p>
           </div>
 
@@ -527,7 +527,7 @@ export default function Index() {
           </div>
 
           <div className="mt-20 bg-white rounded-2xl p-10 reveal card-soft">
-            <h3 className="font-display font-bold text-3xl text-center mb-10 text-brand-navy">КАК МЫ РАБОТАЕМ</h3>
+            <h3 className="font-display font-bold text-2xl md:text-3xl text-center mb-10 text-brand-navy">Как мы работаем</h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
               {[
                 { n: "01", label: "Заявка", icon: "FileText" },
@@ -557,7 +557,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ЧТО ГОВОРЯТ <span className="marker-yellow">КЛИЕНТЫ</span></h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Что говорят <span className="text-grad">клиенты</span></h2>
             <div className="flex items-center justify-center gap-2 mt-4">
               <div className="flex">
                 {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-xl">★</span>)}
@@ -600,7 +600,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Блог</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">СОВЕТЫ И СТАТЬИ <span className="marker-yellow">ПО ЗАКУПКАМ</span></h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Советы и статьи <span className="text-grad">по закупкам</span></h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -634,7 +634,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Контакты</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ОСТАВЬТЕ <span className="marker-yellow">ЗАЯВКУ</span></h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Оставьте <span className="text-grad">заявку</span></h2>
             <p className="text-muted-foreground">Свяжемся в течение 30 минут и рассчитаем стоимость</p>
           </div>
 
@@ -703,7 +703,7 @@ export default function Index() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-4 bg-primary text-white font-display font-bold text-lg rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
+                    className="w-full btn-modern py-4 text-white font-body font-bold text-lg rounded-2xl"
                   >
                     Отправить заявку
                   </button>
