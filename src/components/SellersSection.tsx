@@ -86,6 +86,11 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [uploadingImg, setUploadingImg] = useState(false);
   const [videoForm, setVideoForm] = useState({ title: "", video_url: "" });
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [videoError, setVideoError] = useState("");
+  const [videoDragOver, setVideoDragOver] = useState(false);
+
+  const MAX_VIDEO_MB = 50;
 
   const loadPublic = useCallback(async () => {
     const res = await fetch(`${SELLERS_URL}?action=list`);
@@ -223,13 +228,60 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     loadPublic();
   };
 
-  const onVideoPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const uploadVideoWithProgress = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(",")[1];
+        const ext = file.name.split(".").pop() || "mp4";
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", `${CONTENT_URL}?action=upload`);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("X-Auth-Token", token!);
+        xhr.upload.onprogress = (ev) => {
+          if (ev.lengthComputable) setVideoProgress(Math.round((ev.loaded / ev.total) * 100));
+        };
+        xhr.onload = () => {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            if (xhr.status === 200 && data.url) resolve(data.url);
+            else reject(new Error(data.error || "Ошибка загрузки"));
+          } catch {
+            reject(new Error("Ошибка загрузки"));
+          }
+        };
+        xhr.onerror = () => reject(new Error("Ошибка сети"));
+        xhr.send(JSON.stringify({ file_base64: base64, content_type: file.type, ext }));
+      };
+      reader.onerror = () => reject(new Error("Не удалось прочитать файл"));
+      reader.readAsDataURL(file);
+    });
+
+  const handleVideoFile = async (file: File | undefined) => {
+    setVideoError("");
     if (!file || !token) return;
+    if (!file.type.startsWith("video/")) {
+      setVideoError("Выберите видеофайл");
+      return;
+    }
+    if (file.size > MAX_VIDEO_MB * 1024 * 1024) {
+      setVideoError(`Видео слишком большое (${(file.size / 1024 / 1024).toFixed(1)} МБ). Максимум ${MAX_VIDEO_MB} МБ`);
+      return;
+    }
     setUploadingVideo(true);
-    const url = await uploadFile(file);
-    setVideoForm((f) => ({ ...f, video_url: url }));
+    setVideoProgress(0);
+    try {
+      const url = await uploadVideoWithProgress(file);
+      setVideoForm((f) => ({ ...f, video_url: url }));
+    } catch (err) {
+      setVideoError(err instanceof Error ? err.message : "Ошибка загрузки");
+    }
     setUploadingVideo(false);
+  };
+
+  const onVideoPick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleVideoFile(e.target.files?.[0]);
+    e.target.value = "";
   };
 
   const addVideo = async (e: React.FormEvent) => {
@@ -243,6 +295,8 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     });
     setLoading(false);
     setVideoForm({ title: "", video_url: "" });
+    setVideoProgress(0);
+    setVideoError("");
     loadMe(token);
     loadPublic();
   };
@@ -435,15 +489,72 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 <form onSubmit={addVideo} className="bg-white card-soft rounded-2xl p-6 space-y-4">
                   <h3 className="font-display font-bold text-lg text-brand-navy">Загрузить видео</h3>
                   <input className={inputCls} placeholder="Название видео (необязательно)" value={videoForm.title} onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })} />
-                  <div className="flex items-center gap-4">
-                    <label className="cursor-pointer">
-                      <span className="px-4 py-2 bg-accent text-primary rounded-lg inline-block text-sm font-medium hover:bg-accent/70 transition-all">
-                        {uploadingVideo ? "Загрузка..." : "Выбрать видео"}
+
+                  {/* Зона загрузки drag&drop */}
+                  {!videoForm.video_url && !uploadingVideo && (
+                    <label
+                      onDragOver={(e) => { e.preventDefault(); setVideoDragOver(true); }}
+                      onDragLeave={() => setVideoDragOver(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setVideoDragOver(false);
+                        handleVideoFile(e.dataTransfer.files?.[0]);
+                      }}
+                      className={`block cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all ${
+                        videoDragOver ? "border-primary bg-accent" : "border-border hover:border-primary hover:bg-secondary/40"
+                      }`}
+                    >
+                      <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-accent flex items-center justify-center">
+                        <Icon name="Video" size={26} className="text-primary" />
+                      </div>
+                      <div className="font-display font-bold text-brand-navy mb-1">Перетащите видео сюда</div>
+                      <div className="text-sm text-muted-foreground mb-3">или выберите файл с ПК / телефона</div>
+                      <span className="inline-block px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]">
+                        Выбрать видео
                       </span>
+                      <div className="text-xs text-muted-foreground mt-3">MP4, MOV, WebM · до {MAX_VIDEO_MB} МБ</div>
                       <input type="file" accept="video/*" className="hidden" onChange={onVideoPick} />
                     </label>
-                    {videoForm.video_url && <span className="text-sm text-brand-teal flex items-center gap-1"><Icon name="Check" size={16} /> Готово</span>}
-                  </div>
+                  )}
+
+                  {/* Прогресс загрузки */}
+                  {uploadingVideo && (
+                    <div className="rounded-2xl border-2 border-border p-5">
+                      <div className="flex items-center justify-between text-sm mb-2">
+                        <span className="text-brand-navy font-medium flex items-center gap-2">
+                          <Icon name="Loader" size={16} className="text-primary animate-spin" /> Загрузка видео...
+                        </span>
+                        <span className="font-bold text-primary">{videoProgress}%</span>
+                      </div>
+                      <div className="h-2.5 bg-secondary rounded-full overflow-hidden">
+                        <div className="h-full bg-primary transition-all duration-200" style={{ width: `${videoProgress}%` }} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Превью загруженного видео */}
+                  {videoForm.video_url && !uploadingVideo && (
+                    <div className="rounded-2xl border-2 border-border overflow-hidden relative">
+                      <video src={videoForm.video_url} controls className="w-full h-56 object-cover bg-black" />
+                      <div className="absolute top-2 left-2 px-3 py-1 bg-brand-teal text-white text-xs font-bold rounded-full flex items-center gap-1">
+                        <Icon name="Check" size={14} /> Готово к публикации
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => { setVideoForm((f) => ({ ...f, video_url: "" })); setVideoProgress(0); }}
+                        className="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-all"
+                      >
+                        <Icon name="X" size={16} className="text-brand-navy" />
+                      </button>
+                    </div>
+                  )}
+
+                  {videoError && (
+                    <div className="text-sm text-primary font-medium flex items-center gap-2">
+                      <Icon name="TriangleAlert" size={16} /> {videoError}
+                    </div>
+                  )}
+
                   <button type="submit" className={btnCls} disabled={loading || uploadingVideo || !videoForm.video_url}>Добавить видео</button>
                 </form>
 
