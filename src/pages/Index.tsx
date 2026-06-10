@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SellersSection from "@/components/SellersSection";
+import SellerVideos from "@/components/SellerVideos";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/9f7c44b7-9693-4e80-a84a-faf56a26d175.jpg";
@@ -547,6 +548,9 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* SELLER VIDEOS */}
+      <SellerVideos />
 
       {/* REVIEWS */}
       <section id="reviews" className="py-24 px-4 blob-bg">
