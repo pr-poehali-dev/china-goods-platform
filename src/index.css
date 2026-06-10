@@ -74,15 +74,15 @@
   h2,
   h3,
   h4 {
-    font-family: "Unbounded", sans-serif;
-    letter-spacing: -0.02em;
+    font-family: "Manrope", sans-serif;
+    letter-spacing: -0.03em;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: "Unbounded", sans-serif;
-    letter-spacing: -0.02em;
+    font-family: "Manrope", sans-serif;
+    letter-spacing: -0.03em;
   }
 
   .font-body {

@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				display: ['Unbounded', 'sans-serif'],
+				display: ['Manrope', 'sans-serif'],
 				body: ['Golos Text', 'sans-serif'],
 			},
 			colors: {

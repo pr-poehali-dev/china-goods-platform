@@ -302,7 +302,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   };
 
   const inputCls = "w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm";
-  const btnCls = "px-6 py-3 bg-primary text-white font-display font-bold rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all disabled:opacity-60";
+  const btnCls = "btn-modern px-6 py-3 text-white font-body font-bold rounded-2xl disabled:opacity-60";
 
   const Wrapper = embedded ? "div" : "section";
 
@@ -314,8 +314,8 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             <div className="inline-flex items-center gap-2 px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">
               <Icon name="MessageSquare" size={16} /> WeChat
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">
-              ПРОДАВЦЫ <span className="marker-red">WECHAT</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">
+              Продавцы <span className="text-grad">WeChat</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Проверенные поставщики из Китая. Зарегистрируйтесь, заполните профиль, загрузите товары и видео — и клиенты найдут вас.
@@ -659,7 +659,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
 
                   <button
                     onClick={() => setChatWith({ id: s.id, name: s.company_name })}
-                    className="w-full px-4 py-2.5 bg-primary text-white font-display font-bold text-sm rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                    className="w-full btn-modern px-4 py-2.5 text-white font-body font-bold text-sm rounded-xl flex items-center justify-center gap-2"
                   >
                     <Icon name="MessageSquare" size={16} /> Написать поставщику
                   </button>

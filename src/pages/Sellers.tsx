@@ -8,7 +8,7 @@ export default function Sellers() {
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
@@ -20,7 +20,7 @@ export default function Sellers() {
           </Link>
           <Link
             to="/"
-            className="flex items-center gap-2 px-5 py-2 bg-white border-2 border-border rounded-xl text-sm font-bold text-brand-navy hover:border-brand-navy transition-all"
+            className="flex items-center gap-2 px-5 py-2 glass rounded-xl text-sm font-bold text-brand-navy hover:scale-[1.02] transition-all"
           >
             <Icon name="ArrowLeft" size={16} /> На главную
           </Link>
@@ -30,11 +30,11 @@ export default function Sellers() {
       {/* HEADER */}
       <section className="pt-28 pb-10 px-4 bg-hero-soft">
         <div className="container mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full text-primary text-sm font-bold mb-4 shadow-sm">
             <Icon name="Store" size={16} /> Каталог продавцов
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy uppercase">
-            ПРОВЕРЕННЫЕ <span className="marker-yellow">ПРОДАВЦЫ</span> ИЗ КИТАЯ
+          <h1 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">
+            Проверенные <span className="text-grad">продавцы</span> из Китая
           </h1>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Зарегистрируйтесь как поставщик — и ваш профиль с описанием, товарами и видео сразу появится на сайте. Покупатели смогут написать вам напрямую.
