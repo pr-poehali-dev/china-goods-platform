@@ -333,9 +333,8 @@ export default function Index() {
       <section className="py-24 px-4 bg-cream">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12 reveal">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy leading-tight">
-              ДУМАЕТЕ, ЗАКУПКИ В КИТАЕ —{" "}
-              <span className="marker-red">ЭТО СЛОЖНО?</span>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
+              ДУМАЕТЕ, ЗАКУПКИ В КИТАЕ — <span className="marker-red">ЭТО СЛОЖНО?</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Развеиваем главные мифы о заказах напрямую с фабрик</p>
           </div>
