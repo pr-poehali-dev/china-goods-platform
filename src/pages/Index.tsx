@@ -402,13 +402,13 @@ export default function Index() {
               <button
                 key={i}
                 onClick={s.action}
-                className="reveal group flex flex-col items-center gap-3 p-5 rounded-2xl hover:bg-secondary/60 transition-all"
+                className="reveal card-soft group flex flex-col items-center gap-3 p-5 rounded-2xl bg-white"
                 style={{ animationDelay: `${i * 0.06}s` }}
               >
-                <div className={`w-16 h-16 rounded-2xl ${s.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                <div className={`w-16 h-16 rounded-2xl ${s.color} flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300`}>
                   <Icon name={s.icon} size={28} className="text-brand-navy" />
                 </div>
-                <span className="text-sm font-medium text-brand-navy text-center leading-tight">{s.label}</span>
+                <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{s.label}</span>
               </button>
             ))}
           </div>
@@ -497,8 +497,9 @@ export default function Index() {
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((s, i) => (
               <div key={i} className={`reveal card-soft ${s.bg} rounded-2xl overflow-hidden`} style={{ animationDelay: `${i * 0.15}s` }}>
+                <div className={`h-1.5 w-full ${s.iconBg}`} />
                 <div className="p-8">
-                  <div className={`w-14 h-14 rounded-xl ${s.iconBg} flex items-center justify-center mb-6 border border-border`}>
+                  <div className={`w-14 h-14 rounded-2xl ${s.iconBg} flex items-center justify-center mb-6 shadow-md`}>
                     <Icon name={s.icon} size={28} className="text-white" />
                   </div>
                   <h3 className="font-display font-bold text-2xl mb-3 text-brand-navy">{s.title}</h3>
