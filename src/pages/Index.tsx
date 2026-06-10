@@ -500,19 +500,19 @@ export default function Index() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
             {[
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1babed91-29a7-4dc6-8e87-3f17088ef4ac.jpg", label: "Женщинам" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/0f42a710-4ccf-4409-9dcb-b0bc2e2efb30.jpg", label: "Мужчинам" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/02a9ad23-2dfe-40a1-a92b-e9bb9efb4fdf.jpg", label: "Детям" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39451e17-efd7-4d95-85fd-155a869bb579.jpg", label: "Аксессуары" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/a007c80e-2b38-4120-aae3-25d095f0204b.jpg", label: "Обувь" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/d23217d4-cb8f-4ac2-96da-34932e77bc3a.jpg", label: "Всё для дома" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/e746562d-e7ae-43b1-bc4f-5763c6a1a78f.jpg", label: "Электроника" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5bf17fcf-1ad3-4c94-b03d-8552b906453f.jpg", label: "Красота" },
-            ].map((cat, i) => (
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/08259d93-d86e-4c2e-a738-ab7bd64c10f1.jpg", name: "Мэй Лин", goods: "Одежда женская" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/b578a264-883c-4530-bff9-41a76d705629.jpg", name: "Чжан Вэй", goods: "Электроника" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/7017173b-1073-4340-aac2-23d277e085cf.jpg", name: "Сяо Хуа", goods: "Аксессуары" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1ea23d98-f506-4107-b09c-9d77eaeac189.jpg", name: "Ли Фэн", goods: "Обувь" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/7c3d2292-9c50-4131-86ab-ad7a71acd0c8.jpg", name: "Юй Янь", goods: "Красота и уход" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/4b1e22e2-ac38-4126-8b17-c50f84227b80.jpg", name: "Ван Го", goods: "Всё для дома" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/20a92eb0-fb1c-4a49-8591-6414c87263d6.jpg", name: "Чэнь Ли", goods: "Игрушки" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/8081db8a-f9c2-403c-b4f4-a34c8b247412.jpg", name: "Тан Мин", goods: "Ткани и фурнитура" },
+            ].map((s, i) => (
               <button
                 key={i}
                 onClick={() => scrollTo("contacts")}
-                className="reveal group flex flex-col items-center gap-2.5 transition-all duration-300 hover:-translate-y-1"
+                className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
                 style={{ animationDelay: `${i * 0.07}s` }}
               >
                 <div
@@ -525,12 +525,15 @@ export default function Index() {
                   }}
                 >
                   <img
-                    src={cat.img}
-                    alt={cat.label}
+                    src={s.img}
+                    alt={s.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{cat.label}</span>
+                <div className="mt-2.5 text-center">
+                  <div className="text-sm font-bold text-brand-navy leading-tight">{s.name}</div>
+                  <div className="text-xs text-slate-500 mt-0.5 leading-tight">{s.goods}</div>
+                </div>
               </button>
             ))}
           </div>
