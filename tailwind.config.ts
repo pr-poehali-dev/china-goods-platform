@@ -67,16 +67,18 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				brand: {
-					red: 'hsl(214, 90%, 56%)',
-					blue: 'hsl(214, 90%, 56%)',
-					navy: 'hsl(218, 40%, 25%)',
-					teal: 'hsl(168, 60%, 46%)',
+					red: 'hsl(354, 78%, 52%)',
+					blue: 'hsl(200, 80%, 55%)',
+					navy: 'hsl(220, 45%, 18%)',
+					teal: 'hsl(174, 55%, 38%)',
 					yellow: 'hsl(42, 95%, 62%)',
-					cream: 'hsl(210, 40%, 98%)',
-					sky: 'hsl(205, 90%, 88%)',
-					lilac: 'hsl(255, 60%, 92%)',
+					cream: 'hsl(200, 60%, 97%)',
+					sky: 'hsl(200, 85%, 88%)',
+					lilac: 'hsl(255, 55%, 92%)',
 					mint: 'hsl(160, 55%, 90%)',
 					peach: 'hsl(25, 90%, 92%)',
+					cloud: 'hsl(200, 65%, 95%)',
+					gold: 'hsl(42, 95%, 62%)',
 				}
 			},
 			borderRadius: {

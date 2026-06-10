@@ -221,68 +221,76 @@ export default function Index() {
       </nav>
 
       {/* HERO */}
-      <section id="home" className="relative flex items-center overflow-hidden pt-24 pb-16 bg-hero-soft">
-        {/* Параллакс-декор */}
+      <section id="home" className="relative flex items-center overflow-hidden pt-24 pb-20" style={{background: "linear-gradient(180deg, hsl(200,75%,82%) 0%, hsl(200,65%,90%) 45%, hsl(200,55%,96%) 100%)"}}>
+        {/* Облака — фоновые */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div
-            className="absolute -top-10 right-[8%] w-56 h-56 rounded-full bg-brand-sky/50 blur-2xl"
-            style={{ transform: `translateY(${scrollY * 0.18}px)` }}
-          />
-          <div
-            className="absolute top-1/3 -left-16 w-64 h-64 rounded-full bg-brand-lilac/50 blur-3xl"
-            style={{ transform: `translateY(${scrollY * -0.12}px)` }}
-          />
-          <div
-            className="absolute bottom-0 right-1/4 w-48 h-48 rounded-full bg-brand-mint/50 blur-2xl"
-            style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-          />
-          <div
-            className="absolute top-24 left-1/3 w-3 h-3 rounded-full bg-primary/40"
-            style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-          />
-          <div
-            className="absolute top-40 right-1/3 w-2 h-2 rounded-full bg-brand-teal/50"
-            style={{ transform: `translateY(${scrollY * -0.25}px)` }}
-          />
+          {/* большие облака */}
+          <div className="absolute -top-6 left-[5%] w-64 h-40 rounded-full bg-white/80 blur-2xl" style={{ transform: `translateY(${scrollY * 0.06}px)` }} />
+          <div className="absolute top-10 left-[20%] w-96 h-28 rounded-full bg-white/70 blur-3xl" style={{ transform: `translateY(${scrollY * 0.04}px)` }} />
+          <div className="absolute top-4 right-[5%] w-72 h-36 rounded-full bg-white/75 blur-2xl" style={{ transform: `translateY(${scrollY * 0.07}px)` }} />
+          <div className="absolute top-16 right-[25%] w-56 h-24 rounded-full bg-white/65 blur-2xl" style={{ transform: `translateY(${scrollY * 0.05}px)` }} />
+          {/* маленькие облачка */}
+          <div className="absolute top-32 left-[45%] w-36 h-16 rounded-full bg-white/60 blur-xl" style={{ transform: `translateY(${scrollY * 0.09}px)` }} />
+          <div className="absolute bottom-10 left-[10%] w-44 h-20 rounded-full bg-white/50 blur-2xl" style={{ transform: `translateY(${scrollY * -0.05}px)` }} />
+          <div className="absolute bottom-16 right-[15%] w-52 h-24 rounded-full bg-white/55 blur-2xl" style={{ transform: `translateY(${scrollY * -0.04}px)` }} />
+          {/* красный акцент */}
+          <div className="absolute top-1/2 left-[2%] w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
+          <div className="absolute bottom-0 right-[5%] w-32 h-32 rounded-full bg-primary/8 blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-2xl will-change-transform" style={{ transform: `translateY(${scrollY * 0.06}px)` }}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/60 rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
               <h1 className="font-display text-4xl md:text-5xl font-bold leading-[1.12] mb-6 animate-fade-in-up text-brand-navy">
                 Платформа для <span className="text-grad">закупок</span> в Китае
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
+              <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
                 Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
               </p>
               <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
                 <button
                   onClick={() => scrollTo("contacts")}
-                  className="btn-modern px-8 py-4 text-white font-body font-bold text-lg rounded-2xl"
+                  className="btn-modern px-8 py-4 text-white font-body font-bold text-lg rounded-2xl shadow-lg"
                 >
                   Начать закупку
                 </button>
                 <button
                   onClick={() => scrollTo("services")}
-                  className="px-8 py-4 glass font-body font-semibold text-lg rounded-2xl hover:scale-[1.02] transition-all flex items-center gap-2 text-brand-navy"
+                  className="px-8 py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
                 >
                   <Icon name="Play" size={18} className="text-primary" />
                   Как это работает
                 </button>
+              </div>
+
+              {/* Статистика под кнопками */}
+              <div className="flex gap-8 mt-10 animate-fade-in-up delay-400">
+                {[
+                  { value: "500+", label: "проверенных фабрик" },
+                  { value: "4.9★", label: "рейтинг клиентов" },
+                  { value: "5 лет", label: "на рынке" },
+                ].map((stat, i) => (
+                  <div key={i}>
+                    <div className="font-display font-bold text-2xl text-brand-navy">{stat.value}</div>
+                    <div className="text-xs text-slate-500 mt-0.5">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Hero illustration */}
             <div className="relative animate-fade-in-up delay-200">
               <div
-                className="relative will-change-transform max-w-lg mx-auto glow-aura"
+                className="relative will-change-transform max-w-lg mx-auto"
                 style={{ transform: `translateY(${scrollY * -0.05}px)` }}
               >
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-[2rem] glow-blue">
+                {/* Облачный ореол за картинкой */}
+                <div className="absolute inset-0 -m-8 bg-white/40 rounded-[3rem] blur-2xl" />
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-[2rem] shadow-2xl shadow-sky-400/30 border-4 border-white/70 relative z-10">
                   <img
                     src={HERO_ILLUSTRATION}
                     alt="Закупки и доставка из Китая в Россию"
@@ -292,7 +300,7 @@ export default function Index() {
 
                 {/* Плавающая карточка — доставлено */}
                 <div
-                  className="absolute -top-5 -left-4 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-4 py-3 flex items-center gap-3 animate-float"
+                  className="absolute -top-5 -left-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
                   style={{ transform: `translateY(${scrollY * 0.08}px)` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-brand-mint flex items-center justify-center">
@@ -306,10 +314,10 @@ export default function Index() {
 
                 {/* Плавающая карточка — рейтинг */}
                 <div
-                  className="absolute -bottom-5 -right-3 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-4 py-3 flex items-center gap-3 animate-float"
+                  className="absolute -bottom-5 -right-3 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
                   style={{ animationDelay: "1.2s", transform: `translateY(${scrollY * -0.06}px)` }}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-brand-peach flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
                     <Icon name="Star" size={20} className="text-amber-500 fill-amber-500" />
                   </div>
                   <div>
@@ -320,10 +328,10 @@ export default function Index() {
 
                 {/* Плавающая карточка — поставщики */}
                 <div
-                  className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/15 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex"
+                  className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex z-20"
                   style={{ animationDelay: "0.6s", transform: `translateY(calc(-50% + ${scrollY * 0.05}px))` }}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-brand-sky flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
                     <Icon name="Store" size={16} className="text-primary" />
                   </div>
                   <div>
@@ -335,11 +343,18 @@ export default function Index() {
             </div>
           </div>
         </div>
+
+        {/* Волнистый переход */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 overflow-hidden">
+          <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
+            <path d="M0 48V24C240 0 480 48 720 24C960 0 1200 48 1440 24V48H0Z" fill="hsl(200,60%,97%)" />
+          </svg>
+        </div>
       </section>
 
       {/* MARQUEE */}
-      <div className="overflow-hidden bg-navy py-3 border-y border-border">
-        <div className="animate-marquee whitespace-nowrap flex gap-12 text-white font-display font-medium text-sm">
+      <div className="overflow-hidden py-3 border-y border-white/40" style={{background: "hsl(220,45%,18%)"}}>
+        <div className="animate-marquee whitespace-nowrap flex gap-12 text-white/90 font-display font-medium text-sm">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex gap-12">
               <span>🔍 ПОИСК ПОСТАВЩИКОВ</span>
@@ -364,7 +379,7 @@ export default function Index() {
       </div>
 
       {/* QUICK SERVICES GRID (портальная сетка) */}
-      <section className="pt-20 pb-16 px-4 bg-white">
+      <section className="pt-20 pb-16 px-4" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
@@ -395,7 +410,7 @@ export default function Index() {
       <SellerVideos />
 
       {/* MYTH vs REALITY */}
-      <section className="py-24 px-4 bg-cream">
+      <section className="py-24 px-4" style={{background: "linear-gradient(160deg, hsl(200,65%,95%), hsl(354,50%,96%)"}}>
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12 reveal">
             <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
@@ -462,7 +477,7 @@ export default function Index() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="py-24 px-4 blob-bg">
+      <section id="services" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">Наши услуги</div>
@@ -526,7 +541,7 @@ export default function Index() {
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="py-24 px-4 blob-bg">
+      <section id="reviews" className="py-24 px-4" style={{background: "linear-gradient(180deg, hsl(200,70%,92%) 0%, hsl(200,60%,96%) 100%)"}}>
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
@@ -569,7 +584,7 @@ export default function Index() {
       </section>
 
       {/* BLOG */}
-      <section id="blog" className="py-24 px-4 bg-secondary/40">
+      <section id="blog" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Блог</div>
@@ -579,7 +594,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {articles.map((a, i) => (
               <div key={i} className="reveal card-soft bg-white rounded-2xl overflow-hidden cursor-pointer group" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="h-32 bg-accent flex items-center justify-center text-5xl">
+                <div className="h-32 flex items-center justify-center text-5xl" style={{background: "linear-gradient(135deg, hsl(200,70%,90%), hsl(200,60%,94%)"}}>
                   {a.emoji}
                 </div>
                 <div className="p-5">
@@ -603,8 +618,14 @@ export default function Index() {
       </section>
 
       {/* CONTACTS */}
-      <section id="contacts" className="py-24 px-4 bg-secondary/40">
-        <div className="container mx-auto">
+      <section id="contacts" className="py-24 px-4 relative overflow-hidden" style={{background: "linear-gradient(180deg, hsl(200,65%,92%) 0%, hsl(200,55%,96%) 100%)"}}>
+        {/* облачный декор */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-8 left-[10%] w-64 h-32 rounded-full bg-white/60 blur-3xl" />
+          <div className="absolute top-20 right-[8%] w-80 h-36 rounded-full bg-white/50 blur-3xl" />
+          <div className="absolute bottom-10 left-[30%] w-56 h-24 rounded-full bg-white/55 blur-2xl" />
+        </div>
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Контакты</div>
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Оставьте <span className="text-grad">заявку</span></h2>
@@ -689,7 +710,7 @@ export default function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-navy py-12 px-4">
+      <footer className="py-12 px-4" style={{background: "hsl(220,45%,18%)"}}>
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
