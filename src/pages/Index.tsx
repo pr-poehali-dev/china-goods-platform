@@ -248,7 +248,7 @@ export default function Index() {
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
-              <h1 className="font-display md:text-5xl font-bold leading-[1.12] mb-6 animate-fade-in-up text-brand-navy text-6xl">
+              <h1 className="font-display md:text-5xl leading-[1.12] mb-6 animate-fade-in-up text-brand-navy font-extrabold text-left text-7xl">
                 Платформа для <span className="text-grad">закупок</span> в Китае
               </h1>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
