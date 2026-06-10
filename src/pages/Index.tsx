@@ -291,20 +291,7 @@ export default function Index() {
                 className="relative will-change-transform w-full max-w-lg mx-auto"
                 style={{ transform: `translateY(${scrollY * -0.06}px)` }}
               >
-                {/* Золотой орнамент — слева снизу */}
-                <img
-                  src={ORNAMENT_IMAGE}
-                  alt=""
-                  className="absolute -bottom-8 -left-10 w-32 opacity-60 animate-float select-none pointer-events-none"
-                  style={{ animationDuration: "7s", animationDelay: "1s", filter: "sepia(0.3) saturate(1.5)" }}
-                />
-                {/* Золотой орнамент — справа сверху */}
-                <img
-                  src={ORNAMENT_IMAGE}
-                  alt=""
-                  className="absolute -top-6 -right-8 w-24 opacity-50 animate-float select-none pointer-events-none"
-                  style={{ animationDuration: "8s", animationDelay: "0.5s", transform: "scaleX(-1) rotate(20deg)", filter: "sepia(0.3) saturate(1.5)" }}
-                />
+
 
                 {/* Сам дракон */}
                 <img
