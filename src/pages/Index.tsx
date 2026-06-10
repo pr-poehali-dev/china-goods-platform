@@ -84,22 +84,43 @@ export default function Index() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0-init");
-            entry.target.classList.add("animate-fade-in-up");
+            const el = entry.target as HTMLElement;
+            // плавная задержка для эффекта "по очереди" внутри одной группы
+            const siblings = Array.from(el.parentElement?.children || []).filter((c) =>
+              c.classList.contains("reveal")
+            );
+            const idx = siblings.indexOf(el);
+            el.style.transitionDelay = `${Math.min(idx, 8) * 90}ms`;
+            el.classList.remove("opacity-0-init");
+            el.classList.add("revealed");
+            observer.unobserve(el);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
-    document.querySelectorAll(".reveal").forEach((el) => {
-      el.classList.add("opacity-0-init");
-      observerRef.current?.observe(el);
-    });
-    return () => observerRef.current?.disconnect();
+    observerRef.current = observer;
+
+    const scan = () => {
+      document.querySelectorAll(".reveal:not(.revealed)").forEach((el) => {
+        el.classList.add("opacity-0-init");
+        observer.observe(el);
+      });
+    };
+    scan();
+    // повторное сканирование для контента, который подгружается позже (видео продавцов)
+    const t1 = setTimeout(scan, 800);
+    const t2 = setTimeout(scan, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, [activeSection]);
 
   const scrollTo = (id: string) => {
