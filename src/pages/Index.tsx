@@ -396,7 +396,7 @@ export default function Index() {
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12 reveal">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
-              ДУМАЕТЕ, ЗАКУПКИ В КИТАЕ — <span className="marker-red">ЭТО СЛОЖНО?</span>
+              ДУМАЕТЕ, ЗАКУПКИ В КИТАЕ — <span className="marker-yellow">ЭТО СЛОЖНО?</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Развеиваем главные мифы о заказах напрямую с фабрик</p>
           </div>
@@ -463,7 +463,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">Наши услуги</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ПОЛНЫЙ ЦИКЛ <span className="marker-red">ЗАКУПОК</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ПОЛНЫЙ ЦИКЛ <span className="marker-yellow">ЗАКУПОК</span></h2>
             <p className="text-muted-foreground max-w-lg mx-auto">От поиска поставщика до доставки к вашей двери — берём на себя весь процесс</p>
           </div>
 
@@ -526,7 +526,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-12 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Каталог</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">КАТЕГОРИИ <span className="marker-red">ТОВАРОВ</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">КАТЕГОРИИ <span className="marker-yellow">ТОВАРОВ</span></h2>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 mb-8 reveal">
@@ -589,7 +589,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ЧТО ГОВОРЯТ <span className="marker-red">КЛИЕНТЫ</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ЧТО ГОВОРЯТ <span className="marker-yellow">КЛИЕНТЫ</span></h2>
             <div className="flex items-center justify-center gap-2 mt-4">
               <div className="flex">
                 {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-xl">★</span>)}
@@ -632,7 +632,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Блог</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">СОВЕТЫ И СТАТЬИ <span className="marker-red">ПО ЗАКУПКАМ</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">СОВЕТЫ И СТАТЬИ <span className="marker-yellow">ПО ЗАКУПКАМ</span></h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -666,7 +666,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Контакты</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ОСТАВЬТЕ <span className="marker-red">ЗАЯВКУ</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ОСТАВЬТЕ <span className="marker-yellow">ЗАЯВКУ</span></h2>
             <p className="text-muted-foreground">Свяжемся в течение 30 минут и рассчитаем стоимость</p>
           </div>
 
