@@ -37,7 +37,7 @@ const fileToBase64 = (file: File): Promise<string> =>
     reader.readAsDataURL(file);
   });
 
-export default function SellersSection() {
+export default function SellersSection({ embedded = false }: { embedded?: boolean }) {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("seller_token"));
   const [me, setMe] = useState<Seller | null>(null);
   const [publicSellers, setPublicSellers] = useState<Seller[]>([]);
@@ -195,20 +195,30 @@ export default function SellersSection() {
   const inputCls = "w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm";
   const btnCls = "px-6 py-3 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all disabled:opacity-60";
 
+  const Wrapper = embedded ? "div" : "section";
+
   return (
-    <section id="sellers" className="py-24 px-4 bg-cream">
-      <div className="container mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">
-            <Icon name="MessageSquare" size={16} /> WeChat
+    <Wrapper {...(embedded ? {} : { id: "sellers" })} className={embedded ? "" : "py-24 px-4 bg-cream"}>
+      <div className={embedded ? "" : "container mx-auto"}>
+        {!embedded && (
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">
+              <Icon name="MessageSquare" size={16} /> WeChat
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">
+              ПРОДАВЦЫ <span className="marker-red">WECHAT</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Проверенные поставщики из Китая. Зарегистрируйтесь, заполните профиль, загрузите товары и видео — и клиенты найдут вас.
+            </p>
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">
-            ПРОДАВЦЫ <span className="marker-red">WECHAT</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+        )}
+
+        {embedded && (
+          <p className="text-center text-muted-foreground max-w-xl mx-auto mb-10">
             Проверенные поставщики из Китая. Зарегистрируйтесь, заполните профиль, загрузите товары и видео — и клиенты найдут вас.
           </p>
-        </div>
+        )}
 
         {/* Кабинет поставщика */}
         {token && me ? (
@@ -505,6 +515,6 @@ export default function SellersSection() {
           </div>
         </div>
       )}
-    </section>
+    </Wrapper>
   );
 }

@@ -85,6 +85,7 @@ export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [cabinetTab, setCabinetTab] = useState<"buyer" | "seller">("buyer");
   const [catalogFilter, setCatalogFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
@@ -122,7 +123,7 @@ export default function Index() {
     { id: "home", label: "Главная" },
     { id: "services", label: "Услуги" },
     { id: "catalog", label: "Каталог" },
-    { id: "sellers", label: "Продавцы WeChat" },
+    { id: "cabinet", label: "Кабинет" },
     { id: "reviews", label: "Отзывы" },
     { id: "blog", label: "Блог" },
     { id: "contacts", label: "Контакты" },
@@ -524,9 +525,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SELLERS WECHAT */}
-      <SellersSection />
-
       {/* REVIEWS */}
       <section id="reviews" className="py-24 px-4 blob-bg">
         <div className="container mx-auto">
@@ -605,14 +603,40 @@ export default function Index() {
       </section>
 
       {/* PERSONAL CABINET */}
-      <section id="cabinet" className="py-24 px-4">
+      <section id="cabinet" className="py-24 px-4 bg-cream">
         <div className="container mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-10 reveal">
             <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Личный кабинет</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ИСТОРИЯ ЗАКАЗОВ И <span className="marker-red">СЧЕТА</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ВАШ <span className="marker-red">КАБИНЕТ</span></h2>
           </div>
 
-          {isLoggedIn ? (
+          {/* Переключатель Покупатель / Продавец */}
+          <div className="flex justify-center gap-2 mb-12 reveal">
+            <button
+              onClick={() => setCabinetTab("buyer")}
+              className={`px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
+                cabinetTab === "buyer"
+                  ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
+                  : "bg-white text-brand-navy border-border hover:border-brand-navy"
+              }`}
+            >
+              <Icon name="ShoppingBag" size={16} /> Покупатель
+            </button>
+            <button
+              onClick={() => setCabinetTab("seller")}
+              className={`px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
+                cabinetTab === "seller"
+                  ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
+                  : "bg-white text-brand-navy border-border hover:border-brand-navy"
+              }`}
+            >
+              <Icon name="Store" size={16} /> Продавец WeChat
+            </button>
+          </div>
+
+          {cabinetTab === "seller" && <SellersSection embedded />}
+
+          {cabinetTab === "buyer" && (isLoggedIn ? (
             <div className="max-w-4xl mx-auto reveal">
               <div className="bg-white card-soft rounded-2xl p-6 mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -712,7 +736,7 @@ export default function Index() {
                 Войти в кабинет
               </button>
             </div>
-          )}
+          ))}
         </div>
       </section>
 
