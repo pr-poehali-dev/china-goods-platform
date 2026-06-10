@@ -645,7 +645,7 @@ export default function Index() {
           </div>
           <div className="pt-6 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
             <span className="text-sm text-white/60">© 2025 TaoSeller. Все права защищены.</span>
-            <span className="text-sm text-white/60">ИП Басманов Виталий Валерьевич </span>
+            <span className="text-sm text-white/60">🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
           </div>
         </div>
       </footer>
