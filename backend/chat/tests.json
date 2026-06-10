@@ -1,0 +1,1 @@
+{"tests": [{"name": "Buyer thread responds", "method": "GET", "path": "/?action=buyer_thread", "expectedStatus": 200}, {"name": "Empty message rejected", "method": "POST", "path": "/?action=send", "body": {"seller_id": 1, "text": ""}, "expectedStatus": 400, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}]}

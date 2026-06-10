@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Icon from "@/components/ui/icon";
+import SellerChats from "@/components/SellerChats";
+import BuyerChat from "@/components/BuyerChat";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const CONTENT_URL = "https://functions.poehali.dev/497830cf-ab2d-4e0b-b5a1-497fa90b8d0d";
@@ -46,7 +48,8 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [authForm, setAuthForm] = useState({ email: "", password: "", company_name: "" });
   const [authError, setAuthError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState<"profile" | "products" | "videos">("profile");
+  const [tab, setTab] = useState<"profile" | "products" | "videos" | "chats">("profile");
+  const [chatWith, setChatWith] = useState<{ id: number; name: string } | null>(null);
 
   const [profile, setProfile] = useState({ company_name: "", wechat_id: "", phone: "", description: "", city: "", avatar_url: "" });
   const [savedMsg, setSavedMsg] = useState("");
@@ -250,6 +253,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 { id: "profile", label: "Профиль", icon: "User" },
                 { id: "products", label: "Товары", icon: "Package" },
                 { id: "videos", label: "Видео", icon: "Video" },
+                { id: "chats", label: "Сообщения", icon: "MessagesSquare" },
               ].map((t) => (
                 <button
                   key={t.id}
@@ -400,6 +404,9 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 )}
               </div>
             )}
+
+            {/* Сообщения от покупателей */}
+            {tab === "chats" && token && <SellerChats token={token} />}
           </div>
         ) : (
           <div className="max-w-md mx-auto mb-16 text-center">
@@ -469,10 +476,17 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                     <video src={s.videos[0].video_url} controls className="w-full h-32 rounded-lg object-cover bg-black" />
                   )}
 
-                  <div className="flex gap-4 mt-3 text-xs text-muted-foreground">
+                  <div className="flex gap-4 mt-3 mb-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1"><Icon name="Package" size={12} /> {s.products.length} товаров</span>
                     <span className="flex items-center gap-1"><Icon name="Video" size={12} /> {s.videos.length} видео</span>
                   </div>
+
+                  <button
+                    onClick={() => setChatWith({ id: s.id, name: s.company_name })}
+                    className="w-full px-4 py-2.5 bg-primary text-white font-display font-bold text-sm rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                  >
+                    <Icon name="MessageSquare" size={16} /> Написать поставщику
+                  </button>
                 </div>
               ))}
             </div>
@@ -480,6 +494,11 @@ export default function SellersSection({ embedded = false, compact = false }: { 
         </div>
         )}
       </div>
+
+      {/* Чат с поставщиком */}
+      {chatWith && (
+        <BuyerChat sellerId={chatWith.id} sellerName={chatWith.name} onClose={() => setChatWith(null)} />
+      )}
 
       {/* Модалка авторизации */}
       {showAuth && (
