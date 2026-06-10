@@ -105,7 +105,7 @@ export default function SellerVideos() {
   ];
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-white mt-16">
       <div className="container mx-auto">
         <div className="flex items-end justify-between mb-8 reveal">
           <div>
