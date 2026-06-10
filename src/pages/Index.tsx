@@ -183,9 +183,7 @@ export default function Index() {
             <button
               onClick={() => scrollTo("contacts")}
               className="hidden lg:flex btn-modern px-5 py-2 text-white font-bold text-sm rounded-xl"
-            >
-              Получить расчёт
-            </button>
+            >Продавцам</button>
             <button
               className="lg:hidden p-2 rounded-lg bg-secondary"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
