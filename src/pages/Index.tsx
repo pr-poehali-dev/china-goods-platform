@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
-import SellersSection from "@/components/SellersSection";
 import SellerVideos from "@/components/SellerVideos";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/9f7c44b7-9693-4e80-a84a-faf56a26d175.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/2ec59105-66a4-4c71-8c50-ef5bc2590bb9.jpg";
 const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
+const HERO_ILLUSTRATION = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1722add3-212f-4346-9a50-578cca3ba7b9.jpg";
 
 const services = [
   {
@@ -58,18 +58,11 @@ const articles = [
   { title: "Какие товары выгоднее всего везти из Китая", tag: "Аналитика", time: "8 мин", emoji: "📊", date: "20 апр 2025" },
 ];
 
-const orderHistory = [
-  { id: "CB-2841", date: "10 мая 2025", product: "Смартфоны Samsung (50 шт)", status: "Доставлен", statusColor: "text-emerald-600 bg-emerald-50", amount: "180 000 ₽" },
-  { id: "CB-2756", date: "2 апр 2025", product: "Одежда (120 кг)", status: "На таможне", statusColor: "text-amber-600 bg-amber-50", amount: "95 000 ₽" },
-  { id: "CB-2701", date: "15 мар 2025", product: "Автозапчасти", status: "Доставлен", statusColor: "text-emerald-600 bg-emerald-50", amount: "62 000 ₽" },
-];
-
 export default function Index() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [cabinetTab, setCabinetTab] = useState<"buyer" | "seller">("buyer");
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
@@ -140,7 +133,6 @@ export default function Index() {
   const navLinks = [
     { id: "home", label: "Главная" },
     { id: "services", label: "Услуги" },
-    { id: "cabinet", label: "Кабинет" },
     { id: "reviews", label: "Отзывы" },
     { id: "blog", label: "Блог" },
     { id: "contacts", label: "Контакты" },
@@ -197,7 +189,7 @@ export default function Index() {
           <div className="flex items-center gap-3">
             {isLoggedIn ? (
               <button
-                onClick={() => scrollTo("cabinet")}
+                onClick={() => navigate("/sellers")}
                 className="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg text-sm hover:bg-secondary/80 transition-all"
               >
                 <div className="w-6 h-6 bg-gradient-brand rounded-full flex items-center justify-center text-xs font-bold text-white">А</div>
@@ -311,97 +303,17 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Hero cabinet widget */}
-            <div id="cabinet" className="relative animate-fade-in-up delay-200 scroll-mt-24">
+            {/* Hero illustration */}
+            <div className="relative animate-fade-in-up delay-200">
               <div
-                className="bg-white border border-border rounded-2xl p-6 shadow-xl shadow-blue-500/15 will-change-transform"
+                className="relative will-change-transform"
                 style={{ transform: `translateY(${scrollY * -0.05}px)` }}
               >
-                <div className="flex items-center gap-2 mb-5">
-                  <div className="w-9 h-9 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
-                    <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="font-display font-bold text-lg text-brand-navy">Личный кабинет</span>
-                </div>
-
-                {/* Переключатель Покупатель / Продавец */}
-                <div className="flex gap-2 mb-5">
-                  <button
-                    onClick={() => setCabinetTab("buyer")}
-                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border ${
-                      cabinetTab === "buyer"
-                        ? "bg-primary text-white border-primary shadow-md shadow-blue-500/20"
-                        : "bg-white text-brand-navy border-border hover:border-primary"
-                    }`}
-                  >
-                    <Icon name="ShoppingBag" size={16} /> Покупатель
-                  </button>
-                  <button
-                    onClick={() => setCabinetTab("seller")}
-                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border ${
-                      cabinetTab === "seller"
-                        ? "bg-primary text-white border-primary shadow-md shadow-blue-500/20"
-                        : "bg-white text-brand-navy border-border hover:border-primary"
-                    }`}
-                  >
-                    <Icon name="Store" size={16} /> Продавец
-                  </button>
-                </div>
-
-                {cabinetTab === "seller" && <SellersSection embedded compact />}
-
-                {cabinetTab === "buyer" && (isLoggedIn ? (
-                  <div>
-                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
-                      <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center font-display font-bold text-lg text-white">А</div>
-                      <div>
-                        <div className="font-display font-bold text-brand-navy">Алексей Петров</div>
-                        <div className="text-muted-foreground text-xs">Клиент с 2022 года</div>
-                      </div>
-                      <div className="ml-auto flex gap-4">
-                        <div className="text-center">
-                          <div className="font-display font-bold text-lg text-primary">12</div>
-                          <div className="text-[10px] text-muted-foreground">заказов</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="font-display font-bold text-lg text-brand-teal">2</div>
-                          <div className="text-[10px] text-muted-foreground">в пути</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-xs font-bold text-brand-navy mb-2 uppercase tracking-wide">Последние заказы</div>
-                    <div className="space-y-2 mb-4">
-                      {orderHistory.map((o, i) => (
-                        <div key={i} className="flex items-center justify-between p-3 bg-secondary/40 rounded-xl">
-                          <div>
-                            <div className="text-sm font-mono text-primary">{o.id}</div>
-                            <div className="text-xs text-muted-foreground">{o.product}</div>
-                          </div>
-                          <div className="text-right">
-                            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${o.statusColor}`}>{o.status}</span>
-                            <div className="text-sm font-bold text-brand-navy mt-0.5">{o.amount}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <button onClick={() => setIsLoggedIn(false)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                      Выйти из аккаунта
-                    </button>
-                  </div>
-                ) : (
-                  <div className="text-center py-6">
-                    <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Icon name="Lock" size={28} className="text-primary" />
-                    </div>
-                    <p className="text-muted-foreground text-sm mb-5">Войдите, чтобы видеть историю заказов и счета</p>
-                    <button
-                      onClick={() => setShowLoginModal(true)}
-                      className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
-                    >
-                      Войти в кабинет
-                    </button>
-                  </div>
-                ))}
+                <img
+                  src={HERO_ILLUSTRATION}
+                  alt="Закупки и доставка из Китая в Россию"
+                  className="w-full max-w-lg mx-auto drop-shadow-2xl rounded-3xl"
+                />
               </div>
             </div>
           </div>
