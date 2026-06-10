@@ -5,6 +5,7 @@ import SellerVideos from "@/components/SellerVideos";
 import AccountNavButton from "@/components/AccountNavButton";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
+const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/9f7c44b7-9693-4e80-a84a-faf56a26d175.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/2ec59105-66a4-4c71-8c50-ef5bc2590bb9.jpg";
 const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
@@ -236,6 +237,17 @@ export default function Index() {
           {/* красный акцент */}
           <div className="absolute top-1/2 left-[2%] w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
           <div className="absolute bottom-0 right-[5%] w-32 h-32 rounded-full bg-primary/8 blur-3xl" />
+          {/* Дракон — парит в правом верхнем углу */}
+          <img
+            src={DRAGON_IMAGE}
+            alt=""
+            className="absolute top-[-20px] right-[-40px] w-72 md:w-96 lg:w-[420px] object-contain select-none animate-float hidden sm:block"
+            style={{
+              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.15))",
+              transform: `translateY(${scrollY * -0.08}px)`,
+              animationDuration: "6s",
+            }}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
