@@ -390,10 +390,6 @@ export default function Index() {
       {/* QUICK SERVICES GRID (портальная сетка) */}
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
-          <div className="text-center mb-10 reveal">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy mb-2">Часто используют</h2>
-            <p className="text-muted-foreground">Быстрый доступ к нашим услугам</p>
-          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
               { icon: "Search", label: "Поиск товара", color: "bg-brand-sky", action: () => scrollTo("services") },
