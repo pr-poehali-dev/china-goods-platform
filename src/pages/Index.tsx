@@ -241,7 +241,7 @@ export default function Index() {
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
               <h1 className="font-display text-5xl md:text-6xl font-bold leading-[1.15] mb-6 animate-fade-in-up text-brand-navy uppercase">
-                Платформа для <span className="marker-yellow px-3.5 font-extralight text-4xl">закупок</span> в Китае
+                Платформа для <span className="marker-yellow px-3.5 text-5xl font-bold">закупок</span> в Китае
               </h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
                 Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
