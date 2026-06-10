@@ -14,33 +14,33 @@ const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-c
 
 const services = [
   {
-    icon: "Search",
+    emoji: "🔍",
     title: "Поиск товаров",
     desc: "Найдём лучших поставщиков на Alibaba, 1688, Taobao и других площадках. Проверим качество и репутацию фабрики.",
     steps: ["Подбор поставщиков", "Проверка качества", "Сравнение цен", "Переговоры"],
-    bg: "bg-white",
-    iconBg: "bg-[hsl(354,78%,52%)]",
-    accent: "text-[hsl(354,78%,52%)]",
+    gradFrom: "hsl(354,78%,52%)",
+    gradTo: "hsl(20,85%,58%)",
+    accent: "hsl(354,78%,52%)",
     price: "от 3 000 ₽",
   },
   {
-    icon: "ShoppingCart",
+    emoji: "🛒",
     title: "Выкуп товаров",
     desc: "Выкупим товар от вашего имени, проведём оплату в юанях, оформим все документы и проверим вложение.",
     steps: ["Оплата в юанях", "Приёмка товара", "Фотоотчёт", "Упаковка"],
-    bg: "bg-white",
-    iconBg: "bg-[hsl(220,45%,14%)]",
-    accent: "text-[hsl(220,45%,14%)]",
+    gradFrom: "hsl(220,45%,22%)",
+    gradTo: "hsl(200,70%,40%)",
+    accent: "hsl(200,70%,40%)",
     price: "от 7%",
   },
   {
-    icon: "Truck",
+    emoji: "✈️",
     title: "Доставка в Россию",
     desc: "Доставим груз любым удобным способом: авиа, авто или ж/д. Таможенное оформление под ключ.",
     steps: ["Авиа / авто / ж/д", "Таможня под ключ", "Страхование груза", "Доставка до двери"],
-    bg: "bg-white",
-    iconBg: "bg-[hsl(174,55%,38%)]",
-    accent: "text-[hsl(174,55%,38%)]",
+    gradFrom: "hsl(174,55%,38%)",
+    gradTo: "hsl(200,75%,50%)",
+    accent: "hsl(174,55%,38%)",
     price: "от 5$/кг",
   },
 ];
@@ -515,27 +515,45 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((s, i) => (
-              <div key={i} className={`reveal card-soft ${s.bg} rounded-2xl overflow-hidden`} style={{ animationDelay: `${i * 0.15}s` }}>
-                <div className={`h-1.5 w-full ${s.iconBg}`} />
+              <div
+                key={i}
+                className="reveal rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2"
+                style={{
+                  animationDelay: `${i * 0.15}s`,
+                  background: "rgba(255,255,255,0.75)",
+                  backdropFilter: "blur(16px)",
+                  border: "1.5px solid rgba(255,255,255,0.85)",
+                  boxShadow: "0 8px 32px rgba(176,220,240,0.3), 0 2px 8px rgba(0,0,0,0.05)",
+                }}
+              >
+                {/* верхний градиентный бордер */}
+                <div className="h-1.5 w-full" style={{background: `linear-gradient(90deg, ${s.gradFrom}, ${s.gradTo})`}} />
                 <div className="p-8">
-                  <div className={`w-14 h-14 rounded-2xl ${s.iconBg} flex items-center justify-center mb-6 shadow-md`}>
-                    <Icon name={s.icon} size={28} className="text-white" />
+                  {/* большой эмодзи с градиентным фоном */}
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md"
+                    style={{background: `linear-gradient(135deg, ${s.gradFrom}22, ${s.gradTo}44)`, border: `1.5px solid ${s.gradFrom}33`}}
+                  >
+                    {s.emoji}
                   </div>
                   <h3 className="font-display font-bold text-2xl mb-3 text-brand-navy">{s.title}</h3>
-                  <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
-                  <div className="space-y-2 mb-6">
+                  <p className="text-slate-500 mb-6 leading-relaxed">{s.desc}</p>
+                  <div className="space-y-2.5 mb-6">
                     {s.steps.map((step, j) => (
                       <div key={j} className="flex items-center gap-3 text-sm text-slate-600">
-                        <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
-                          <Icon name="Check" size={12} className={s.accent} />
+                        <div
+                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                          style={{background: `${s.gradFrom}22`, border: `1px solid ${s.gradFrom}44`}}
+                        >
+                          <Icon name="Check" size={11} style={{color: s.accent}} />
                         </div>
                         <span>{step}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <span className="text-slate-500 text-sm">Стоимость</span>
-                    <span className={`font-display font-bold text-xl ${s.accent}`}>{s.price}</span>
+                  <div className="flex items-center justify-between pt-4" style={{borderTop: `1px solid ${s.gradFrom}22`}}>
+                    <span className="text-slate-400 text-sm">Стоимость</span>
+                    <span className="font-display font-bold text-xl" style={{color: s.accent}}>{s.price}</span>
                   </div>
                 </div>
               </div>
