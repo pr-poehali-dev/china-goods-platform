@@ -272,34 +272,94 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Hero visual card */}
-            <div className="relative animate-fade-in-up delay-200">
-              <div className="rounded-2xl overflow-hidden bg-white border-2 border-brand-navy flex items-center justify-center p-8 shadow-[8px_8px_0_hsl(220,45%,14%)]">
-                <img src={MASCOT_IMAGE} alt="TaoSeller маскот" className="w-full max-w-sm h-[360px] object-contain animate-float" />
-              </div>
-              <div className="absolute -top-4 -left-4 hidden md:block animate-float">
-                <div className="bg-white rounded-xl p-4 border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                      <Icon name="TrendingUp" size={20} className="text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-muted-foreground">Сегодня доставлено</div>
-                      <div className="font-display font-bold text-lg text-brand-navy">47 заказов</div>
-                    </div>
+            {/* Hero cabinet widget */}
+            <div id="cabinet" className="relative animate-fade-in-up delay-200 scroll-mt-24">
+              <div className="bg-white border-2 border-brand-navy rounded-2xl p-6 shadow-[8px_8px_0_hsl(220,45%,14%)]">
+                <div className="flex items-center gap-2 mb-5">
+                  <div className="w-9 h-9 rounded-xl bg-accent border-2 border-brand-navy flex items-center justify-center overflow-hidden">
+                    <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
                   </div>
+                  <span className="font-display font-bold text-lg text-brand-navy">Личный кабинет</span>
                 </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 hidden md:block animate-float delay-500">
-                <div className="bg-white rounded-xl p-4 border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">⭐</span>
-                    <div>
-                      <div className="text-xs text-muted-foreground">Средний рейтинг</div>
-                      <div className="font-display font-bold text-lg text-brand-navy">4.9 / 5.0</div>
+
+                {/* Переключатель Покупатель / Продавец */}
+                <div className="flex gap-2 mb-5">
+                  <button
+                    onClick={() => setCabinetTab("buyer")}
+                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border-2 ${
+                      cabinetTab === "buyer"
+                        ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
+                        : "bg-white text-brand-navy border-border hover:border-brand-navy"
+                    }`}
+                  >
+                    <Icon name="ShoppingBag" size={16} /> Покупатель
+                  </button>
+                  <button
+                    onClick={() => setCabinetTab("seller")}
+                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border-2 ${
+                      cabinetTab === "seller"
+                        ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
+                        : "bg-white text-brand-navy border-border hover:border-brand-navy"
+                    }`}
+                  >
+                    <Icon name="Store" size={16} /> Продавец
+                  </button>
+                </div>
+
+                {cabinetTab === "seller" && <SellersSection embedded compact />}
+
+                {cabinetTab === "buyer" && (isLoggedIn ? (
+                  <div>
+                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
+                      <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center font-display font-bold text-lg text-white">А</div>
+                      <div>
+                        <div className="font-display font-bold text-brand-navy">Алексей Петров</div>
+                        <div className="text-muted-foreground text-xs">Клиент с 2022 года</div>
+                      </div>
+                      <div className="ml-auto flex gap-4">
+                        <div className="text-center">
+                          <div className="font-display font-bold text-lg text-primary">12</div>
+                          <div className="text-[10px] text-muted-foreground">заказов</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="font-display font-bold text-lg text-brand-teal">2</div>
+                          <div className="text-[10px] text-muted-foreground">в пути</div>
+                        </div>
+                      </div>
                     </div>
+                    <div className="text-xs font-bold text-brand-navy mb-2 uppercase tracking-wide">Последние заказы</div>
+                    <div className="space-y-2 mb-4">
+                      {orderHistory.map((o, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-secondary/40 rounded-xl">
+                          <div>
+                            <div className="text-sm font-mono text-primary">{o.id}</div>
+                            <div className="text-xs text-muted-foreground">{o.product}</div>
+                          </div>
+                          <div className="text-right">
+                            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${o.statusColor}`}>{o.status}</span>
+                            <div className="text-sm font-bold text-brand-navy mt-0.5">{o.amount}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <button onClick={() => setIsLoggedIn(false)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                      Выйти из аккаунта
+                    </button>
                   </div>
-                </div>
+                ) : (
+                  <div className="text-center py-6">
+                    <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Icon name="Lock" size={28} className="text-primary" />
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-5">Войдите, чтобы видеть историю заказов и счета</p>
+                    <button
+                      onClick={() => setShowLoginModal(true)}
+                      className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all"
+                    >
+                      Войти в кабинет
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -599,144 +659,6 @@ export default function Index() {
               Все статьи →
             </button>
           </div>
-        </div>
-      </section>
-
-      {/* PERSONAL CABINET */}
-      <section id="cabinet" className="py-24 px-4 bg-cream">
-        <div className="container mx-auto">
-          <div className="text-center mb-10 reveal">
-            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Личный кабинет</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">ВАШ <span className="marker-red">КАБИНЕТ</span></h2>
-          </div>
-
-          {/* Переключатель Покупатель / Продавец */}
-          <div className="flex justify-center gap-2 mb-12 reveal">
-            <button
-              onClick={() => setCabinetTab("buyer")}
-              className={`px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
-                cabinetTab === "buyer"
-                  ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
-                  : "bg-white text-brand-navy border-border hover:border-brand-navy"
-              }`}
-            >
-              <Icon name="ShoppingBag" size={16} /> Покупатель
-            </button>
-            <button
-              onClick={() => setCabinetTab("seller")}
-              className={`px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
-                cabinetTab === "seller"
-                  ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
-                  : "bg-white text-brand-navy border-border hover:border-brand-navy"
-              }`}
-            >
-              <Icon name="Store" size={16} /> Продавец WeChat
-            </button>
-          </div>
-
-          {cabinetTab === "seller" && <SellersSection embedded />}
-
-          {cabinetTab === "buyer" && (isLoggedIn ? (
-            <div className="max-w-4xl mx-auto reveal">
-              <div className="bg-white card-soft rounded-2xl p-6 mb-6 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center font-display font-bold text-2xl text-white">А</div>
-                  <div>
-                    <div className="font-display font-bold text-xl text-brand-navy">Алексей Петров</div>
-                    <div className="text-muted-foreground text-sm">alexey@example.com · Клиент с 2022 года</div>
-                  </div>
-                </div>
-                <div className="hidden md:flex gap-6">
-                  <div className="text-center">
-                    <div className="font-display font-bold text-xl text-primary">12</div>
-                    <div className="text-xs text-muted-foreground">Заказов</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-display font-bold text-xl text-brand-teal">2</div>
-                    <div className="text-xs text-muted-foreground">В пути</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white card-soft rounded-2xl overflow-hidden mb-6">
-                <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-                  <h3 className="font-display font-bold text-xl text-brand-navy">ИСТОРИЯ ЗАКАЗОВ</h3>
-                  <button className="text-sm text-primary hover:underline">Все заказы →</button>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-border bg-secondary/40">
-                        <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">№ Заказа</th>
-                        <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">Дата</th>
-                        <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">Товар</th>
-                        <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">Статус</th>
-                        <th className="text-right px-6 py-3 text-xs text-muted-foreground font-medium">Сумма</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orderHistory.map((o, i) => (
-                        <tr key={i} className="border-b border-border last:border-0 hover:bg-secondary/40 transition-colors">
-                          <td className="px-6 py-4 text-sm font-mono text-primary">{o.id}</td>
-                          <td className="px-6 py-4 text-sm text-muted-foreground">{o.date}</td>
-                          <td className="px-6 py-4 text-sm text-slate-600">{o.product}</td>
-                          <td className="px-6 py-4">
-                            <span className={`text-xs font-medium px-3 py-1 rounded-full ${o.statusColor}`}>{o.status}</span>
-                          </td>
-                          <td className="px-6 py-4 text-sm font-bold text-right text-brand-navy">{o.amount}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="bg-white card-soft rounded-2xl p-6">
-                <h3 className="font-display font-bold text-xl mb-4 text-brand-navy">СЧЕТА НА ОПЛАТУ</h3>
-                <div className="space-y-3">
-                  {[
-                    { num: "INV-2841", date: "8 мая 2025", amount: "180 000 ₽", status: "Оплачен", paid: true },
-                    { num: "INV-2756", date: "1 апр 2025", amount: "95 000 ₽", status: "Ожидает оплаты", paid: false },
-                  ].map((inv, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-secondary/50 rounded-2xl">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${inv.paid ? "bg-emerald-100" : "bg-amber-100"}`}>
-                          <Icon name="FileText" size={16} className={inv.paid ? "text-emerald-600" : "text-amber-600"} />
-                        </div>
-                        <div>
-                          <div className="text-sm font-medium text-brand-navy">{inv.num}</div>
-                          <div className="text-xs text-muted-foreground">{inv.date}</div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-sm text-brand-navy">{inv.amount}</div>
-                        <div className={`text-xs ${inv.paid ? "text-emerald-600" : "text-amber-600"}`}>{inv.status}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 text-center">
-                <button onClick={() => setIsLoggedIn(false)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Выйти из аккаунта
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="max-w-md mx-auto text-center reveal">
-              <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon name="Lock" size={32} className="text-primary" />
-              </div>
-              <p className="text-muted-foreground mb-6">Войдите в личный кабинет, чтобы просматривать историю заказов и счета</p>
-              <button
-                onClick={() => setShowLoginModal(true)}
-                className="px-8 py-4 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-105 transition-all"
-              >
-                Войти в кабинет
-              </button>
-            </div>
-          ))}
         </div>
       </section>
 

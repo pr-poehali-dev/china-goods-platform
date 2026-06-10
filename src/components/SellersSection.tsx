@@ -37,7 +37,7 @@ const fileToBase64 = (file: File): Promise<string> =>
     reader.readAsDataURL(file);
   });
 
-export default function SellersSection({ embedded = false }: { embedded?: boolean }) {
+export default function SellersSection({ embedded = false, compact = false }: { embedded?: boolean; compact?: boolean }) {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("seller_token"));
   const [me, setMe] = useState<Seller | null>(null);
   const [publicSellers, setPublicSellers] = useState<Seller[]>([]);
@@ -214,7 +214,7 @@ export default function SellersSection({ embedded = false }: { embedded?: boolea
           </div>
         )}
 
-        {embedded && (
+        {embedded && !compact && (
           <p className="text-center text-muted-foreground max-w-xl mx-auto mb-10">
             Проверенные поставщики из Китая. Зарегистрируйтесь, заполните профиль, загрузите товары и видео — и клиенты найдут вас.
           </p>
@@ -420,6 +420,7 @@ export default function SellersSection({ embedded = false }: { embedded?: boolea
         )}
 
         {/* Публичный каталог поставщиков */}
+        {!compact && (
         <div className="max-w-6xl mx-auto">
           <h3 className="font-display font-bold text-2xl text-brand-navy mb-6 text-center">Наши поставщики</h3>
           {publicSellers.length === 0 ? (
@@ -477,6 +478,7 @@ export default function SellersSection({ embedded = false }: { embedded?: boolea
             </div>
           )}
         </div>
+        )}
       </div>
 
       {/* Модалка авторизации */}
