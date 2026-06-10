@@ -415,87 +415,8 @@ export default function Index() {
 
 
 
-      {/* SERVICES */}
-      <section id="services" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
-        <div className="container mx-auto">
-          <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-bold mb-4">Наши услуги</div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Полный цикл <span className="text-grad">закупок</span></h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">От поиска поставщика до доставки к вашей двери — берём на себя весь процесс</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <div
-                key={i}
-                className="reveal rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2"
-                style={{
-                  animationDelay: `${i * 0.15}s`,
-                  background: "rgba(255,255,255,0.75)",
-                  backdropFilter: "blur(16px)",
-                  border: "1.5px solid rgba(255,255,255,0.85)",
-                  boxShadow: "0 8px 32px rgba(176,220,240,0.3), 0 2px 8px rgba(0,0,0,0.05)",
-                }}
-              >
-                {/* верхний градиентный бордер */}
-                <div className="h-1.5 w-full" style={{background: `linear-gradient(90deg, ${s.gradFrom}, ${s.gradTo})`}} />
-                <div className="p-8">
-                  {/* большой эмодзи с градиентным фоном */}
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md"
-                    style={{background: `linear-gradient(135deg, ${s.gradFrom}22, ${s.gradTo}44)`, border: `1.5px solid ${s.gradFrom}33`}}
-                  >
-                    {s.emoji}
-                  </div>
-                  <h3 className="font-display font-bold text-2xl mb-3 text-brand-navy">{s.title}</h3>
-                  <p className="text-slate-500 mb-6 leading-relaxed">{s.desc}</p>
-                  <div className="space-y-2.5 mb-6">
-                    {s.steps.map((step, j) => (
-                      <div key={j} className="flex items-center gap-3 text-sm text-slate-600">
-                        <div
-                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                          style={{background: `${s.gradFrom}22`, border: `1px solid ${s.gradFrom}44`}}
-                        >
-                          <Icon name="Check" size={11} style={{color: s.accent}} />
-                        </div>
-                        <span>{step}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-between pt-4" style={{borderTop: `1px solid ${s.gradFrom}22`}}>
-                    <span className="text-slate-400 text-sm">Стоимость</span>
-                    <span className="font-display font-bold text-xl" style={{color: s.accent}}>{s.price}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-20 bg-white rounded-2xl p-10 reveal card-soft">
-            <h3 className="font-display font-bold text-2xl md:text-3xl text-center mb-10 text-brand-navy">Как мы работаем</h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-              {[
-                { n: "01", label: "Заявка", icon: "FileText" },
-                { n: "02", label: "Поиск товара", icon: "Search" },
-                { n: "03", label: "Согласование", icon: "MessageSquare" },
-                { n: "04", label: "Выкуп и доставка", icon: "Package" },
-                { n: "05", label: "Вы получаете", icon: "Home" },
-              ].map((step, i) => (
-                <div key={i} className="text-center relative">
-                  {i < 4 && (
-                    <div className="hidden md:block absolute top-6 left-[60%] w-full h-px bg-gradient-to-r from-primary/40 to-transparent" />
-                  )}
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3 relative z-10 shadow-md shadow-blue-500/25">
-                    <Icon name={step.icon} size={20} className="text-white" />
-                  </div>
-                  <div className="font-display font-bold text-primary text-xs mb-1">{step.n}</div>
-                  <div className="text-sm font-medium text-slate-600">{step.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* services anchor */}
+      <div id="services" />
 
       {/* REVIEWS */}
       <section id="reviews" className="py-24 px-4" style={{background: "linear-gradient(180deg, hsl(200,70%,92%) 0%, hsl(200,60%,96%) 100%)"}}>
