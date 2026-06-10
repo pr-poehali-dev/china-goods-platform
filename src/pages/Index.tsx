@@ -374,7 +374,7 @@ export default function Index() {
 
 
       {/* QUICK SERVICES GRID (портальная сетка) */}
-      <section className="pt-20 pb-16 px-4" style={{background: "hsl(200,60%,97%)"}}>
+      <section className="px-1 py-0" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
