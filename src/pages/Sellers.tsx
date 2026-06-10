@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SellersSection from "@/components/SellersSection";
+import AccountNavButton from "@/components/AccountNavButton";
 
 const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
 
@@ -18,12 +19,15 @@ export default function Sellers() {
               Tao<span className="text-primary">Seller</span>
             </span>
           </Link>
-          <Link
-            to="/"
-            className="flex items-center gap-2 px-5 py-2 glass rounded-xl text-sm font-bold text-brand-navy hover:scale-[1.02] transition-all"
-          >
-            <Icon name="ArrowLeft" size={16} /> На главную
-          </Link>
+          <div className="flex items-center gap-2">
+            <AccountNavButton />
+            <Link
+              to="/"
+              className="flex items-center gap-2 px-5 py-2 glass rounded-xl text-sm font-bold text-brand-navy hover:scale-[1.02] transition-all"
+            >
+              <Icon name="ArrowLeft" size={16} /> <span className="hidden sm:inline">На главную</span>
+            </Link>
+          </div>
         </div>
       </nav>
 
