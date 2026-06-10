@@ -109,7 +109,6 @@ export default function SellerVideos() {
       <div className="container mx-auto">
         <div className="flex items-end justify-between mb-8 reveal">
           <div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy mb-2">Видео от продавцов</h2>
             <p className="text-muted-foreground">Поставщики показывают свои товары вживую</p>
           </div>
           <div className="hidden md:flex gap-2">
