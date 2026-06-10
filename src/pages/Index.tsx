@@ -502,48 +502,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section id="reviews" className="py-24 px-4" style={{background: "linear-gradient(180deg, hsl(200,70%,92%) 0%, hsl(200,60%,96%) 100%)"}}>
-        <div className="container mx-auto">
-          <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Что говорят <span className="text-grad">клиенты</span></h2>
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-xl">★</span>)}
-              </div>
-              <span className="font-display font-bold text-2xl text-brand-navy">4.9</span>
-              <span className="text-muted-foreground">из 5 на основе 1 240 отзывов</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <div key={i} className="reveal card-soft bg-white rounded-2xl p-6" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-display font-bold text-white">
-                      {r.avatar}
-                    </div>
-                    <div>
-                      <div className="font-semibold text-sm text-brand-navy">{r.name}</div>
-                      <div className="text-xs text-muted-foreground">{r.city}</div>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    {[...Array(r.rating)].map((_, j) => <span key={j} className="text-amber-400 text-sm">★</span>)}
-                  </div>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">"{r.text}"</p>
-                <div className="flex items-center gap-2 pt-3 border-t border-border">
-                  <Icon name="Package" size={14} className="text-primary" />
-                  <span className="text-xs text-primary font-medium">{r.product}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div id="reviews" />
 
       {/* BLOG */}
       <section id="blog" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
