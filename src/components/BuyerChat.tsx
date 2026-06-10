@@ -19,8 +19,10 @@ interface BuyerChatProps {
 }
 
 export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatProps) {
+  const buyerAuth = localStorage.getItem("buyer_auth") || "";
+  const accountName = localStorage.getItem("buyer_account_name") || "";
   const [buyerToken, setBuyerToken] = useState<string>(() => localStorage.getItem("buyer_token") || "");
-  const [buyerName, setBuyerName] = useState<string>(() => localStorage.getItem("buyer_name") || "");
+  const [buyerName, setBuyerName] = useState<string>(() => accountName || localStorage.getItem("buyer_name") || "");
   const [nameInput, setNameInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState("");
@@ -28,14 +30,21 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
   const [showOriginal, setShowOriginal] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
+  const authHeaders = useCallback(() => {
+    const h: Record<string, string> = { "Content-Type": "application/json" };
+    if (buyerAuth) h["X-Buyer-Auth"] = buyerAuth;
+    else if (buyerToken) h["X-Buyer-Token"] = buyerToken;
+    return h;
+  }, [buyerAuth, buyerToken]);
+
   const loadMessages = useCallback(async () => {
-    if (!buyerToken) return;
+    if (!buyerToken && !buyerAuth) return;
     const res = await fetch(`${CHAT_URL}?action=buyer_thread&seller_id=${sellerId}`, {
-      headers: { "X-Buyer-Token": buyerToken },
+      headers: buyerAuth ? { "X-Buyer-Auth": buyerAuth } : { "X-Buyer-Token": buyerToken },
     });
     const data = await res.json();
     setMessages(data.messages || []);
-  }, [buyerToken, sellerId]);
+  }, [buyerToken, buyerAuth, sellerId]);
 
   useEffect(() => {
     loadMessages();
@@ -53,11 +62,11 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
     setSending(true);
     const res = await fetch(`${CHAT_URL}?action=send`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Buyer-Token": buyerToken },
+      headers: authHeaders(),
       body: JSON.stringify({ seller_id: sellerId, text, buyer_name: buyerName }),
     });
     const data = await res.json();
-    if (data.buyer_token && !buyerToken) {
+    if (data.buyer_token && !buyerToken && !buyerAuth) {
       setBuyerToken(data.buyer_token);
       localStorage.setItem("buyer_token", data.buyer_token);
     }

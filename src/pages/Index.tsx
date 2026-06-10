@@ -61,9 +61,6 @@ const articles = [
 export default function Index() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -138,12 +135,6 @@ export default function Index() {
     { id: "contacts", label: "Контакты" },
   ];
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoggedIn(true);
-    setShowLoginModal(false);
-  };
-
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSent(true);
@@ -187,23 +178,13 @@ export default function Index() {
           </div>
 
           <div className="flex items-center gap-3">
-            {isLoggedIn ? (
-              <button
-                onClick={() => navigate("/sellers")}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg text-sm hover:bg-secondary/80 transition-all"
-              >
-                <div className="w-6 h-6 bg-gradient-brand rounded-full flex items-center justify-center text-xs font-bold text-white">А</div>
-                <span>Кабинет</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowLoginModal(true)}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg text-sm hover:bg-secondary/80 transition-all"
-              >
-                <Icon name="User" size={16} />
-                <span>Войти</span>
-              </button>
-            )}
+            <button
+              onClick={() => navigate("/account")}
+              className="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg text-sm hover:bg-secondary/80 transition-all"
+            >
+              <Icon name="UserRound" size={16} />
+              <span>Войти</span>
+            </button>
             <button
               onClick={() => scrollTo("contacts")}
               className="hidden lg:flex btn-modern px-5 py-2 text-white font-bold text-sm rounded-xl"
@@ -235,12 +216,13 @@ export default function Index() {
               onClick={() => setMobileMenuOpen(false)}
               className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
             >Продавцам </Link>
-            <button
-              onClick={() => { setShowLoginModal(true); setMobileMenuOpen(false); }}
+            <Link
+              to="/account"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
             >
-              {isLoggedIn ? "Личный кабинет" : "Войти"}
-            </button>
+              Личный кабинет
+            </Link>
           </div>
         )}
       </nav>
@@ -748,58 +730,6 @@ export default function Index() {
         </div>
       </footer>
 
-      {/* LOGIN MODAL */}
-      {showLoginModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowLoginModal(false)} />
-          <div className="relative bg-white border border-border rounded-2xl p-8 w-full max-w-md shadow-xl shadow-blue-500/15 animate-scale-in">
-            <button onClick={() => setShowLoginModal(false)} className="absolute top-4 right-4 p-2 hover:bg-secondary rounded-xl transition-all">
-              <Icon name="X" size={18} />
-            </button>
-            <div className="text-center mb-6">
-              <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Icon name="User" size={24} className="text-white" />
-              </div>
-              <h3 className="font-display font-bold text-2xl text-brand-navy">ВОЙТИ В КАБИНЕТ</h3>
-              <p className="text-sm text-muted-foreground mt-1">Введите данные для входа</p>
-            </div>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label className="text-sm text-muted-foreground mb-1 block">Email</label>
-                <input
-                  type="email"
-                  value={loginForm.email}
-                  onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                  required
-                />
-              </div>
-              <div>
-                <label className="text-sm text-muted-foreground mb-1 block">Пароль</label>
-                <input
-                  type="password"
-                  value={loginForm.password}
-                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-4 bg-primary text-white font-display font-bold rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
-              >
-                Войти
-              </button>
-              <p className="text-center text-sm text-muted-foreground">
-                Нет аккаунта?{" "}
-                <button type="button" className="text-primary hover:underline">Зарегистрироваться</button>
-              </p>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
