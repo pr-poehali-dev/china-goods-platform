@@ -234,9 +234,7 @@ export default function Index() {
               to="/sellers"
               onClick={() => setMobileMenuOpen(false)}
               className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
-            >
-              Продавцы
-            </Link>
+            >Продавцам </Link>
             <button
               onClick={() => { setShowLoginModal(true); setMobileMenuOpen(false); }}
               className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
