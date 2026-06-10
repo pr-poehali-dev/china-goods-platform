@@ -15,8 +15,9 @@ interface VideoItem {
 
 export default function SellerVideos() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [fullscreen, setFullscreen] = useState<VideoItem | null>(null);
+  const [fsIndex, setFsIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,11 +42,42 @@ export default function SellerVideos() {
       .catch(() => setVideos([]));
   }, []);
 
-  // блокируем скролл фона при открытом фуллскрине
+  const isOpen = fsIndex !== null;
+  const fullscreen = isOpen ? videos[fsIndex] : null;
+
+  const goNext = () => setFsIndex((i) => (i === null ? null : (i + 1) % videos.length));
+  const goPrev = () => setFsIndex((i) => (i === null ? null : (i - 1 + videos.length) % videos.length));
+
+  // блокируем скролл фона + клавиатура при открытом фуллскрине
   useEffect(() => {
-    document.body.style.overflow = fullscreen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [fullscreen]);
+    if (!isOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goNext();
+      else if (e.key === "ArrowLeft") goPrev();
+      else if (e.key === "Escape") setFsIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, videos.length]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (dx < -50) goNext();
+    else if (dx > 50) goPrev();
+    touchStartX.current = null;
+  };
 
   const scroll = (dir: number) => {
     scrollRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
@@ -98,7 +130,7 @@ export default function SellerVideos() {
               style={{ animationDelay: `${(i % 6) * 0.06}s` }}
             >
               <button
-                onClick={() => setFullscreen(v)}
+                onClick={() => setFsIndex(i)}
                 className="relative block w-full rounded-3xl overflow-hidden aspect-[3/4] bg-secondary card-soft text-left"
               >
                 <video
@@ -154,26 +186,54 @@ export default function SellerVideos() {
         </div>
       </div>
 
-      {/* Фуллскрин видео */}
+      {/* Фуллскрин видео (сторис) */}
       {fullscreen && (
         <div
           className="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-          onClick={() => setFullscreen(null)}
+          onClick={() => setFsIndex(null)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
+          {/* Закрыть */}
           <button
-            onClick={() => setFullscreen(null)}
-            className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-all z-10"
+            onClick={() => setFsIndex(null)}
+            className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-all z-20"
           >
             <Icon name="X" size={22} className="text-white" />
           </button>
 
+          {/* Счётчик */}
+          <div className="absolute top-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium z-20">
+            {(fsIndex ?? 0) + 1} / {videos.length}
+          </div>
+
+          {/* Стрелки (десктоп) */}
+          {videos.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); goPrev(); }}
+                className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 items-center justify-center transition-all z-20"
+              >
+                <Icon name="ChevronLeft" size={26} className="text-white" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goNext(); }}
+                className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 items-center justify-center transition-all z-20"
+              >
+                <Icon name="ChevronRight" size={26} className="text-white" />
+              </button>
+            </>
+          )}
+
           <div className="relative max-w-[420px] w-full" onClick={(e) => e.stopPropagation()}>
             <video
+              key={fullscreen.id}
               src={fullscreen.video_url}
               controls
               autoPlay
               playsInline
-              className="w-full max-h-[85vh] rounded-2xl bg-black object-contain"
+              onEnded={goNext}
+              className="w-full max-h-[80vh] rounded-2xl bg-black object-contain"
             />
             <div className="flex items-center gap-3 mt-4">
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -188,12 +248,19 @@ export default function SellerVideos() {
                 <div className="text-white/70 text-sm truncate">{fullscreen.title}</div>
               </div>
               <button
-                onClick={() => { setFullscreen(null); navigate("/sellers"); }}
+                onClick={() => { setFsIndex(null); navigate("/sellers"); }}
                 className="ml-auto px-4 py-2 bg-primary text-white text-sm font-bold rounded-xl hover:scale-105 transition-all flex-shrink-0"
               >
                 Профиль
               </button>
             </div>
+
+            {/* Мобильная подсказка свайпа */}
+            {videos.length > 1 && (
+              <div className="md:hidden text-center text-white/50 text-xs mt-3 flex items-center justify-center gap-1">
+                <Icon name="MoveHorizontal" size={14} /> Свайп для переключения
+              </div>
+            )}
           </div>
         </div>
       )}
