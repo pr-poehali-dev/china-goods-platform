@@ -486,6 +486,57 @@ export default function Index() {
 
       <div id="reviews" />
 
+      {/* CATEGORIES */}
+      <section className="py-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
+        <div className="container mx-auto">
+          <div className="text-center mb-12 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-primary" style={{background:"hsl(200,80%,90%)"}}>
+              Категории товаров
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy">
+              Закупаем <span className="text-grad">всё из Китая</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            {[
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1babed91-29a7-4dc6-8e87-3f17088ef4ac.jpg", label: "Женщинам" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/0f42a710-4ccf-4409-9dcb-b0bc2e2efb30.jpg", label: "Мужчинам" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/02a9ad23-2dfe-40a1-a92b-e9bb9efb4fdf.jpg", label: "Детям" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39451e17-efd7-4d95-85fd-155a869bb579.jpg", label: "Аксессуары" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/a007c80e-2b38-4120-aae3-25d095f0204b.jpg", label: "Обувь" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/d23217d4-cb8f-4ac2-96da-34932e77bc3a.jpg", label: "Всё для дома" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/e746562d-e7ae-43b1-bc4f-5763c6a1a78f.jpg", label: "Электроника" },
+              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5bf17fcf-1ad3-4c94-b03d-8552b906453f.jpg", label: "Красота" },
+            ].map((cat, i) => (
+              <button
+                key={i}
+                onClick={() => scrollTo("contacts")}
+                className="reveal group flex flex-col items-center gap-2.5 transition-all duration-300 hover:-translate-y-1"
+                style={{ animationDelay: `${i * 0.07}s` }}
+              >
+                <div
+                  className="w-full aspect-square overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:shadow-sky-300/30"
+                  style={{
+                    borderRadius: "22px",
+                    background: "rgba(255,255,255,0.85)",
+                    border: "2px solid rgba(255,255,255,0.9)",
+                    boxShadow: "0 4px 16px rgba(176,220,240,0.3), 0 1px 4px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  <img
+                    src={cat.img}
+                    alt={cat.label}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{cat.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SELLER VIDEOS */}
       <SellerVideos />
 
