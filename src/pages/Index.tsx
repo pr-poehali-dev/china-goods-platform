@@ -41,17 +41,6 @@ const services = [
   },
 ];
 
-const products = [
-  { id: 1, name: "Электроника и гаджеты", emoji: "📱", price: "от 200 ₽", rating: 4.9, count: 1240, category: "electronics" },
-  { id: 2, name: "Одежда и обувь", emoji: "👗", price: "от 150 ₽", rating: 4.8, count: 3800, category: "clothes" },
-  { id: 3, name: "Товары для дома", emoji: "🏠", price: "от 100 ₽", rating: 4.7, count: 2100, category: "home" },
-  { id: 4, name: "Автозапчасти", emoji: "🚗", price: "от 300 ₽", rating: 4.9, count: 890, category: "auto" },
-  { id: 5, name: "Игрушки и хобби", emoji: "🎮", price: "от 80 ₽", rating: 4.8, count: 1560, category: "toys" },
-  { id: 6, name: "Красота и здоровье", emoji: "💄", price: "от 120 ₽", rating: 4.6, count: 2300, category: "beauty" },
-  { id: 7, name: "Спорт и активный отдых", emoji: "⚽", price: "от 250 ₽", rating: 4.7, count: 670, category: "sport" },
-  { id: 8, name: "Инструменты", emoji: "🔧", price: "от 180 ₽", rating: 4.8, count: 940, category: "tools" },
-];
-
 const reviews = [
   { name: "Алексей Петров", city: "Москва", text: "Заказал партию электроники. Всё прошло гладко, товар пришёл в срок и без повреждений. Менеджеры всегда на связи.", rating: 5, avatar: "А", product: "Смартфоны Xiaomi" },
   { name: "Марина Соколова", city: "Санкт-Петербург", text: "Уже третий раз работаем с TaoSeller. Качество проверки товара на высоте, ни разу не было проблем с браком.", rating: 5, avatar: "М", product: "Одежда оптом" },
@@ -87,8 +76,6 @@ export default function Index() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [cabinetTab, setCabinetTab] = useState<"buyer" | "seller">("buyer");
-  const [catalogFilter, setCatalogFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
@@ -123,18 +110,11 @@ export default function Index() {
   const navLinks = [
     { id: "home", label: "Главная" },
     { id: "services", label: "Услуги" },
-    { id: "catalog", label: "Каталог" },
     { id: "cabinet", label: "Кабинет" },
     { id: "reviews", label: "Отзывы" },
     { id: "blog", label: "Блог" },
     { id: "contacts", label: "Контакты" },
   ];
-
-  const filteredProducts = products.filter((p) => {
-    const matchFilter = catalogFilter === "all" || p.category === catalogFilter;
-    const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchFilter && matchSearch;
-  });
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -531,69 +511,6 @@ export default function Index() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CATALOG */}
-      <section id="catalog" className="py-24 px-4 bg-secondary/40">
-        <div className="container mx-auto">
-          <div className="text-center mb-12 reveal">
-            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Каталог</div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-brand-navy">КАТЕГОРИИ <span className="marker-yellow">ТОВАРОВ</span></h2>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 mb-8 reveal">
-            <div className="relative flex-1">
-              <Icon name="Search" size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Найти категорию товаров..."
-                className="w-full pl-12 pr-4 py-3 bg-white border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-              />
-            </div>
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              {["all", "electronics", "clothes", "home", "auto"].map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setCatalogFilter(f)}
-                  className={`px-4 py-3 rounded-2xl text-sm font-medium whitespace-nowrap transition-all ${
-                    catalogFilter === f ? "bg-primary text-primary-foreground" : "bg-white border border-border hover:bg-secondary text-slate-600"
-                  }`}
-                >
-                  {{ all: "Все", electronics: "Электроника", clothes: "Одежда", home: "Дом", auto: "Авто" }[f as string]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {filteredProducts.map((p, i) => (
-              <div key={p.id} className="reveal card-soft bg-white rounded-2xl p-6 cursor-pointer" style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-4xl mb-4">{p.emoji}</div>
-                <h4 className="font-display font-semibold text-lg mb-2 leading-tight text-brand-navy">{p.name}</h4>
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, j) => (
-                    <span key={j} className={`text-xs ${j < Math.floor(p.rating) ? "text-amber-400" : "text-slate-300"}`}>★</span>
-                  ))}
-                  <span className="text-xs text-muted-foreground ml-1">{p.rating}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-primary font-display font-bold">{p.price}</span>
-                  <span className="text-xs text-muted-foreground">{p.count.toLocaleString()} поз.</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-10 reveal">
-            <button
-              onClick={() => scrollTo("contacts")}
-              className="px-8 py-4 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-105 transition-all"
-            >
-              Заказать подбор товара
-            </button>
           </div>
         </div>
       </section>
