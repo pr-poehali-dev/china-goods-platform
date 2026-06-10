@@ -413,72 +413,7 @@ export default function Index() {
       {/* SELLER VIDEOS */}
       <SellerVideos />
 
-      {/* MYTH vs REALITY */}
-      <section className="py-24 px-4" style={{background: "linear-gradient(160deg, hsl(200,65%,95%), hsl(354,50%,96%)"}}>
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12 reveal">
-            <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-brand-navy leading-tight whitespace-nowrap">
-              Думаете, закупки в Китае — <span className="text-grad">это сложно?</span>
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">Развеиваем главные мифы о заказах напрямую с фабрик</p>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-6 reveal">
-            {/* MYTH */}
-            <div className="bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/10 overflow-hidden">
-              <div className="bg-primary px-6 py-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                  <Icon name="X" size={18} className="text-primary" />
-                </div>
-                <span className="font-display font-bold text-xl text-white tracking-wide">МИФ</span>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  "Нужно лететь в Китай лично",
-                  "Языковой барьер всё усложняет",
-                  "Высокий риск нарваться на брак",
-                  "Растаможка — это головная боль",
-                ].map((t, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Icon name="X" size={18} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-brand-navy font-medium">{t}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* REALITY */}
-            <div className="bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/10 overflow-hidden">
-              <div className="bg-brand-teal px-6 py-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                  <Icon name="Check" size={18} className="text-brand-teal" />
-                </div>
-                <span className="font-display font-bold text-xl text-white tracking-wide">РЕАЛЬНОСТЬ</span>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  "Мы делаем всё за вас удалённо",
-                  "Ведём переговоры на китайском",
-                  "Проверяем товар и шлём фотоотчёт",
-                  "Таможня под ключ — без забот",
-                ].map((t, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Icon name="Check" size={18} className="text-brand-teal mt-0.5 flex-shrink-0" />
-                    <span className="text-brand-navy font-medium">{t}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 bg-brand-navy rounded-2xl px-6 py-5 flex items-center justify-center gap-3 reveal">
-            <span className="text-2xl">💡</span>
-            <p className="font-display font-bold text-lg md:text-xl text-white text-center">
-              ЗАКАЗЫВАЙТЕ ИЗ КИТАЯ <span className="marker-yellow">ВЫГОДНО</span> — БЕЗ ПОЕЗДОК И РИСКОВ
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* SERVICES */}
       <section id="services" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
