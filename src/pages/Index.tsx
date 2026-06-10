@@ -6,10 +6,11 @@ import AccountNavButton from "@/components/AccountNavButton";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
+const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5b125bbc-8e0c-4a31-84ad-dd9479d9bceb.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/9f7c44b7-9693-4e80-a84a-faf56a26d175.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/2ec59105-66a4-4c71-8c50-ef5bc2590bb9.jpg";
 const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
-const HERO_ILLUSTRATION = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1722add3-212f-4346-9a50-578cca3ba7b9.jpg";
+
 
 const services = [
   {
@@ -237,17 +238,7 @@ export default function Index() {
           {/* красный акцент */}
           <div className="absolute top-1/2 left-[2%] w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
           <div className="absolute bottom-0 right-[5%] w-32 h-32 rounded-full bg-primary/8 blur-3xl" />
-          {/* Дракон — парит в правом верхнем углу */}
-          <img
-            src={DRAGON_IMAGE}
-            alt=""
-            className="absolute top-[-20px] right-[-40px] w-72 md:w-96 lg:w-[420px] object-contain select-none animate-float hidden sm:block"
-            style={{
-              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.15))",
-              transform: `translateY(${scrollY * -0.08}px)`,
-              animationDuration: "6s",
-            }}
-          />
+
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -294,26 +285,42 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Hero illustration */}
-            <div className="relative animate-fade-in-up delay-200">
+            {/* Hero — дракон */}
+            <div className="relative animate-fade-in-up delay-200 flex items-center justify-center">
               <div
-                className="relative will-change-transform max-w-lg mx-auto"
-                style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+                className="relative will-change-transform w-full max-w-lg mx-auto"
+                style={{ transform: `translateY(${scrollY * -0.06}px)` }}
               >
-                {/* Облачный ореол за картинкой */}
-                <div className="absolute inset-0 -m-8 bg-white/40 rounded-[3rem] blur-2xl" />
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-[2rem] shadow-2xl shadow-sky-400/30 border-4 border-white/70 relative z-10">
-                  <img
-                    src={HERO_ILLUSTRATION}
-                    alt="Закупки и доставка из Китая в Россию"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {/* Золотой орнамент — слева снизу */}
+                <img
+                  src={ORNAMENT_IMAGE}
+                  alt=""
+                  className="absolute -bottom-8 -left-10 w-32 opacity-60 animate-float select-none pointer-events-none"
+                  style={{ animationDuration: "7s", animationDelay: "1s", filter: "sepia(0.3) saturate(1.5)" }}
+                />
+                {/* Золотой орнамент — справа сверху */}
+                <img
+                  src={ORNAMENT_IMAGE}
+                  alt=""
+                  className="absolute -top-6 -right-8 w-24 opacity-50 animate-float select-none pointer-events-none"
+                  style={{ animationDuration: "8s", animationDelay: "0.5s", transform: "scaleX(-1) rotate(20deg)", filter: "sepia(0.3) saturate(1.5)" }}
+                />
+
+                {/* Сам дракон */}
+                <img
+                  src={DRAGON_IMAGE}
+                  alt="Китайский дракон — символ удачи в торговле"
+                  className="w-full object-contain animate-float drop-shadow-2xl"
+                  style={{
+                    animationDuration: "6s",
+                    filter: "drop-shadow(0 30px 50px rgba(180,30,30,0.25))",
+                  }}
+                />
 
                 {/* Плавающая карточка — доставлено */}
                 <div
-                  className="absolute -top-5 -left-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
-                  style={{ transform: `translateY(${scrollY * 0.08}px)` }}
+                  className="absolute top-[15%] -left-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
+                  style={{ animationDelay: "0.8s", transform: `translateY(${scrollY * 0.08}px)` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-brand-mint flex items-center justify-center">
                     <Icon name="PackageCheck" size={20} className="text-brand-teal" />
@@ -326,8 +333,8 @@ export default function Index() {
 
                 {/* Плавающая карточка — рейтинг */}
                 <div
-                  className="absolute -bottom-5 -right-3 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
-                  style={{ animationDelay: "1.2s", transform: `translateY(${scrollY * -0.06}px)` }}
+                  className="absolute bottom-[12%] -right-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
+                  style={{ animationDelay: "1.4s", transform: `translateY(${scrollY * -0.06}px)` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
                     <Icon name="Star" size={20} className="text-amber-500 fill-amber-500" />
@@ -338,10 +345,10 @@ export default function Index() {
                   </div>
                 </div>
 
-                {/* Плавающая карточка — поставщики */}
+                {/* Плавающая карточка — фабрики */}
                 <div
-                  className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex z-20"
-                  style={{ animationDelay: "0.6s", transform: `translateY(calc(-50% + ${scrollY * 0.05}px))` }}
+                  className="absolute top-[48%] -right-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex z-20"
+                  style={{ animationDelay: "0.4s", transform: `translateY(calc(-50% + ${scrollY * 0.05}px))` }}
                 >
                   <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
                     <Icon name="Store" size={16} className="text-primary" />
