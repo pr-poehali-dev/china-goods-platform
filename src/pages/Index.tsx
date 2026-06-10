@@ -371,31 +371,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <div className="overflow-hidden py-3 border-y border-white/40" style={{background: "hsl(220,45%,18%)"}}>
-        <div className="animate-marquee whitespace-nowrap flex gap-12 text-white/90 font-display font-medium text-sm">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex gap-12">
-              <span>🔍 ПОИСК ПОСТАВЩИКОВ</span>
-              <span>•</span>
-              <span>💰 ВЫКУП В ЮАНЯХ</span>
-              <span>•</span>
-              <span>✈️ АВИАДОСТАВКА</span>
-              <span>•</span>
-              <span>🚛 АВТОДОСТАВКА</span>
-              <span>•</span>
-              <span>🚂 Ж/Д ДОСТАВКА</span>
-              <span>•</span>
-              <span>📋 ТАМОЖНЯ ПОД КЛЮЧ</span>
-              <span>•</span>
-              <span>📦 СТРАХОВАНИЕ ГРУЗА</span>
-              <span>•</span>
-              <span>🏭 500+ ФАБРИК</span>
-              <span>•</span>
-            </span>
-          ))}
-        </div>
-      </div>
+
 
       {/* QUICK SERVICES GRID (портальная сетка) */}
       <section className="pt-20 pb-16 px-4" style={{background: "hsl(200,60%,97%)"}}>
