@@ -487,13 +487,10 @@ export default function Index() {
       <div id="reviews" />
 
       {/* CATEGORIES */}
-      <section className="py-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
+      <section className="pt-10 pb-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
-          <div className="text-center mb-12 reveal">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-primary" style={{background:"hsl(200,80%,90%)"}}>Поставщики товаров</div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy">
-              Закупаем <span className="text-grad">всё из Китая</span>
-            </h2>
+          <div className="text-center mb-10 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary" style={{background:"hsl(200,80%,90%)"}}>Поставщики товаров</div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
