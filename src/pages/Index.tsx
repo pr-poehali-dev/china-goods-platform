@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/9f7c44b7-9693-4e80-a84a-faf56a26d175.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/2ec59105-66a4-4c71-8c50-ef5bc2590bb9.jpg";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
 
 const services = [
   {
@@ -51,7 +52,7 @@ const products = [
 
 const reviews = [
   { name: "Алексей Петров", city: "Москва", text: "Заказал партию электроники. Всё прошло гладко, товар пришёл в срок и без повреждений. Менеджеры всегда на связи.", rating: 5, avatar: "А", product: "Смартфоны Xiaomi" },
-  { name: "Марина Соколова", city: "Санкт-Петербург", text: "Уже третий раз работаем с ChinaBridge. Качество проверки товара на высоте, ни разу не было проблем с браком.", rating: 5, avatar: "М", product: "Одежда оптом" },
+  { name: "Марина Соколова", city: "Санкт-Петербург", text: "Уже третий раз работаем с TaoSeller. Качество проверки товара на высоте, ни разу не было проблем с браком.", rating: 5, avatar: "М", product: "Одежда оптом" },
   { name: "Дмитрий Кузнецов", city: "Новосибирск", text: "Помогли найти уникальных поставщиков по хорошей цене. Сэкономил почти 40% по сравнению с другими агентами.", rating: 5, avatar: "Д", product: "Автозапчасти" },
   { name: "Ольга Иванова", city: "Екатеринбург", text: "Быстро, чётко, профессионально. Особенно понравился фотоотчёт о состоянии товара перед отправкой.", rating: 5, avatar: "О", product: "Товары для дома" },
   { name: "Игорь Смирнов", city: "Казань", text: "Доставили груз на 3 дня раньше обещанного срока. Таможня прошла без задержек. Рекомендую!", rating: 4, avatar: "И", product: "Спортивное снаряжение" },
@@ -149,11 +150,11 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-gradient-brand rounded-xl flex items-center justify-center">
-              <span className="text-white font-display font-bold text-sm">CB</span>
+            <div className="w-10 h-10 rounded-xl bg-[hsl(25,95%,95%)] flex items-center justify-center overflow-hidden">
+              <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide">
-              China<span className="text-gradient-teal">Bridge</span>
+              Tao<span className="text-gradient-teal">Seller</span>
             </span>
           </button>
 
@@ -270,8 +271,8 @@ export default function Index() {
 
             {/* Hero visual card */}
             <div className="relative animate-fade-in-up delay-200">
-              <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-200">
-                <img src={HERO_IMAGE} alt="hero" className="w-full h-[400px] object-cover" />
+              <div className="rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[hsl(25,95%,96%)] to-[hsl(168,55%,94%)] flex items-center justify-center p-8 shadow-2xl shadow-slate-200">
+                <img src={MASCOT_IMAGE} alt="TaoSeller маскот" className="w-full max-w-sm h-[360px] object-contain animate-float" />
               </div>
               <div className="absolute -top-4 -left-4 hidden md:block animate-float">
                 <div className="bg-white rounded-2xl p-4 shadow-xl border border-border">
@@ -658,8 +659,8 @@ export default function Index() {
               <div className="space-y-4">
                 {[
                   { icon: "Phone", label: "+7 (800) 000-00-00", desc: "Бесплатно по России" },
-                  { icon: "MessageCircle", label: "@chinabridge_ru", desc: "Telegram (быстрее всего)" },
-                  { icon: "Mail", label: "info@chinabridge.ru", desc: "Email" },
+                  { icon: "MessageCircle", label: "@taoseller_ru", desc: "Telegram (быстрее всего)" },
+                  { icon: "Mail", label: "info@taoseller.ru", desc: "Email" },
                   { icon: "Clock", label: "09:00 — 21:00 МСК", desc: "Ежедневно" },
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-4">
@@ -735,10 +736,10 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-9 h-9 bg-gradient-brand rounded-xl flex items-center justify-center">
-                  <span className="text-white font-display font-bold text-sm">CB</span>
+                <div className="w-10 h-10 rounded-xl bg-[hsl(25,95%,95%)] flex items-center justify-center overflow-hidden">
+                  <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
                 </div>
-                <span className="font-display font-bold text-xl text-slate-800">China<span className="text-gradient-teal">Bridge</span></span>
+                <span className="font-display font-bold text-xl text-slate-800">Tao<span className="text-gradient-teal">Seller</span></span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
             </div>
@@ -758,7 +759,7 @@ export default function Index() {
             ))}
           </div>
           <div className="pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-sm text-muted-foreground">© 2025 ChinaBridge. Все права защищены.</span>
+            <span className="text-sm text-muted-foreground">© 2025 TaoSeller. Все права защищены.</span>
             <span className="text-sm text-muted-foreground">🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
           </div>
         </div>
