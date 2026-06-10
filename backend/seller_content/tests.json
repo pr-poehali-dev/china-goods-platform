@@ -1,0 +1,1 @@
+{"tests": [{"name": "Unauthorized without token", "method": "POST", "path": "/?action=add_product", "body": {"title": "Test"}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}]}
