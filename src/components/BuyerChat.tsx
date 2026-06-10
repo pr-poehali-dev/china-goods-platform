@@ -75,9 +75,9 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white border-2 border-brand-navy rounded-2xl w-full max-w-md shadow-[8px_8px_0_hsl(220,45%,14%)] flex flex-col h-[560px] max-h-[85vh]">
+      <div className="relative bg-white border border-border rounded-2xl w-full max-w-md shadow-xl shadow-blue-500/15 flex flex-col h-[560px] max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b-2 border-brand-navy bg-primary rounded-t-xl">
+        <div className="flex items-center justify-between px-5 py-4 bg-primary rounded-t-xl">
           <div className="flex items-center gap-2 text-white">
             <Icon name="MessageSquare" size={20} />
             <div>
@@ -105,7 +105,7 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
             />
             <button
               onClick={startChat}
-              className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all"
+              className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all"
             >
               Начать чат
             </button>
@@ -125,10 +125,10 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
                 return (
                   <div key={m.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
                     <div
-                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm border-2 ${
+                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm ${
                         mine
-                          ? "bg-primary text-white border-brand-navy rounded-br-sm"
-                          : "bg-secondary text-brand-navy border-border rounded-bl-sm"
+                          ? "bg-primary text-white rounded-br-sm"
+                          : "bg-secondary text-brand-navy rounded-bl-sm"
                       }`}
                     >
                       <div>{mine ? m.text_original : (showOrig ? m.text_original : m.text_translated || m.text_original)}</div>
@@ -164,7 +164,7 @@ export default function BuyerChat({ sellerId, sellerName, onClose }: BuyerChatPr
               <button
                 type="submit"
                 disabled={sending || !text.trim()}
-                className="px-4 bg-primary text-white rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all disabled:opacity-60"
+                className="px-4 bg-primary text-white rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all disabled:opacity-60"
               >
                 <Icon name="Send" size={18} />
               </button>

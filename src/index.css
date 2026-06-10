@@ -4,51 +4,56 @@
 
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 220 45% 14%;
+    --background: 210 40% 98%;
+    --foreground: 218 35% 22%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 45% 14%;
+    --card-foreground: 218 35% 22%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 45% 14%;
+    --popover-foreground: 218 35% 22%;
 
-    --primary: 354 78% 52%;
+    --primary: 214 90% 56%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 30% 93%;
-    --secondary-foreground: 220 45% 14%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 218 35% 28%;
 
-    --muted: 40 25% 92%;
-    --muted-foreground: 220 15% 45%;
+    --muted: 210 30% 95%;
+    --muted-foreground: 215 16% 55%;
 
-    --accent: 354 70% 95%;
-    --accent-foreground: 354 78% 42%;
+    --accent: 210 95% 95%;
+    --accent-foreground: 214 90% 45%;
 
-    --destructive: 354 78% 52%;
+    --destructive: 0 75% 58%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 20% 86%;
-    --input: 40 20% 86%;
-    --ring: 354 78% 52%;
+    --border: 214 25% 91%;
+    --input: 214 25% 91%;
+    --ring: 214 90% 56%;
 
-    --radius: 0.75rem;
+    --radius: 1.25rem;
 
-    --sidebar-background: 220 45% 14%;
-    --sidebar-foreground: 40 30% 93%;
-    --sidebar-primary: 354 78% 52%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 218 35% 28%;
+    --sidebar-primary: 214 90% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 40% 20%;
-    --sidebar-accent-foreground: 40 30% 93%;
-    --sidebar-border: 220 35% 25%;
-    --sidebar-ring: 354 78% 52%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 218 35% 28%;
+    --sidebar-border: 214 25% 91%;
+    --sidebar-ring: 214 90% 56%;
 
-    /* Brand colors */
-    --brand-red: 354 78% 52%;
-    --brand-navy: 220 45% 14%;
-    --brand-teal: 174 55% 38%;
-    --brand-yellow: 45 95% 55%;
-    --brand-cream: 40 33% 97%;
+    /* Brand colors — soft pastel portal */
+    --brand-red: 214 90% 56%;
+    --brand-navy: 218 40% 25%;
+    --brand-teal: 168 60% 46%;
+    --brand-yellow: 42 95% 62%;
+    --brand-cream: 210 40% 98%;
+    --brand-blue: 214 90% 56%;
+    --brand-sky: 205 90% 88%;
+    --brand-lilac: 255 60% 92%;
+    --brand-mint: 160 55% 90%;
+    --brand-peach: 25 90% 92%;
   }
 }
 
@@ -81,89 +86,86 @@
   }
 
   .text-gradient-teal {
-    color: hsl(354, 78%, 52%);
+    color: hsl(214, 90%, 56%);
   }
 
   .text-red {
-    color: hsl(354, 78%, 52%);
+    color: hsl(214, 90%, 56%);
   }
 
   .text-navy {
-    color: hsl(220, 45%, 14%);
+    color: hsl(218, 40%, 25%);
   }
 
   .text-teal {
-    color: hsl(174, 55%, 38%);
+    color: hsl(168, 60%, 42%);
   }
 
   .bg-gradient-brand {
-    background: hsl(354, 78%, 52%);
+    background: linear-gradient(135deg, hsl(214, 90%, 58%), hsl(205, 90%, 64%));
   }
 
   .bg-navy {
-    background: hsl(220, 45%, 14%);
+    background: hsl(218, 40%, 25%);
   }
 
   .bg-cream {
-    background: hsl(40, 33%, 97%);
+    background: hsl(210, 40%, 98%);
   }
 
   .bg-gradient-soft {
-    background: hsl(40, 30%, 93%);
+    background: linear-gradient(135deg, hsl(210, 60%, 97%), hsl(255, 60%, 97%));
   }
 
   .bg-hero-soft {
     background:
       radial-gradient(
-        circle at 85% 15%,
-        hsl(354, 70%, 96%) 0%,
-        transparent 45%
+        circle at 85% 12%,
+        hsl(255, 70%, 95%) 0%,
+        transparent 42%
       ),
-      hsl(40, 33%, 97%);
+      radial-gradient(circle at 8% 85%, hsl(205, 85%, 94%) 0%, transparent 42%),
+      hsl(210, 40%, 98%);
   }
 
-  /* Highlighter marker effect (like infographic) */
+  /* Soft pastel highlights */
   .marker-red {
-    background: hsl(354, 78%, 52%);
-    color: #fff;
-    padding: 0.1em 0.35em;
-    border-radius: 0.2em;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+    color: hsl(214, 90%, 56%);
   }
 
   .marker-navy {
-    background: hsl(220, 45%, 14%);
-    color: #fff;
-    padding: 0.1em 0.35em;
-    border-radius: 0.2em;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+    color: hsl(218, 40%, 25%);
   }
 
   .marker-yellow {
-    background: hsl(45, 95%, 60%);
-    color: hsl(220, 45%, 14%);
-    padding: 0.05em 0.3em;
-    border-radius: 0.2em;
+    background: linear-gradient(transparent 60%, hsl(205, 90%, 82%) 60%);
+    color: inherit;
+    padding: 0 0.1em;
   }
 
-  /* Sticker-style card with thick offset shadow */
+  /* Soft card with subtle shadow (portal style) */
   .card-soft {
-    border: 2px solid hsl(220, 45%, 14%);
-    box-shadow: 5px 5px 0 hsl(220, 45%, 14%);
+    border: 1px solid hsl(214, 25%, 92%);
+    box-shadow: 0 6px 24px -8px hsl(214, 40%, 70% / 0.4);
     transition:
-      box-shadow 0.2s ease,
-      transform 0.2s ease;
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
   }
 
   .card-soft:hover {
-    box-shadow: 8px 8px 0 hsl(220, 45%, 14%);
-    transform: translate(-2px, -2px);
+    box-shadow: 0 14px 36px -10px hsl(214, 50%, 60% / 0.45);
+    transform: translateY(-3px);
   }
 
   .blob-bg {
-    background: hsl(40, 33%, 97%);
+    background:
+      radial-gradient(
+        circle at 90% 10%,
+        hsl(255, 70%, 96%) 0%,
+        transparent 38%
+      ),
+      radial-gradient(circle at 5% 90%, hsl(160, 60%, 95%) 0%, transparent 38%),
+      hsl(210, 40%, 98%);
   }
 
   .scrollbar-hide {

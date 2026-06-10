@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SellersSection from "@/components/SellersSection";
 
@@ -80,6 +80,7 @@ export default function Index() {
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -134,7 +135,7 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-accent border-2 border-brand-navy flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
               <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
@@ -184,7 +185,7 @@ export default function Index() {
             )}
             <button
               onClick={() => scrollTo("contacts")}
-              className="hidden lg:flex px-5 py-2 bg-primary text-white font-bold text-sm rounded-lg border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-105 transition-all"
+              className="hidden lg:flex px-5 py-2 bg-primary text-white font-bold text-sm rounded-lg shadow-md shadow-blue-500/25 hover:scale-105 transition-all"
             >
               Получить расчёт
             </button>
@@ -243,7 +244,7 @@ export default function Index() {
               <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
                 <button
                   onClick={() => scrollTo("contacts")}
-                  className="px-8 py-4 bg-primary text-white font-display font-bold text-lg rounded-xl border-2 border-brand-navy transition-all hover:scale-105 shadow-[4px_4px_0_hsl(220,45%,14%)]"
+                  className="px-8 py-4 bg-primary text-white font-display font-bold text-lg rounded-xl border border-border transition-all hover:scale-105 shadow-lg shadow-blue-500/20"
                 >
                   Начать закупку
                 </button>
@@ -267,9 +268,9 @@ export default function Index() {
 
             {/* Hero cabinet widget */}
             <div id="cabinet" className="relative animate-fade-in-up delay-200 scroll-mt-24">
-              <div className="bg-white border-2 border-brand-navy rounded-2xl p-6 shadow-[8px_8px_0_hsl(220,45%,14%)]">
+              <div className="bg-white border border-border rounded-2xl p-6 shadow-xl shadow-blue-500/15">
                 <div className="flex items-center gap-2 mb-5">
-                  <div className="w-9 h-9 rounded-xl bg-accent border-2 border-brand-navy flex items-center justify-center overflow-hidden">
+                  <div className="w-9 h-9 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
                     <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
                   </div>
                   <span className="font-display font-bold text-lg text-brand-navy">Личный кабинет</span>
@@ -279,20 +280,20 @@ export default function Index() {
                 <div className="flex gap-2 mb-5">
                   <button
                     onClick={() => setCabinetTab("buyer")}
-                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border-2 ${
+                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border ${
                       cabinetTab === "buyer"
-                        ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
-                        : "bg-white text-brand-navy border-border hover:border-brand-navy"
+                        ? "bg-primary text-white border-primary shadow-md shadow-blue-500/20"
+                        : "bg-white text-brand-navy border-border hover:border-primary"
                     }`}
                   >
                     <Icon name="ShoppingBag" size={16} /> Покупатель
                   </button>
                   <button
                     onClick={() => setCabinetTab("seller")}
-                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border-2 ${
+                    className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-all border ${
                       cabinetTab === "seller"
-                        ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
-                        : "bg-white text-brand-navy border-border hover:border-brand-navy"
+                        ? "bg-primary text-white border-primary shadow-md shadow-blue-500/20"
+                        : "bg-white text-brand-navy border-border hover:border-primary"
                     }`}
                   >
                     <Icon name="Store" size={16} /> Продавец
@@ -347,7 +348,7 @@ export default function Index() {
                     <p className="text-muted-foreground text-sm mb-5">Войдите, чтобы видеть историю заказов и счета</p>
                     <button
                       onClick={() => setShowLoginModal(true)}
-                      className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all"
+                      className="w-full px-6 py-3 bg-primary text-white font-display font-bold rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
                     >
                       Войти в кабинет
                     </button>
@@ -360,7 +361,7 @@ export default function Index() {
       </section>
 
       {/* MARQUEE */}
-      <div className="overflow-hidden bg-navy py-3 border-y-2 border-brand-navy">
+      <div className="overflow-hidden bg-navy py-3 border-y border-border">
         <div className="animate-marquee whitespace-nowrap flex gap-12 text-white font-display font-medium text-sm">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex gap-12">
@@ -385,6 +386,38 @@ export default function Index() {
         </div>
       </div>
 
+      {/* QUICK SERVICES GRID (портальная сетка) */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-10 reveal">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy mb-2">Часто используют</h2>
+            <p className="text-muted-foreground">Быстрый доступ к нашим услугам</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {[
+              { icon: "Search", label: "Поиск товара", color: "bg-brand-sky", action: () => scrollTo("services") },
+              { icon: "ShoppingCart", label: "Выкуп", color: "bg-brand-mint", action: () => scrollTo("services") },
+              { icon: "Truck", label: "Доставка", color: "bg-brand-lilac", action: () => scrollTo("services") },
+              { icon: "Store", label: "Продавцы", color: "bg-brand-peach", action: () => navigate("/sellers") },
+              { icon: "MessageSquare", label: "Чат с поставщиком", color: "bg-brand-sky", action: () => navigate("/sellers") },
+              { icon: "FileText", label: "Оставить заявку", color: "bg-brand-mint", action: () => scrollTo("contacts") },
+            ].map((s, i) => (
+              <button
+                key={i}
+                onClick={s.action}
+                className="reveal group flex flex-col items-center gap-3 p-5 rounded-2xl hover:bg-secondary/60 transition-all"
+                style={{ animationDelay: `${i * 0.06}s` }}
+              >
+                <div className={`w-16 h-16 rounded-2xl ${s.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <Icon name={s.icon} size={28} className="text-brand-navy" />
+                </div>
+                <span className="text-sm font-medium text-brand-navy text-center leading-tight">{s.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* MYTH vs REALITY */}
       <section className="py-24 px-4 bg-cream">
         <div className="container mx-auto max-w-5xl">
@@ -397,7 +430,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 gap-6 reveal">
             {/* MYTH */}
-            <div className="bg-white rounded-2xl border-2 border-brand-navy shadow-[5px_5px_0_hsl(220,45%,14%)] overflow-hidden">
+            <div className="bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/10 overflow-hidden">
               <div className="bg-primary px-6 py-3 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
                   <Icon name="X" size={18} className="text-primary" />
@@ -420,7 +453,7 @@ export default function Index() {
             </div>
 
             {/* REALITY */}
-            <div className="bg-white rounded-2xl border-2 border-brand-navy shadow-[5px_5px_0_hsl(220,45%,14%)] overflow-hidden">
+            <div className="bg-white rounded-2xl border border-border shadow-lg shadow-blue-500/10 overflow-hidden">
               <div className="bg-brand-teal px-6 py-3 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
                   <Icon name="Check" size={18} className="text-brand-teal" />
@@ -465,7 +498,7 @@ export default function Index() {
             {services.map((s, i) => (
               <div key={i} className={`reveal card-soft ${s.bg} rounded-2xl overflow-hidden`} style={{ animationDelay: `${i * 0.15}s` }}>
                 <div className="p-8">
-                  <div className={`w-14 h-14 rounded-xl ${s.iconBg} flex items-center justify-center mb-6 border-2 border-brand-navy`}>
+                  <div className={`w-14 h-14 rounded-xl ${s.iconBg} flex items-center justify-center mb-6 border border-border`}>
                     <Icon name={s.icon} size={28} className="text-white" />
                   </div>
                   <h3 className="font-display font-bold text-2xl mb-3 text-brand-navy">{s.title}</h3>
@@ -503,7 +536,7 @@ export default function Index() {
                   {i < 4 && (
                     <div className="hidden md:block absolute top-6 left-[60%] w-full h-px bg-gradient-to-r from-primary/40 to-transparent" />
                   )}
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3 relative z-10 border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3 relative z-10 shadow-md shadow-blue-500/25">
                     <Icon name={step.icon} size={20} className="text-white" />
                   </div>
                   <div className="font-display font-bold text-primary text-xs mb-1">{step.n}</div>
@@ -666,7 +699,7 @@ export default function Index() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-4 bg-primary text-white font-display font-bold text-lg rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all"
+                    className="w-full py-4 bg-primary text-white font-display font-bold text-lg rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
                   >
                     Отправить заявку
                   </button>
@@ -717,7 +750,7 @@ export default function Index() {
       {showLoginModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowLoginModal(false)} />
-          <div className="relative bg-white border-2 border-brand-navy rounded-2xl p-8 w-full max-w-md shadow-[8px_8px_0_hsl(220,45%,14%)] animate-scale-in">
+          <div className="relative bg-white border border-border rounded-2xl p-8 w-full max-w-md shadow-xl shadow-blue-500/15 animate-scale-in">
             <button onClick={() => setShowLoginModal(false)} className="absolute top-4 right-4 p-2 hover:bg-secondary rounded-xl transition-all">
               <Icon name="X" size={18} />
             </button>
@@ -753,7 +786,7 @@ export default function Index() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[4px_4px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all"
+                className="w-full py-4 bg-primary text-white font-display font-bold rounded-xl shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all"
               >
                 Войти
               </button>

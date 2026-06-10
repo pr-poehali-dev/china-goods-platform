@@ -105,7 +105,7 @@ export default function SellerChats({ token, onUnreadChange }: { token: string; 
               {th.buyer_contact && <div className="text-xs text-muted-foreground truncate">{th.buyer_contact}</div>}
             </div>
             {th.unread > 0 && (
-              <span className="flex-shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center border border-brand-navy">
+              <span className="flex-shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center">
                 {th.unread}
               </span>
             )}
@@ -134,10 +134,10 @@ export default function SellerChats({ token, onUnreadChange }: { token: string; 
                 return (
                   <div key={m.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
                     <div
-                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm border-2 ${
+                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm ${
                         mine
-                          ? "bg-primary text-white border-brand-navy rounded-br-sm"
-                          : "bg-secondary text-brand-navy border-border rounded-bl-sm"
+                          ? "bg-primary text-white rounded-br-sm"
+                          : "bg-secondary text-brand-navy rounded-bl-sm"
                       }`}
                     >
                       <div>{mine ? m.text_original : (showOriginal ? m.text_original : m.text_translated || m.text_original)}</div>
@@ -162,7 +162,7 @@ export default function SellerChats({ token, onUnreadChange }: { token: string; 
               <button
                 type="submit"
                 disabled={sending || !text.trim()}
-                className="px-4 bg-primary text-white rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all disabled:opacity-60"
+                className="px-4 bg-primary text-white rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all disabled:opacity-60"
               >
                 <Icon name="Send" size={18} />
               </button>

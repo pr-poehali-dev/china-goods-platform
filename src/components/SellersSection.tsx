@@ -302,7 +302,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   };
 
   const inputCls = "w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm";
-  const btnCls = "px-6 py-3 bg-primary text-white font-display font-bold rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all disabled:opacity-60";
+  const btnCls = "px-6 py-3 bg-primary text-white font-display font-bold rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all disabled:opacity-60";
 
   const Wrapper = embedded ? "div" : "section";
 
@@ -334,7 +334,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
           <div className="max-w-4xl mx-auto mb-16">
             <div className="bg-white card-soft rounded-2xl p-6 mb-6 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-primary border-2 border-brand-navy flex items-center justify-center overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-primary border border-border flex items-center justify-center overflow-hidden">
                   {me.avatar_url ? (
                     <img src={me.avatar_url} alt="" className="w-full h-full object-cover" />
                   ) : (
@@ -364,15 +364,15 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id as typeof tab)}
-                  className={`relative px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border-2 ${
+                  className={`relative px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border ${
                     tab === t.id
-                      ? "bg-primary text-white border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]"
-                      : "bg-white text-brand-navy border-border hover:border-brand-navy"
+                      ? "bg-primary text-white border-primary shadow-md shadow-blue-500/20"
+                      : "bg-white text-brand-navy border-border hover:border-primary"
                   }`}
                 >
                   <Icon name={t.icon} size={16} /> {t.label}
                   {t.id === "chats" && unreadTotal > 0 && (
-                    <span className="min-w-5 h-5 px-1.5 rounded-full bg-brand-red text-white text-[11px] font-bold flex items-center justify-center border border-brand-navy">
+                    <span className="min-w-5 h-5 px-1.5 rounded-full bg-brand-red text-white text-[11px] font-bold flex items-center justify-center border border-white/40">
                       {unreadTotal}
                     </span>
                   )}
@@ -509,7 +509,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                       </div>
                       <div className="font-display font-bold text-brand-navy mb-1">Перетащите видео сюда</div>
                       <div className="text-sm text-muted-foreground mb-3">или выберите файл с ПК / телефона</div>
-                      <span className="inline-block px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)]">
+                      <span className="inline-block px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl shadow-md shadow-blue-500/25">
                         Выбрать видео
                       </span>
                       <div className="text-xs text-muted-foreground mt-3">MP4, MOV, WebM · до {MAX_VIDEO_MB} МБ</div>
@@ -587,7 +587,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
         ) : (
           <div className="max-w-md mx-auto mb-16 text-center">
             <div className="bg-white card-soft rounded-2xl p-8">
-              <div className="w-16 h-16 rounded-2xl bg-accent border-2 border-brand-navy flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-2xl bg-accent border border-border flex items-center justify-center mx-auto mb-4">
                 <Icon name="Store" size={30} className="text-primary" />
               </div>
               <h3 className="font-display font-bold text-2xl text-brand-navy mb-2">Вы поставщик из Китая?</h3>
@@ -613,7 +613,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
               {publicSellers.map((s) => (
                 <div key={s.id} className="bg-white card-soft rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary border-2 border-brand-navy flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-primary border border-border flex items-center justify-center overflow-hidden flex-shrink-0">
                       {s.avatar_url ? (
                         <img src={s.avatar_url} alt="" className="w-full h-full object-cover" />
                       ) : (
@@ -659,7 +659,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
 
                   <button
                     onClick={() => setChatWith({ id: s.id, name: s.company_name })}
-                    className="w-full px-4 py-2.5 bg-primary text-white font-display font-bold text-sm rounded-xl border-2 border-brand-navy shadow-[3px_3px_0_hsl(220,45%,14%)] hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                    className="w-full px-4 py-2.5 bg-primary text-white font-display font-bold text-sm rounded-xl shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
                   >
                     <Icon name="MessageSquare" size={16} /> Написать поставщику
                   </button>
@@ -680,7 +680,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
       {showAuth && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowAuth(false)} />
-          <div className="relative bg-white border-2 border-brand-navy rounded-2xl p-8 w-full max-w-md shadow-[8px_8px_0_hsl(220,45%,14%)]">
+          <div className="relative bg-white border border-border rounded-2xl p-8 w-full max-w-md shadow-xl shadow-blue-500/15">
             <button onClick={() => setShowAuth(false)} className="absolute top-4 right-4 p-2 hover:bg-secondary rounded-xl transition-all">
               <Icon name="X" size={18} />
             </button>
