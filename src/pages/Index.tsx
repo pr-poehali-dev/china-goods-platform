@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SellersSection from "@/components/SellersSection";
 
@@ -175,6 +176,12 @@ export default function Index() {
                 {link.label}
               </button>
             ))}
+            <Link
+              to="/sellers"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+            >
+              Продавцы
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">
@@ -221,6 +228,13 @@ export default function Index() {
                 {link.label}
               </button>
             ))}
+            <Link
+              to="/sellers"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
+            >
+              Продавцы
+            </Link>
             <button
               onClick={() => { setShowLoginModal(true); setMobileMenuOpen(false); }}
               className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
