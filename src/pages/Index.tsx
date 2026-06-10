@@ -58,13 +58,6 @@ const articles = [
   { title: "Какие товары выгоднее всего везти из Китая", tag: "Аналитика", time: "8 мин", emoji: "📊", date: "20 апр 2025" },
 ];
 
-const stats = [
-  { value: "8 лет", label: "на рынке" },
-  { value: "15 000+", label: "выполненных заказов" },
-  { value: "98%", label: "довольных клиентов" },
-  { value: "500+", label: "проверенных поставщиков" },
-];
-
 const orderHistory = [
   { id: "CB-2841", date: "10 мая 2025", product: "Смартфоны Samsung (50 шт)", status: "Доставлен", statusColor: "text-emerald-600 bg-emerald-50", amount: "180 000 ₽" },
   { id: "CB-2756", date: "2 апр 2025", product: "Одежда (120 кг)", status: "На таможне", statusColor: "text-amber-600 bg-amber-50", amount: "95 000 ₽" },
@@ -315,14 +308,6 @@ export default function Index() {
                   <Icon name="Play" size={18} className="text-primary" />
                   Как это работает
                 </button>
-              </div>
-              <div className="mt-12 flex flex-wrap gap-8 animate-fade-in-up delay-400">
-                {stats.map((s) => (
-                  <div key={s.label}>
-                    <div className="font-display font-bold text-3xl text-primary">{s.value}</div>
-                    <div className="text-sm text-muted-foreground">{s.label}</div>
-                  </div>
-                ))}
               </div>
             </div>
 
