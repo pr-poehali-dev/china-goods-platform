@@ -82,6 +82,20 @@ export default function Index() {
   const [formSent, setFormSent] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrollY(window.scrollY));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -250,9 +264,33 @@ export default function Index() {
 
       {/* HERO */}
       <section id="home" className="relative flex items-center overflow-hidden pt-24 pb-16 bg-hero-soft">
+        {/* Параллакс-декор */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute -top-10 right-[8%] w-56 h-56 rounded-full bg-brand-sky/50 blur-2xl"
+            style={{ transform: `translateY(${scrollY * 0.18}px)` }}
+          />
+          <div
+            className="absolute top-1/3 -left-16 w-64 h-64 rounded-full bg-brand-lilac/50 blur-3xl"
+            style={{ transform: `translateY(${scrollY * -0.12}px)` }}
+          />
+          <div
+            className="absolute bottom-0 right-1/4 w-48 h-48 rounded-full bg-brand-mint/50 blur-2xl"
+            style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+          />
+          <div
+            className="absolute top-24 left-1/3 w-3 h-3 rounded-full bg-primary/40"
+            style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+          />
+          <div
+            className="absolute top-40 right-1/3 w-2 h-2 rounded-full bg-brand-teal/50"
+            style={{ transform: `translateY(${scrollY * -0.25}px)` }}
+          />
+        </div>
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl will-change-transform" style={{ transform: `translateY(${scrollY * 0.06}px)` }}>
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm text-primary font-medium mb-6 animate-fade-in">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
@@ -290,7 +328,10 @@ export default function Index() {
 
             {/* Hero cabinet widget */}
             <div id="cabinet" className="relative animate-fade-in-up delay-200 scroll-mt-24">
-              <div className="bg-white border border-border rounded-2xl p-6 shadow-xl shadow-blue-500/15">
+              <div
+                className="bg-white border border-border rounded-2xl p-6 shadow-xl shadow-blue-500/15 will-change-transform"
+                style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+              >
                 <div className="flex items-center gap-2 mb-5">
                   <div className="w-9 h-9 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
                     <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
