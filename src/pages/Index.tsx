@@ -402,21 +402,30 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              { icon: "Search", label: "Поиск товара", color: "bg-brand-sky", action: () => scrollTo("services") },
-              { icon: "ShoppingCart", label: "Выкуп", color: "bg-brand-mint", action: () => scrollTo("services") },
-              { icon: "Truck", label: "Доставка", color: "bg-brand-lilac", action: () => scrollTo("services") },
-              { icon: "Store", label: "Продавцы", color: "bg-brand-peach", action: () => navigate("/sellers") },
-              { icon: "MessageSquare", label: "Чат с поставщиком", color: "bg-brand-sky", action: () => navigate("/sellers") },
-              { icon: "FileText", label: "Оставить заявку", color: "bg-brand-mint", action: () => scrollTo("contacts") },
+              { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => scrollTo("services") },
+              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", action: () => scrollTo("services") },
+              { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => scrollTo("services") },
+              { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/sellers") },
+              { icon: "MessageSquare", label: "Чат с поставщиком", emoji: "💬", action: () => navigate("/sellers") },
+              { icon: "FileText", label: "Оставить заявку", emoji: "📋", action: () => scrollTo("contacts") },
             ].map((s, i) => (
               <button
                 key={i}
                 onClick={s.action}
-                className="reveal card-soft group flex flex-col items-center gap-3 p-5 rounded-2xl bg-white"
-                style={{ animationDelay: `${i * 0.06}s` }}
+                className="reveal group flex flex-col items-center gap-3 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  animationDelay: `${i * 0.06}s`,
+                  background: "rgba(255,255,255,0.72)",
+                  backdropFilter: "blur(12px)",
+                  border: "1.5px solid rgba(255,255,255,0.8)",
+                  boxShadow: "0 4px 20px rgba(176,220,240,0.35), 0 1px 4px rgba(0,0,0,0.06)",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 8px 32px rgba(176,220,240,0.55), 0 2px 8px rgba(0,0,0,0.08)")}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(176,220,240,0.35), 0 1px 4px rgba(0,0,0,0.06)")}
               >
-                <div className={`w-16 h-16 rounded-2xl ${s.color} flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300`}>
-                  <Icon name={s.icon} size={28} className="text-brand-navy" />
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300"
+                  style={{background: "linear-gradient(135deg, hsl(200,75%,88%), hsl(200,65%,94%))"}}>
+                  {s.emoji}
                 </div>
                 <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{s.label}</span>
               </button>
