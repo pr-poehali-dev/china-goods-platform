@@ -11,7 +11,9 @@ const services = [
     title: "Поиск товаров",
     desc: "Найдём лучших поставщиков на Alibaba, 1688, Taobao и других площадках. Проверим качество и репутацию фабрики.",
     steps: ["Подбор поставщиков", "Проверка качества", "Сравнение цен", "Переговоры"],
-    color: "from-orange-500 to-amber-400",
+    bg: "bg-[hsl(160,55%,93%)]",
+    iconBg: "bg-[hsl(168,60%,42%)]",
+    accent: "text-[hsl(168,60%,38%)]",
     price: "от 3 000 ₽",
   },
   {
@@ -19,7 +21,9 @@ const services = [
     title: "Выкуп товаров",
     desc: "Выкупим товар от вашего имени, проведём оплату в юанях, оформим все документы и проверим вложение.",
     steps: ["Оплата в юанях", "Приёмка товара", "Фотоотчёт", "Упаковка"],
-    color: "from-red-500 to-orange-500",
+    bg: "bg-[hsl(205,75%,94%)]",
+    iconBg: "bg-[hsl(205,80%,55%)]",
+    accent: "text-[hsl(205,80%,48%)]",
     price: "от 7%",
   },
   {
@@ -27,7 +31,9 @@ const services = [
     title: "Доставка в Россию",
     desc: "Доставим груз любым удобным способом: авиа, авто или ж/д. Таможенное оформление под ключ.",
     steps: ["Авиа / авто / ж/д", "Таможня под ключ", "Страхование груза", "Доставка до двери"],
-    color: "from-amber-400 to-yellow-300",
+    bg: "bg-[hsl(250,60%,95%)]",
+    iconBg: "bg-[hsl(250,55%,62%)]",
+    accent: "text-[hsl(250,55%,55%)]",
     price: "от 5$/кг",
   },
 ];
@@ -67,9 +73,9 @@ const stats = [
 ];
 
 const orderHistory = [
-  { id: "CB-2841", date: "10 мая 2025", product: "Смартфоны Samsung (50 шт)", status: "Доставлен", statusColor: "text-green-400", amount: "180 000 ₽" },
-  { id: "CB-2756", date: "2 апр 2025", product: "Одежда (120 кг)", status: "На таможне", statusColor: "text-yellow-400", amount: "95 000 ₽" },
-  { id: "CB-2701", date: "15 мар 2025", product: "Автозапчасти", status: "Доставлен", statusColor: "text-green-400", amount: "62 000 ₽" },
+  { id: "CB-2841", date: "10 мая 2025", product: "Смартфоны Samsung (50 шт)", status: "Доставлен", statusColor: "text-emerald-600 bg-emerald-50", amount: "180 000 ₽" },
+  { id: "CB-2756", date: "2 апр 2025", product: "Одежда (120 кг)", status: "На таможне", statusColor: "text-amber-600 bg-amber-50", amount: "95 000 ₽" },
+  { id: "CB-2701", date: "15 мар 2025", product: "Автозапчасти", status: "Доставлен", statusColor: "text-emerald-600 bg-emerald-50", amount: "62 000 ₽" },
 ];
 
 export default function Index() {
@@ -140,14 +146,14 @@ export default function Index() {
     <div className="min-h-screen bg-background text-foreground font-body">
 
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-brand rounded-lg flex items-center justify-center">
+            <div className="w-9 h-9 bg-gradient-brand rounded-xl flex items-center justify-center">
               <span className="text-white font-display font-bold text-sm">CB</span>
             </div>
             <span className="font-display font-bold text-xl tracking-wide">
-              China<span className="text-gradient-orange">Bridge</span>
+              China<span className="text-gradient-teal">Bridge</span>
             </span>
           </button>
 
@@ -222,74 +228,75 @@ export default function Index() {
       </nav>
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
-        <div className="absolute inset-0">
-          <img src={HERO_IMAGE} alt="hero" className="w-full h-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-          <div className="absolute inset-0 hero-grid" />
-        </div>
-
-        <div className="absolute top-32 right-10 hidden xl:block animate-float">
-          <div className="bg-card border border-border rounded-2xl p-4 shadow-xl">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                <Icon name="TrendingUp" size={20} className="text-green-400" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">Сегодня доставлено</div>
-                <div className="font-display font-bold text-lg">47 заказов</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="absolute bottom-40 right-20 hidden xl:block animate-float delay-500">
-          <div className="bg-card border border-border rounded-2xl p-4 shadow-xl">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">⭐</span>
-              <div>
-                <div className="text-xs text-muted-foreground">Средний рейтинг</div>
-                <div className="font-display font-bold text-lg">4.9 / 5.0</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <section id="home" className="relative flex items-center overflow-hidden pt-24 pb-16 bg-hero-soft">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary font-medium mb-6 animate-fade-in">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm text-primary font-medium mb-6 animate-fade-in">
+                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
+              </div>
+              <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight mb-6 animate-fade-in-up text-slate-800">
+                ЗАКУПКИ В КИТАЕ<br />
+                <span className="text-gradient-teal">ПОД КЛЮЧ</span>
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
+                Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
+              </p>
+              <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
+                <button
+                  onClick={() => scrollTo("contacts")}
+                  className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold text-lg rounded-2xl hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-teal-500/20"
+                >
+                  Начать закупку
+                </button>
+                <button
+                  onClick={() => scrollTo("services")}
+                  className="px-8 py-4 bg-white border border-border font-display font-semibold text-lg rounded-2xl hover:bg-secondary transition-all flex items-center gap-2 text-slate-700"
+                >
+                  <Icon name="Play" size={18} className="text-primary" />
+                  Как это работает
+                </button>
+              </div>
+              <div className="mt-12 flex flex-wrap gap-8 animate-fade-in-up delay-400">
+                {stats.map((s) => (
+                  <div key={s.label}>
+                    <div className="font-display font-bold text-3xl text-gradient-teal">{s.value}</div>
+                    <div className="text-sm text-muted-foreground">{s.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h1 className="font-display text-6xl md:text-7xl font-bold leading-tight mb-6 animate-fade-in-up">
-              ЗАКУПКИ<br />
-              В КИТАЕ<br />
-              <span className="text-gradient-orange">ПОД КЛЮЧ</span>
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
-              Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
-            </p>
-            <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
-              <button
-                onClick={() => scrollTo("contacts")}
-                className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold text-lg rounded-xl hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-orange-500/25"
-              >
-                Начать закупку
-              </button>
-              <button
-                onClick={() => scrollTo("services")}
-                className="px-8 py-4 bg-secondary border border-border font-display font-semibold text-lg rounded-xl hover:bg-secondary/80 transition-all flex items-center gap-2"
-              >
-                <Icon name="Play" size={18} className="text-primary" />
-                Как это работает
-              </button>
-            </div>
-            <div className="mt-12 flex flex-wrap gap-8 animate-fade-in-up delay-400">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="font-display font-bold text-3xl text-gradient-orange">{s.value}</div>
-                  <div className="text-sm text-muted-foreground">{s.label}</div>
+
+            {/* Hero visual card */}
+            <div className="relative animate-fade-in-up delay-200">
+              <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-200">
+                <img src={HERO_IMAGE} alt="hero" className="w-full h-[400px] object-cover" />
+              </div>
+              <div className="absolute -top-4 -left-4 hidden md:block animate-float">
+                <div className="bg-white rounded-2xl p-4 shadow-xl border border-border">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <Icon name="TrendingUp" size={20} className="text-emerald-600" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground">Сегодня доставлено</div>
+                      <div className="font-display font-bold text-lg text-slate-800">47 заказов</div>
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </div>
+              <div className="absolute -bottom-4 -right-4 hidden md:block animate-float delay-500">
+                <div className="bg-white rounded-2xl p-4 shadow-xl border border-border">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">⭐</span>
+                    <div>
+                      <div className="text-xs text-muted-foreground">Средний рейтинг</div>
+                      <div className="font-display font-bold text-lg text-slate-800">4.9 / 5.0</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -322,45 +329,44 @@ export default function Index() {
       </div>
 
       {/* SERVICES */}
-      <section id="services" className="py-24 px-4">
+      <section id="services" className="py-24 px-4 blob-bg">
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Наши услуги</div>
-            <h2 className="font-display text-5xl font-bold mb-4">ПОЛНЫЙ ЦИКЛ<br /><span className="text-gradient-orange">ЗАКУПОК</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Наши услуги</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">ПОЛНЫЙ ЦИКЛ <span className="text-gradient-teal">ЗАКУПОК</span></h2>
             <p className="text-muted-foreground max-w-lg mx-auto">От поиска поставщика до доставки к вашей двери — берём на себя весь процесс</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((s, i) => (
-              <div key={i} className="reveal card-glow bg-card border border-border rounded-2xl overflow-hidden" style={{ animationDelay: `${i * 0.15}s` }}>
-                <div className={`h-2 bg-gradient-to-r ${s.color}`} />
+              <div key={i} className={`reveal card-soft ${s.bg} rounded-3xl overflow-hidden`} style={{ animationDelay: `${i * 0.15}s` }}>
                 <div className="p-8">
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-6`}>
+                  <div className={`w-14 h-14 rounded-2xl ${s.iconBg} flex items-center justify-center mb-6 shadow-lg`}>
                     <Icon name={s.icon} size={28} className="text-white" />
                   </div>
-                  <h3 className="font-display font-bold text-2xl mb-3">{s.title}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{s.desc}</p>
+                  <h3 className="font-display font-bold text-2xl mb-3 text-slate-800">{s.title}</h3>
+                  <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
                   <div className="space-y-2 mb-6">
                     {s.steps.map((step, j) => (
-                      <div key={j} className="flex items-center gap-3 text-sm">
-                        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                          <Icon name="Check" size={12} className="text-primary" />
+                      <div key={j} className="flex items-center gap-3 text-sm text-slate-700">
+                        <div className="w-5 h-5 rounded-full bg-white/70 flex items-center justify-center flex-shrink-0">
+                          <Icon name="Check" size={12} className={s.accent} />
                         </div>
                         <span>{step}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <span className="text-muted-foreground text-sm">Стоимость</span>
-                    <span className={`font-display font-bold text-xl bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>{s.price}</span>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/60">
+                    <span className="text-slate-500 text-sm">Стоимость</span>
+                    <span className={`font-display font-bold text-xl ${s.accent}`}>{s.price}</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-20 bg-card border border-border rounded-3xl p-10 reveal">
-            <h3 className="font-display font-bold text-3xl text-center mb-10">КАК МЫ РАБОТАЕМ</h3>
+          <div className="mt-20 bg-white border border-border rounded-3xl p-10 reveal card-soft">
+            <h3 className="font-display font-bold text-3xl text-center mb-10 text-slate-800">КАК МЫ РАБОТАЕМ</h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
               {[
                 { n: "01", label: "Заявка", icon: "FileText" },
@@ -371,13 +377,13 @@ export default function Index() {
               ].map((step, i) => (
                 <div key={i} className="text-center relative">
                   {i < 4 && (
-                    <div className="hidden md:block absolute top-6 left-[60%] w-full h-px bg-gradient-to-r from-primary/50 to-transparent" />
+                    <div className="hidden md:block absolute top-6 left-[60%] w-full h-px bg-gradient-to-r from-primary/40 to-transparent" />
                   )}
-                  <div className="w-12 h-12 bg-gradient-brand rounded-full flex items-center justify-center mx-auto mb-3 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-brand rounded-2xl flex items-center justify-center mx-auto mb-3 relative z-10 shadow-md">
                     <Icon name={step.icon} size={20} className="text-white" />
                   </div>
                   <div className="font-display font-bold text-primary text-xs mb-1">{step.n}</div>
-                  <div className="text-sm font-medium">{step.label}</div>
+                  <div className="text-sm font-medium text-slate-700">{step.label}</div>
                 </div>
               ))}
             </div>
@@ -386,11 +392,11 @@ export default function Index() {
       </section>
 
       {/* CATALOG */}
-      <section id="catalog" className="py-24 px-4 bg-card/50">
+      <section id="catalog" className="py-24 px-4 bg-secondary/40">
         <div className="container mx-auto">
           <div className="text-center mb-12 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Каталог</div>
-            <h2 className="font-display text-5xl font-bold mb-4">КАТЕГОРИИ<br /><span className="text-gradient-orange">ТОВАРОВ</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Каталог</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">КАТЕГОРИИ <span className="text-gradient-teal">ТОВАРОВ</span></h2>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 mb-8 reveal">
@@ -400,7 +406,7 @@ export default function Index() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Найти категорию товаров..."
-                className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                className="w-full pl-12 pr-4 py-3 bg-white border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
               />
             </div>
             <div className="flex gap-2 overflow-x-auto scrollbar-hide">
@@ -408,8 +414,8 @@ export default function Index() {
                 <button
                   key={f}
                   onClick={() => setCatalogFilter(f)}
-                  className={`px-4 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
-                    catalogFilter === f ? "bg-primary text-primary-foreground" : "bg-background border border-border hover:bg-secondary"
+                  className={`px-4 py-3 rounded-2xl text-sm font-medium whitespace-nowrap transition-all ${
+                    catalogFilter === f ? "bg-primary text-primary-foreground" : "bg-white border border-border hover:bg-secondary text-slate-700"
                   }`}
                 >
                   {{ all: "Все", electronics: "Электроника", clothes: "Одежда", home: "Дом", auto: "Авто" }[f as string]}
@@ -420,12 +426,12 @@ export default function Index() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {filteredProducts.map((p, i) => (
-              <div key={p.id} className="reveal card-glow bg-card border border-border rounded-2xl p-6 cursor-pointer" style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="text-4xl mb-4">{p.emoji}</div>
-                <h4 className="font-display font-semibold text-lg mb-2 leading-tight">{p.name}</h4>
+              <div key={p.id} className="reveal card-soft bg-white border border-border rounded-3xl p-6 cursor-pointer" style={{ animationDelay: `${i * 0.08}s` }}>
+                <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-4xl mb-4">{p.emoji}</div>
+                <h4 className="font-display font-semibold text-lg mb-2 leading-tight text-slate-800">{p.name}</h4>
                 <div className="flex items-center gap-1 mb-3">
                   {[...Array(5)].map((_, j) => (
-                    <span key={j} className={`text-xs ${j < Math.floor(p.rating) ? "text-amber-400" : "text-muted-foreground"}`}>★</span>
+                    <span key={j} className={`text-xs ${j < Math.floor(p.rating) ? "text-amber-400" : "text-slate-300"}`}>★</span>
                   ))}
                   <span className="text-xs text-muted-foreground ml-1">{p.rating}</span>
                 </div>
@@ -440,7 +446,7 @@ export default function Index() {
           <div className="text-center mt-10 reveal">
             <button
               onClick={() => scrollTo("contacts")}
-              className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold rounded-xl hover:opacity-90 transition-all hover:scale-105"
+              className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold rounded-2xl hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-teal-500/20"
             >
               Заказать подбор товара
             </button>
@@ -449,30 +455,30 @@ export default function Index() {
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="py-24 px-4">
+      <section id="reviews" className="py-24 px-4 blob-bg">
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
-            <h2 className="font-display text-5xl font-bold mb-4">ЧТО ГОВОРЯТ<br /><span className="text-gradient-orange">КЛИЕНТЫ</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Отзывы</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">ЧТО ГОВОРЯТ <span className="text-gradient-teal">КЛИЕНТЫ</span></h2>
             <div className="flex items-center justify-center gap-2 mt-4">
               <div className="flex">
                 {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-xl">★</span>)}
               </div>
-              <span className="font-display font-bold text-2xl">4.9</span>
+              <span className="font-display font-bold text-2xl text-slate-800">4.9</span>
               <span className="text-muted-foreground">из 5 на основе 1 240 отзывов</span>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((r, i) => (
-              <div key={i} className="reveal card-glow bg-card border border-border rounded-2xl p-6" style={{ animationDelay: `${i * 0.1}s` }}>
+              <div key={i} className="reveal card-soft bg-white border border-border rounded-3xl p-6" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-brand rounded-full flex items-center justify-center font-display font-bold text-white">
                       {r.avatar}
                     </div>
                     <div>
-                      <div className="font-semibold text-sm">{r.name}</div>
+                      <div className="font-semibold text-sm text-slate-800">{r.name}</div>
                       <div className="text-xs text-muted-foreground">{r.city}</div>
                     </div>
                   </div>
@@ -480,7 +486,7 @@ export default function Index() {
                     {[...Array(r.rating)].map((_, j) => <span key={j} className="text-amber-400 text-sm">★</span>)}
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">"{r.text}"</p>
+                <p className="text-sm text-slate-600 leading-relaxed mb-4">"{r.text}"</p>
                 <div className="flex items-center gap-2 pt-3 border-t border-border">
                   <Icon name="Package" size={14} className="text-primary" />
                   <span className="text-xs text-primary font-medium">{r.product}</span>
@@ -492,25 +498,25 @@ export default function Index() {
       </section>
 
       {/* BLOG */}
-      <section id="blog" className="py-24 px-4 bg-card/50">
+      <section id="blog" className="py-24 px-4 bg-secondary/40">
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Блог</div>
-            <h2 className="font-display text-5xl font-bold mb-4">СОВЕТЫ И СТАТЬИ<br /><span className="text-gradient-orange">ПО ЗАКУПКАМ</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Блог</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">СОВЕТЫ И СТАТЬИ <span className="text-gradient-teal">ПО ЗАКУПКАМ</span></h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {articles.map((a, i) => (
-              <div key={i} className="reveal card-glow bg-card border border-border rounded-2xl overflow-hidden cursor-pointer group" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="h-32 bg-gradient-to-br from-secondary to-background flex items-center justify-center text-5xl">
+              <div key={i} className="reveal card-soft bg-white border border-border rounded-3xl overflow-hidden cursor-pointer group" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="h-32 bg-gradient-soft flex items-center justify-center text-5xl">
                   {a.emoji}
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">{a.tag}</span>
+                    <span className="text-xs px-2 py-1 bg-accent text-primary rounded-full">{a.tag}</span>
                     <span className="text-xs text-muted-foreground">{a.time} чтения</span>
                   </div>
-                  <h4 className="font-semibold text-sm leading-snug mb-3 group-hover:text-primary transition-colors">{a.title}</h4>
+                  <h4 className="font-semibold text-sm leading-snug mb-3 text-slate-800 group-hover:text-primary transition-colors">{a.title}</h4>
                   <div className="text-xs text-muted-foreground">{a.date}</div>
                 </div>
               </div>
@@ -518,7 +524,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-10 reveal">
-            <button className="px-6 py-3 border border-border rounded-xl text-sm font-medium hover:bg-secondary transition-all">
+            <button className="px-6 py-3 bg-white border border-border rounded-2xl text-sm font-medium hover:bg-secondary transition-all text-slate-700">
               Все статьи →
             </button>
           </div>
@@ -529,41 +535,41 @@ export default function Index() {
       <section id="cabinet" className="py-24 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Личный кабинет</div>
-            <h2 className="font-display text-5xl font-bold mb-4">ИСТОРИЯ ЗАКАЗОВ<br />И <span className="text-gradient-orange">СЧЕТА</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Личный кабинет</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">ИСТОРИЯ ЗАКАЗОВ И <span className="text-gradient-teal">СЧЕТА</span></h2>
           </div>
 
           {isLoggedIn ? (
             <div className="max-w-4xl mx-auto reveal">
-              <div className="bg-card border border-border rounded-2xl p-6 mb-6 flex items-center justify-between">
+              <div className="bg-white border border-border card-soft rounded-3xl p-6 mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-gradient-brand rounded-full flex items-center justify-center font-display font-bold text-2xl text-white">А</div>
+                  <div className="w-14 h-14 bg-gradient-brand rounded-2xl flex items-center justify-center font-display font-bold text-2xl text-white">А</div>
                   <div>
-                    <div className="font-display font-bold text-xl">Алексей Петров</div>
+                    <div className="font-display font-bold text-xl text-slate-800">Алексей Петров</div>
                     <div className="text-muted-foreground text-sm">alexey@example.com · Клиент с 2022 года</div>
                   </div>
                 </div>
                 <div className="hidden md:flex gap-6">
                   <div className="text-center">
-                    <div className="font-display font-bold text-xl text-gradient-orange">12</div>
+                    <div className="font-display font-bold text-xl text-gradient-teal">12</div>
                     <div className="text-xs text-muted-foreground">Заказов</div>
                   </div>
                   <div className="text-center">
-                    <div className="font-display font-bold text-xl text-green-400">2</div>
+                    <div className="font-display font-bold text-xl text-emerald-500">2</div>
                     <div className="text-xs text-muted-foreground">В пути</div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-card border border-border rounded-2xl overflow-hidden mb-6">
+              <div className="bg-white border border-border card-soft rounded-3xl overflow-hidden mb-6">
                 <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-                  <h3 className="font-display font-bold text-xl">ИСТОРИЯ ЗАКАЗОВ</h3>
+                  <h3 className="font-display font-bold text-xl text-slate-800">ИСТОРИЯ ЗАКАЗОВ</h3>
                   <button className="text-sm text-primary hover:underline">Все заказы →</button>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-border">
+                      <tr className="border-b border-border bg-secondary/40">
                         <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">№ Заказа</th>
                         <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">Дата</th>
                         <th className="text-left px-6 py-3 text-xs text-muted-foreground font-medium">Товар</th>
@@ -573,14 +579,14 @@ export default function Index() {
                     </thead>
                     <tbody>
                       {orderHistory.map((o, i) => (
-                        <tr key={i} className="border-b border-border last:border-0 hover:bg-secondary/50 transition-colors">
+                        <tr key={i} className="border-b border-border last:border-0 hover:bg-secondary/40 transition-colors">
                           <td className="px-6 py-4 text-sm font-mono text-primary">{o.id}</td>
                           <td className="px-6 py-4 text-sm text-muted-foreground">{o.date}</td>
-                          <td className="px-6 py-4 text-sm">{o.product}</td>
+                          <td className="px-6 py-4 text-sm text-slate-700">{o.product}</td>
                           <td className="px-6 py-4">
-                            <span className={`text-sm font-medium ${o.statusColor}`}>{o.status}</span>
+                            <span className={`text-xs font-medium px-3 py-1 rounded-full ${o.statusColor}`}>{o.status}</span>
                           </td>
-                          <td className="px-6 py-4 text-sm font-bold text-right">{o.amount}</td>
+                          <td className="px-6 py-4 text-sm font-bold text-right text-slate-800">{o.amount}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -588,26 +594,26 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className="bg-card border border-border rounded-2xl p-6">
-                <h3 className="font-display font-bold text-xl mb-4">СЧЕТА НА ОПЛАТУ</h3>
+              <div className="bg-white border border-border card-soft rounded-3xl p-6">
+                <h3 className="font-display font-bold text-xl mb-4 text-slate-800">СЧЕТА НА ОПЛАТУ</h3>
                 <div className="space-y-3">
                   {[
                     { num: "INV-2841", date: "8 мая 2025", amount: "180 000 ₽", status: "Оплачен", paid: true },
                     { num: "INV-2756", date: "1 апр 2025", amount: "95 000 ₽", status: "Ожидает оплаты", paid: false },
                   ].map((inv, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-background rounded-xl">
+                    <div key={i} className="flex items-center justify-between p-4 bg-secondary/50 rounded-2xl">
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${inv.paid ? "bg-green-500/20" : "bg-amber-500/20"}`}>
-                          <Icon name="FileText" size={16} className={inv.paid ? "text-green-400" : "text-amber-400"} />
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${inv.paid ? "bg-emerald-100" : "bg-amber-100"}`}>
+                          <Icon name="FileText" size={16} className={inv.paid ? "text-emerald-600" : "text-amber-600"} />
                         </div>
                         <div>
-                          <div className="text-sm font-medium">{inv.num}</div>
+                          <div className="text-sm font-medium text-slate-800">{inv.num}</div>
                           <div className="text-xs text-muted-foreground">{inv.date}</div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-bold text-sm">{inv.amount}</div>
-                        <div className={`text-xs ${inv.paid ? "text-green-400" : "text-amber-400"}`}>{inv.status}</div>
+                        <div className="font-bold text-sm text-slate-800">{inv.amount}</div>
+                        <div className={`text-xs ${inv.paid ? "text-emerald-600" : "text-amber-600"}`}>{inv.status}</div>
                       </div>
                     </div>
                   ))}
@@ -622,13 +628,13 @@ export default function Index() {
             </div>
           ) : (
             <div className="max-w-md mx-auto text-center reveal">
-              <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon name="Lock" size={32} className="text-muted-foreground" />
+              <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <Icon name="Lock" size={32} className="text-primary" />
               </div>
               <p className="text-muted-foreground mb-6">Войдите в личный кабинет, чтобы просматривать историю заказов и счета</p>
               <button
                 onClick={() => setShowLoginModal(true)}
-                className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold rounded-xl hover:opacity-90 transition-all hover:scale-105"
+                className="px-8 py-4 bg-gradient-brand text-white font-display font-semibold rounded-2xl hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-teal-500/20"
               >
                 Войти в кабинет
               </button>
@@ -638,17 +644,17 @@ export default function Index() {
       </section>
 
       {/* CONTACTS */}
-      <section id="contacts" className="py-24 px-4 bg-card/50">
+      <section id="contacts" className="py-24 px-4 bg-secondary/40">
         <div className="container mx-auto">
           <div className="text-center mb-16 reveal">
-            <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">Контакты</div>
-            <h2 className="font-display text-5xl font-bold mb-4">ОСТАВЬТЕ<br /><span className="text-gradient-orange">ЗАЯВКУ</span></h2>
+            <div className="inline-block px-4 py-1 bg-accent rounded-full text-primary text-sm font-medium mb-4">Контакты</div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-800">ОСТАВЬТЕ <span className="text-gradient-teal">ЗАЯВКУ</span></h2>
             <p className="text-muted-foreground">Свяжемся в течение 30 минут и рассчитаем стоимость</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <div className="reveal">
-              <img src={DELIVERY_IMAGE} alt="delivery" className="w-full h-56 object-cover rounded-2xl mb-8 opacity-80" />
+              <img src={DELIVERY_IMAGE} alt="delivery" className="w-full h-56 object-cover rounded-3xl mb-8 shadow-lg" />
               <div className="space-y-4">
                 {[
                   { icon: "Phone", label: "+7 (800) 000-00-00", desc: "Бесплатно по России" },
@@ -657,11 +663,11 @@ export default function Index() {
                   { icon: "Clock", label: "09:00 — 21:00 МСК", desc: "Ежедневно" },
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
                       <Icon name={c.icon} size={18} className="text-primary" />
                     </div>
                     <div>
-                      <div className="font-medium">{c.label}</div>
+                      <div className="font-medium text-slate-800">{c.label}</div>
                       <div className="text-sm text-muted-foreground">{c.desc}</div>
                     </div>
                   </div>
@@ -669,23 +675,23 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="reveal bg-card border border-border rounded-2xl p-8">
+            <div className="reveal bg-white border border-border card-soft rounded-3xl p-8">
               {formSent ? (
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎉</div>
-                  <h3 className="font-display font-bold text-2xl mb-2">Заявка отправлена!</h3>
+                  <h3 className="font-display font-bold text-2xl mb-2 text-slate-800">Заявка отправлена!</h3>
                   <p className="text-muted-foreground">Свяжемся с вами в течение 30 минут</p>
                 </div>
               ) : (
                 <form onSubmit={handleContactSubmit} className="space-y-4">
-                  <h3 className="font-display font-bold text-2xl mb-6">ПОЛУЧИТЬ РАСЧЁТ</h3>
+                  <h3 className="font-display font-bold text-2xl mb-6 text-slate-800">ПОЛУЧИТЬ РАСЧЁТ</h3>
                   <div>
                     <label className="text-sm text-muted-foreground mb-1 block">Ваше имя</label>
                     <input
                       value={contactForm.name}
                       onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                       placeholder="Иван Иванов"
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                      className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                       required
                     />
                   </div>
@@ -695,7 +701,7 @@ export default function Index() {
                       value={contactForm.phone}
                       onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                       placeholder="+7 999 000 00 00"
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                      className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                       required
                     />
                   </div>
@@ -706,12 +712,12 @@ export default function Index() {
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                       placeholder="Опишите товар, примерное количество и бюджет..."
                       rows={4}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm resize-none"
+                      className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm resize-none"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-4 bg-gradient-brand text-white font-display font-semibold text-lg rounded-xl hover:opacity-90 transition-all hover:scale-[1.02]"
+                    className="w-full py-4 bg-gradient-brand text-white font-display font-semibold text-lg rounded-2xl hover:opacity-90 transition-all hover:scale-[1.02] shadow-lg shadow-teal-500/20"
                   >
                     Отправить заявку
                   </button>
@@ -724,15 +730,15 @@ export default function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-card border-t border-border py-12 px-4">
+      <footer className="bg-white border-t border-border py-12 px-4">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-brand rounded-lg flex items-center justify-center">
+                <div className="w-9 h-9 bg-gradient-brand rounded-xl flex items-center justify-center">
                   <span className="text-white font-display font-bold text-sm">CB</span>
                 </div>
-                <span className="font-display font-bold text-xl">China<span className="text-gradient-orange">Bridge</span></span>
+                <span className="font-display font-bold text-xl text-slate-800">China<span className="text-gradient-teal">Bridge</span></span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
             </div>
@@ -742,10 +748,10 @@ export default function Index() {
               { title: "Поддержка", links: ["FAQ", "Контакты", "Конфиденциальность", "Оферта"] },
             ].map((col, i) => (
               <div key={i}>
-                <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-4">{col.title}</h4>
+                <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-4 text-slate-800">{col.title}</h4>
                 <ul className="space-y-2">
                   {col.links.map((l, j) => (
-                    <li key={j}><button className="text-sm text-muted-foreground hover:text-foreground transition-colors">{l}</button></li>
+                    <li key={j}><button className="text-sm text-muted-foreground hover:text-primary transition-colors">{l}</button></li>
                   ))}
                 </ul>
               </div>
@@ -761,16 +767,16 @@ export default function Index() {
       {/* LOGIN MODAL */}
       {showLoginModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowLoginModal(false)} />
-          <div className="relative bg-card border border-border rounded-2xl p-8 w-full max-w-md shadow-2xl animate-scale-in">
-            <button onClick={() => setShowLoginModal(false)} className="absolute top-4 right-4 p-2 hover:bg-secondary rounded-lg transition-all">
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowLoginModal(false)} />
+          <div className="relative bg-white border border-border rounded-3xl p-8 w-full max-w-md shadow-2xl animate-scale-in">
+            <button onClick={() => setShowLoginModal(false)} className="absolute top-4 right-4 p-2 hover:bg-secondary rounded-xl transition-all">
               <Icon name="X" size={18} />
             </button>
             <div className="text-center mb-6">
-              <div className="w-14 h-14 bg-gradient-brand rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 bg-gradient-brand rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Icon name="User" size={24} className="text-white" />
               </div>
-              <h3 className="font-display font-bold text-2xl">ВОЙТИ В КАБИНЕТ</h3>
+              <h3 className="font-display font-bold text-2xl text-slate-800">ВОЙТИ В КАБИНЕТ</h3>
               <p className="text-sm text-muted-foreground mt-1">Введите данные для входа</p>
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -781,7 +787,7 @@ export default function Index() {
                   value={loginForm.email}
                   onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
                   placeholder="your@email.com"
-                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                  className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                   required
                 />
               </div>
@@ -792,13 +798,13 @@ export default function Index() {
                   value={loginForm.password}
                   onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                  className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-brand text-white font-display font-semibold rounded-xl hover:opacity-90 transition-all hover:scale-[1.02]"
+                className="w-full py-4 bg-gradient-brand text-white font-display font-semibold rounded-2xl hover:opacity-90 transition-all hover:scale-[1.02] shadow-lg shadow-teal-500/20"
               >
                 Войти
               </button>
