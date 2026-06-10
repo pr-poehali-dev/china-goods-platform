@@ -490,9 +490,7 @@ export default function Index() {
       <section className="py-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
           <div className="text-center mb-12 reveal">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-primary" style={{background:"hsl(200,80%,90%)"}}>
-              Категории товаров
-            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-primary" style={{background:"hsl(200,80%,90%)"}}>Поставщики товаров</div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy">
               Закупаем <span className="text-grad">всё из Китая</span>
             </h2>
