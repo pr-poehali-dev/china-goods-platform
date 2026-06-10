@@ -410,11 +410,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SELLER VIDEOS */}
-      <SellerVideos />
-
-
-
       {/* services anchor */}
       <div id="services" />
 
@@ -503,6 +498,9 @@ export default function Index() {
       </section>
 
       <div id="reviews" />
+
+      {/* SELLER VIDEOS */}
+      <SellerVideos />
 
       {/* BLOG */}
       <section id="blog" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
