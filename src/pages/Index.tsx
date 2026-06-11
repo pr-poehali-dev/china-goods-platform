@@ -258,28 +258,28 @@ export default function Index() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="max-w-2xl will-change-transform" style={{ transform: `translateY(${scrollY * 0.06}px)` }}>
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/60 rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
               </div>
-              <h1 className="font-display md:text-5xl leading-[1.12] mb-6 animate-fade-in-up text-brand-navy font-extrabold text-left text-7xl">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-5xl lg:text-6xl leading-[1.12] mb-6 animate-fade-in-up text-brand-navy font-extrabold text-left">
                 Платформа для <span className="text-grad">закупок</span> в Китае
               </h1>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
+              <p className="text-base sm:text-lg text-slate-600 mb-6 sm:mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
                 Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
               </p>
               <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
                 <button
                   onClick={() => scrollTo("contacts")}
-                  className="btn-modern px-8 py-4 text-white font-body font-bold text-lg rounded-2xl shadow-lg"
+                  className="btn-modern px-5 py-3 sm:px-8 sm:py-4 text-white font-body font-bold text-base sm:text-lg rounded-2xl shadow-lg"
                 >
                   Начать закупку
                 </button>
                 <button
                   onClick={() => scrollTo("services")}
-                  className="px-8 py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
+                  className="px-5 py-3 sm:px-8 sm:py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-base sm:text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
                 >
                   <Icon name="Play" size={18} className="text-primary" />
                   Как это работает
@@ -287,7 +287,7 @@ export default function Index() {
               </div>
 
               {/* Статистика под кнопками */}
-              <div className="flex gap-8 mt-10 animate-fade-in-up delay-400">
+              <div className="flex gap-4 sm:gap-8 mt-8 sm:mt-10 flex-wrap animate-fade-in-up delay-400">
                 {[
                   { value: "500+", label: "проверенных фабрик" },
                   { value: "4.9★", label: "рейтинг клиентов" },
@@ -302,7 +302,7 @@ export default function Index() {
             </div>
 
             {/* Hero — дракон */}
-            <div className="relative animate-fade-in-up delay-200 flex items-center justify-center">
+            <div className="relative animate-fade-in-up delay-200 flex items-center justify-center mt-4 lg:mt-0">
               <div
                 className="relative will-change-transform w-full max-w-lg mx-auto"
                 style={{ transform: `translateY(${scrollY * -0.06}px)` }}
@@ -311,7 +311,7 @@ export default function Index() {
 
                 {/* Слайдер видео поставщиков / дракон-заглушка */}
                 {heroVideos.length > 0 ? (
-                  <div className="relative w-56 md:w-64 mx-auto">
+                  <div className="relative w-48 sm:w-56 md:w-64 mx-auto">
                     {/* Карточка видео */}
                     <div
                       className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70"
@@ -377,7 +377,7 @@ export default function Index() {
 
                 {/* Плавающая карточка — доставлено */}
                 <div
-                  className="absolute top-[15%] -left-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
+                  className="hidden sm:flex absolute top-[15%] -left-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 items-center gap-3 animate-float z-20"
                   style={{ animationDelay: "0.8s", transform: `translateY(${scrollY * 0.08}px)` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-brand-mint flex items-center justify-center">
@@ -391,7 +391,7 @@ export default function Index() {
 
                 {/* Плавающая карточка — рейтинг */}
                 <div
-                  className="absolute bottom-[12%] -right-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 flex items-center gap-3 animate-float z-20"
+                  className="hidden sm:flex absolute bottom-[12%] -right-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 items-center gap-3 animate-float z-20"
                   style={{ animationDelay: "1.4s", transform: `translateY(${scrollY * -0.06}px)` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
@@ -483,10 +483,10 @@ export default function Index() {
         </div>
 
         <div className="container mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
             {/* Левая — фото / карточки статистики */}
-            <div className="reveal relative">
+            <div className="reveal relative mb-0 sm:mb-8 lg:mb-0">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-300/25 border-4 border-white/80">
                 <img src={MARKET_IMAGE} alt="О компании ChinaCarts" className="w-full h-80 object-cover" />
                 <div className="absolute inset-0" style={{background: "linear-gradient(to top, hsl(220,45%,18%,0.6) 0%, transparent 55%)"}} />
@@ -505,7 +505,7 @@ export default function Index() {
               </div>
 
               {/* плавающая карточка — гарантия */}
-              <div className="absolute -bottom-6 -right-4 bg-white rounded-2xl px-4 py-3 shadow-xl shadow-sky-300/20 border border-white flex items-center gap-3 animate-float" style={{animationDuration:"5s"}}>
+              <div className="hidden sm:flex absolute -bottom-6 -right-4 bg-white rounded-2xl px-4 py-3 shadow-xl shadow-sky-300/20 border border-white items-center gap-3 animate-float" style={{animationDuration:"5s"}}>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{background:"linear-gradient(135deg,hsl(354,78%,52%,0.12),hsl(25,85%,55%,0.18))"}}>🛡️</div>
                 <div>
                   <div className="font-display font-bold text-sm text-brand-navy">Гарантия качества</div>
@@ -529,7 +529,7 @@ export default function Index() {
                 За 7 лет мы выстроили сеть из 500+ проверенных поставщиков и помогли тысячам предпринимателей сэкономить на закупках до 40%.
               </p>
 
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 {[
                   { emoji: "🏭", title: "500+ фабрик", desc: "проверенная база поставщиков" },
                   { emoji: "🚀", title: "7 лет", desc: "опыта в закупках из Китая" },
@@ -619,7 +619,7 @@ export default function Index() {
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Советы и статьи <span className="text-grad">по закупкам</span></h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {articles.map((a, i) => (
               <div key={i} className="reveal card-soft bg-white rounded-2xl overflow-hidden cursor-pointer group" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="h-32 flex items-center justify-center text-5xl" style={{background: "linear-gradient(135deg, hsl(200,70%,90%), hsl(200,60%,94%)"}}>
@@ -650,7 +650,7 @@ export default function Index() {
       {/* FOOTER */}
       <footer className="py-12 px-4" style={{background: "hsl(220,45%,18%)"}}>
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
