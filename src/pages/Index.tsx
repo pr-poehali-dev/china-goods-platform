@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
-import SellerVideos from "@/components/SellerVideos";
 import AccountNavButton from "@/components/AccountNavButton";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
@@ -543,8 +542,7 @@ export default function Index() {
         </section>
       )}
 
-      {/* SELLER VIDEOS */}
-      <SellerVideos />
+
 
       {/* BLOG */}
       <section id="blog" className="py-24 px-4" style={{background: "hsl(200,60%,97%)"}}>
