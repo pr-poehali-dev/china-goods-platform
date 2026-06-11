@@ -1,0 +1,13 @@
+{
+  "tests": [
+    {
+      "name": "Unauthorized without token",
+      "method": "POST",
+      "path": "/?action=init",
+      "body": {"ext": "mp4"},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

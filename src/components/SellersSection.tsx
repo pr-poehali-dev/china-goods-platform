@@ -6,7 +6,9 @@ import { toast } from "sonner";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const CONTENT_URL = "https://functions.poehali.dev/497830cf-ab2d-4e0b-b5a1-497fa90b8d0d";
+const CHUNK_URL = "https://functions.poehali.dev/4ef9bd33-5775-48e5-ae6c-a4a396086a2f";
 const CHAT_URL = "https://functions.poehali.dev/e2bc4a3b-2c2f-4ed5-a331-28cca59b4a69";
+const CHUNK_SIZE = 5 * 1024 * 1024; // 5 МБ
 
 const playNotificationSound = () => {
   try {
@@ -269,34 +271,50 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     loadPublic();
   };
 
-  const uploadVideoWithProgress = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = (reader.result as string).split(",")[1];
-        const ext = file.name.split(".").pop() || "mp4";
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", `${CONTENT_URL}?action=upload`);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("X-Auth-Token", token!);
-        xhr.upload.onprogress = (ev) => {
-          if (ev.lengthComputable) setVideoProgress(Math.round((ev.loaded / ev.total) * 100));
-        };
-        xhr.onload = () => {
-          try {
-            const data = JSON.parse(xhr.responseText);
-            if (xhr.status === 200 && data.url) resolve(data.url);
-            else reject(new Error(data.error || "Ошибка загрузки"));
-          } catch {
-            reject(new Error("Ошибка загрузки"));
-          }
-        };
-        xhr.onerror = () => reject(new Error("Ошибка сети"));
-        xhr.send(JSON.stringify({ file_base64: base64, content_type: file.type, ext }));
-      };
-      reader.onerror = () => reject(new Error("Не удалось прочитать файл"));
-      reader.readAsDataURL(file);
+  const uploadVideoWithProgress = async (file: File): Promise<string> => {
+    const ext = file.name.split(".").pop() || "mp4";
+    const headers = { "Content-Type": "application/json", "X-Auth-Token": token! };
+
+    // 1. Инициализируем multipart upload
+    const initRes = await fetch(`${CHUNK_URL}?action=init`, {
+      method: "POST", headers,
+      body: JSON.stringify({ ext, content_type: file.type }),
     });
+    const initData = await initRes.json();
+    if (!initRes.ok || !initData.upload_id) throw new Error(initData.error || "Ошибка инициализации");
+    const { upload_id, key } = initData;
+
+    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+    const parts: { part_number: number; etag: string }[] = [];
+
+    // 2. Загружаем по чанкам
+    for (let i = 0; i < totalChunks; i++) {
+      const slice = file.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
+      const arrayBuf = await slice.arrayBuffer();
+      const b64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuf)));
+
+      const chunkRes = await fetch(`${CHUNK_URL}?action=chunk`, {
+        method: "POST", headers,
+        body: JSON.stringify({ key, upload_id, part_number: i + 1, chunk_b64: b64 }),
+      });
+      const chunkData = await chunkRes.json();
+      if (!chunkRes.ok || !chunkData.etag) {
+        await fetch(`${CHUNK_URL}?action=abort`, { method: "POST", headers, body: JSON.stringify({ key, upload_id }) });
+        throw new Error(chunkData.error || "Ошибка загрузки чанка");
+      }
+      parts.push({ part_number: i + 1, etag: chunkData.etag });
+      setVideoProgress(Math.round(((i + 1) / totalChunks) * 100));
+    }
+
+    // 3. Завершаем загрузку
+    const completeRes = await fetch(`${CHUNK_URL}?action=complete`, {
+      method: "POST", headers,
+      body: JSON.stringify({ key, upload_id, parts }),
+    });
+    const completeData = await completeRes.json();
+    if (!completeRes.ok || !completeData.url) throw new Error(completeData.error || "Ошибка завершения загрузки");
+    return completeData.url;
+  };
 
   const handleVideoFile = async (file: File | undefined) => {
     setVideoError("");
