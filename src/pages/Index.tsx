@@ -76,6 +76,8 @@ export default function Index() {
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
   const [sellers, setSellers] = useState<SellerCard[]>([]);
+  const [heroVideos, setHeroVideos] = useState<{url: string; seller: string; avatar: string}[]>([]);
+  const [heroVideoIdx, setHeroVideoIdx] = useState(0);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
@@ -83,7 +85,16 @@ export default function Index() {
   useEffect(() => {
     fetch(`${SELLERS_URL}?action=list`)
       .then(r => r.json())
-      .then(data => setSellers(data.sellers || []))
+      .then(data => {
+        setSellers(data.sellers || []);
+        const vids: {url: string; seller: string; avatar: string}[] = [];
+        (data.sellers || []).forEach((s: {company_name: string; avatar_url: string; videos: {video_url: string}[]}) => {
+          (s.videos || []).forEach(v => {
+            vids.push({ url: v.video_url, seller: s.company_name, avatar: s.avatar_url });
+          });
+        });
+        setHeroVideos(vids);
+      })
       .catch(() => {});
   }, []);
 
@@ -299,16 +310,70 @@ export default function Index() {
               >
 
 
-                {/* Сам дракон */}
-                <img
-                  src={DRAGON_IMAGE}
-                  alt="Китайский дракон — символ удачи в торговле"
-                  className="w-full animate-float drop-shadow-2xl object-contain rounded-xl"
-                  style={{
-                    animationDuration: "6s",
-                    filter: "drop-shadow(0 30px 50px rgba(180,30,30,0.25))",
-                  }}
-                />
+                {/* Слайдер видео поставщиков / дракон-заглушка */}
+                {heroVideos.length > 0 ? (
+                  <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70">
+                    <video
+                      key={heroVideos[heroVideoIdx].url}
+                      src={heroVideos[heroVideoIdx].url}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Градиент снизу */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    {/* Подпись поставщика */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
+                        {heroVideos[heroVideoIdx].avatar ? (
+                          <img src={heroVideos[heroVideoIdx].avatar} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                            {heroVideos[heroVideoIdx].seller?.[0]}
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-white text-sm font-semibold drop-shadow">{heroVideos[heroVideoIdx].seller}</span>
+                    </div>
+                    {/* Стрелки */}
+                    {heroVideos.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => setHeroVideoIdx(i => (i - 1 + heroVideos.length) % heroVideos.length)}
+                          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-lg transition-all z-10"
+                        >
+                          <Icon name="ChevronLeft" size={18} className="text-brand-navy" />
+                        </button>
+                        <button
+                          onClick={() => setHeroVideoIdx(i => (i + 1) % heroVideos.length)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-lg transition-all z-10"
+                        >
+                          <Icon name="ChevronRight" size={18} className="text-brand-navy" />
+                        </button>
+                        {/* Точки */}
+                        <div className="absolute top-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+                          {heroVideos.map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setHeroVideoIdx(i)}
+                              className="h-1.5 rounded-full transition-all"
+                              style={{width: i === heroVideoIdx ? 20 : 6, background: i === heroVideoIdx ? "white" : "rgba(255,255,255,0.5)"}}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <img
+                    src={DRAGON_IMAGE}
+                    alt="Китайский дракон — символ удачи в торговле"
+                    className="w-full animate-float drop-shadow-2xl object-contain rounded-xl"
+                    style={{ animationDuration: "6s", filter: "drop-shadow(0 30px 50px rgba(180,30,30,0.25))" }}
+                  />
+                )}
 
                 {/* Плавающая карточка — доставлено */}
                 <div
