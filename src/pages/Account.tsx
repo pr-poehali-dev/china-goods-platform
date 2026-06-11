@@ -12,8 +12,8 @@ export default function Account() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
-            <span className="font-bold text-xl tracking-wide" style={{color:"hsl(220,45%,18%)", fontFamily:"'Playfair Display', serif"}}>
-              China<span style={{color:"hsl(200,80%,45%)"}}>Carts</span>
+            <span className="font-bold text-xl tracking-wide" style={{color:"#111", fontFamily:"'Inter', 'Manrope', sans-serif", letterSpacing:"-0.03em"}}>
+              China<span style={{color:"#cc0000"}}>Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">
