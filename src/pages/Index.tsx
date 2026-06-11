@@ -278,7 +278,7 @@ export default function Index() {
                   Начать закупку
                 </button>
                 <button
-                  onClick={() => scrollTo("services")}
+                  onClick={() => navigate("/how-it-works")}
                   className="px-5 py-3 sm:px-8 sm:py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-base sm:text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
                 >
                   <Icon name="Play" size={18} className="text-primary" />
