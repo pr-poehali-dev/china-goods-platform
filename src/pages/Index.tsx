@@ -651,8 +651,16 @@ export default function Index() {
       <footer className="py-12 px-4" style={{background: "hsl(220,45%,18%)"}}>
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8">
-            <div>
+            <div className="space-y-3">
               <p className="text-sm text-white/60 leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
+              <a href="tel:89191861222" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+                <Icon name="Phone" size={14} className="text-primary flex-shrink-0" />
+                8 919 186-12-22
+              </a>
+              <a href="mailto:info@chinacarts.ru" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+                <Icon name="Mail" size={14} className="text-primary flex-shrink-0" />
+                info@chinacarts.ru
+              </a>
             </div>
             {[
               { title: "Услуги", links: ["Поиск товаров", "Выкуп", "Доставка", "Таможня"] },
