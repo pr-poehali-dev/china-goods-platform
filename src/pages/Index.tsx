@@ -652,10 +652,6 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
-                <span className="font-bold text-xl text-white" style={{fontFamily:"'Playfair Display', serif"}}>China<span style={{color:"hsl(200,80%,65%)"}}>Carts</span></span>
-              </div>
               <p className="text-sm text-white/60 leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
             </div>
             {[
