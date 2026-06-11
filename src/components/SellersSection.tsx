@@ -63,6 +63,8 @@ interface Product {
   price: string;
   description: string;
   image_url: string;
+  category?: string;
+  min_order?: string;
 }
 interface Video {
   id: number;
@@ -107,6 +109,9 @@ export default function SellersSection({ embedded = false, compact = false }: { 
 
   const [profile, setProfile] = useState({ company_name: "", wechat_id: "", phone: "", description: "", city: "", avatar_url: "" });
   const [savedMsg, setSavedMsg] = useState("");
+
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Все");
 
   const [productForm, setProductForm] = useState({ title: "", price: "", description: "", image_url: "", category: "", min_order: "" });
   const [uploadingImg, setUploadingImg] = useState(false);
@@ -816,101 +821,165 @@ export default function SellersSection({ embedded = false, compact = false }: { 
         {/* Публичный каталог поставщиков */}
         {!compact && (
         <div className="max-w-6xl mx-auto">
-          {publicSellers.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Icon name="Store" size={28} className="text-primary" />
-              </div>
-              <p className="text-brand-navy font-bold text-lg mb-1">Пока нет поставщиков</p>
-              <p className="text-muted-foreground text-sm">Станьте первым — зарегистрируйтесь выше</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {publicSellers.map((s) => (
-                <div key={s.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-white/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col">
 
-                  {/* Шапка карточки */}
-                  <div className="relative h-28 flex-shrink-0" style={{background: "linear-gradient(135deg, hsl(210,60%,92%), hsl(200,70%,88%))"}}>
-                    {s.products.find(p => p.image_url) ? (
-                      <img src={s.products.find(p => p.image_url)!.image_url} alt="" className="w-full h-full object-cover opacity-40" />
-                    ) : null}
-                    <div className="absolute inset-0 flex items-end px-5 pb-0">
-                      <div className="w-16 h-16 rounded-2xl border-4 border-white shadow-lg overflow-hidden flex-shrink-0 translate-y-8 bg-white"
-                        style={{background: "linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
-                        {s.avatar_url ? (
-                          <img src={s.avatar_url} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center font-display font-bold text-2xl text-primary">
-                            {s.company_name?.[0]?.toUpperCase()}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {s.city && (
-                      <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[11px] font-medium text-slate-600">
-                        <Icon name="MapPin" size={11} /> {s.city}
-                      </div>
+          {/* Поиск + фильтр категорий */}
+          {publicSellers.length > 0 && (() => {
+            const allCategories = ["Все", ...Array.from(new Set(
+              publicSellers.flatMap(s => s.products.map(p => p.category).filter(Boolean) as string[])
+            ))];
+            const filtered = publicSellers.filter(s => {
+              const q = search.toLowerCase();
+              const matchSearch = !q ||
+                s.company_name.toLowerCase().includes(q) ||
+                (s.description || "").toLowerCase().includes(q) ||
+                (s.city || "").toLowerCase().includes(q) ||
+                s.products.some(p => p.title.toLowerCase().includes(q));
+              const matchCat = activeCategory === "Все" ||
+                s.products.some(p => p.category === activeCategory);
+              return matchSearch && matchCat;
+            });
+
+            return (
+              <>
+                {/* Строка поиска */}
+                <div className="flex flex-col sm:flex-row gap-3 mb-5">
+                  <div className="relative flex-1">
+                    <Icon name="Search" size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Поиск по поставщикам, товарам, городу..."
+                      value={search}
+                      onChange={e => setSearch(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white border border-white/80 shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 text-brand-navy placeholder:text-slate-400"
+                    />
+                    {search && (
+                      <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                        <Icon name="X" size={14} />
+                      </button>
                     )}
                   </div>
-
-                  {/* Контент */}
-                  <div className="pt-10 px-5 pb-5 flex flex-col flex-1">
-                    <div className="mb-3">
-                      <div className="font-display font-bold text-brand-navy text-base leading-tight">{s.company_name}</div>
-                      {s.description && <p className="text-sm text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">{s.description}</p>}
-                    </div>
-
-                    {/* Превью товаров */}
-                    {s.products.length > 0 && (
-                      <div className="flex gap-1.5 mb-3">
-                        {s.products.slice(0, 5).map((p) => (
-                          <div key={p.id} className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden border border-slate-100 bg-secondary">
-                            {p.image_url
-                              ? <img src={p.image_url} alt={p.title} className="w-full h-full object-cover" />
-                              : <div className="w-full h-full flex items-center justify-center"><Icon name="Package" size={14} className="text-muted-foreground" /></div>
-                            }
-                          </div>
-                        ))}
-                        {s.products.length > 5 && (
-                          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-xs font-bold text-muted-foreground">
-                            +{s.products.length - 5}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Счётчики */}
-                    <div className="flex gap-3 mb-4 mt-auto">
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-primary" style={{background:"hsl(200,80%,93%)"}}>
-                        <Icon name="Package" size={12} /> {s.products.length} товаров
-                      </div>
-                      {s.videos.length > 0 && (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-violet-600" style={{background:"hsl(260,60%,93%)"}}>
-                          <Icon name="Video" size={12} /> {s.videos.length} видео
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Кнопки */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => navigate(`/supplier/${s.id}`)}
-                        className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-brand-navy font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-1.5"
-                      >
-                        <Icon name="ExternalLink" size={14} /> Профиль
-                      </button>
-                      <button
-                        onClick={() => setChatWith({ id: s.id, name: s.company_name })}
-                        className="flex-1 btn-modern px-4 py-2.5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-1.5"
-                      >
-                        <Icon name="MessageSquare" size={14} /> Написать
-                      </button>
-                    </div>
+                  <div className="text-sm text-slate-400 flex items-center gap-1 flex-shrink-0">
+                    <Icon name="Users" size={14} />
+                    {filtered.length} поставщиков
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+
+                {/* Фильтр по категориям */}
+                {allCategories.length > 1 && (
+                  <div className="flex gap-2 flex-wrap mb-6">
+                    {allCategories.map(cat => (
+                      <button
+                        key={cat}
+                        onClick={() => setActiveCategory(cat)}
+                        className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                          activeCategory === cat
+                            ? "bg-primary text-white shadow-sm"
+                            : "bg-white text-slate-500 border border-slate-200 hover:border-primary/40 hover:text-primary"
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Сетка карточек */}
+                {filtered.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Icon name="SearchX" size={32} className="text-slate-300 mx-auto mb-3" />
+                    <p className="text-slate-500 font-medium">Ничего не найдено</p>
+                    <button onClick={() => { setSearch(""); setActiveCategory("Все"); }} className="mt-2 text-primary text-sm hover:underline">Сбросить фильтры</button>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filtered.map((s) => (
+                      <div key={s.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-white/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col">
+                        <div className="relative h-28 flex-shrink-0" style={{background: "linear-gradient(135deg, hsl(210,60%,92%), hsl(200,70%,88%))"}}>
+                          {s.products.find(p => p.image_url) ? (
+                            <img src={s.products.find(p => p.image_url)!.image_url} alt="" className="w-full h-full object-cover opacity-40" />
+                          ) : null}
+                          <div className="absolute inset-0 flex items-end px-5 pb-0">
+                            <div className="w-16 h-16 rounded-2xl border-4 border-white shadow-lg overflow-hidden flex-shrink-0 translate-y-8 bg-white"
+                              style={{background: "linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
+                              {s.avatar_url ? (
+                                <img src={s.avatar_url} alt="" className="w-full h-full object-cover" />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center font-display font-bold text-2xl text-primary">
+                                  {s.company_name?.[0]?.toUpperCase()}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          {s.city && (
+                            <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[11px] font-medium text-slate-600">
+                              <Icon name="MapPin" size={11} /> {s.city}
+                            </div>
+                          )}
+                        </div>
+                        <div className="pt-10 px-5 pb-5 flex flex-col flex-1">
+                          <div className="mb-3">
+                            <div className="font-display font-bold text-brand-navy text-base leading-tight">{s.company_name}</div>
+                            {s.description && <p className="text-sm text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">{s.description}</p>}
+                          </div>
+                          {s.products.length > 0 && (
+                            <div className="flex gap-1.5 mb-3 flex-wrap">
+                              {Array.from(new Set(s.products.map(p => p.category).filter(Boolean))).slice(0, 3).map(cat => (
+                                <span key={cat} className="px-2 py-0.5 rounded-full text-[11px] font-semibold text-primary" style={{background:"hsl(200,80%,93%)"}}>
+                                  {cat}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                          {s.products.length > 0 && (
+                            <div className="flex gap-1.5 mb-3">
+                              {s.products.slice(0, 5).map((p) => (
+                                <div key={p.id} className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden border border-slate-100 bg-secondary">
+                                  {p.image_url
+                                    ? <img src={p.image_url} alt={p.title} className="w-full h-full object-cover" />
+                                    : <div className="w-full h-full flex items-center justify-center"><Icon name="Package" size={14} className="text-muted-foreground" /></div>
+                                  }
+                                </div>
+                              ))}
+                              {s.products.length > 5 && (
+                                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-xs font-bold text-muted-foreground">
+                                  +{s.products.length - 5}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          <div className="flex gap-3 mb-4 mt-auto">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-primary" style={{background:"hsl(200,80%,93%)"}}>
+                              <Icon name="Package" size={12} /> {s.products.length} товаров
+                            </div>
+                            {s.videos.length > 0 && (
+                              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-violet-600" style={{background:"hsl(260,60%,93%)"}}>
+                                <Icon name="Video" size={12} /> {s.videos.length} видео
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => navigate(`/supplier/${s.id}`)}
+                              className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-brand-navy font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-1.5"
+                            >
+                              <Icon name="ExternalLink" size={14} /> Профиль
+                            </button>
+                            <button
+                              onClick={() => setChatWith({ id: s.id, name: s.company_name })}
+                              className="flex-1 btn-modern px-4 py-2.5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-1.5"
+                            >
+                              <Icon name="MessageSquare" size={14} /> Написать
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
+
         </div>
         )}
       </div>
