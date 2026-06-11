@@ -20,9 +20,7 @@ export default function Account() {
             <Link
               to="/sellers"
               className="hidden sm:flex items-center gap-2 px-5 py-2 glass rounded-xl text-sm font-bold text-brand-navy hover:scale-[1.02] transition-all"
-            >
-              <Icon name="Store" size={16} /> Продавцы
-            </Link>
+            >Для поставщиков </Link>
             <Link
               to="/"
               className="flex items-center gap-2 px-5 py-2 glass rounded-xl text-sm font-bold text-brand-navy hover:scale-[1.02] transition-all"
