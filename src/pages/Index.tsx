@@ -178,7 +178,7 @@ export default function Index() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
             <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
-            <span className="font-display font-bold text-xl tracking-wide" style={{color: "hsl(220,45%,18%)"}}>
+            <span className="font-bold text-xl tracking-wide" style={{color: "hsl(220,45%,18%)", fontFamily: "'Playfair Display', serif", letterSpacing: "0.02em"}}>
               China<span style={{color: "hsl(200,80%,45%)"}}>Carts</span>
             </span>
           </button>
@@ -654,7 +654,7 @@ export default function Index() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
-                <span className="font-display font-bold text-xl text-white">China<span style={{color:"hsl(200,80%,65%)"}}>Carts</span></span>
+                <span className="font-bold text-xl text-white" style={{fontFamily:"'Playfair Display', serif"}}>China<span style={{color:"hsl(200,80%,65%)"}}>Carts</span></span>
               </div>
               <p className="text-sm text-white/60 leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
             </div>
