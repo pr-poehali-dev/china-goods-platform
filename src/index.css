@@ -4,57 +4,57 @@
 
 @layer base {
   :root {
-    --background: 200 60% 97%;
-    --foreground: 220 40% 18%;
+    --background: 0 0% 97%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 40% 18%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 40% 18%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 354 78% 52%;
+    --primary: 0 85% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 55% 93%;
-    --secondary-foreground: 220 40% 22%;
+    --secondary: 0 0% 93%;
+    --secondary-foreground: 0 0% 12%;
 
-    --muted: 200 40% 92%;
-    --muted-foreground: 215 16% 52%;
+    --muted: 0 0% 91%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 200 80% 90%;
-    --accent-foreground: 354 78% 45%;
+    --accent: 0 60% 93%;
+    --accent-foreground: 0 85% 40%;
 
-    --destructive: 0 75% 58%;
+    --destructive: 0 75% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 35% 88%;
-    --input: 200 35% 88%;
-    --ring: 354 78% 52%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 0 85% 45%;
 
     --radius: 1.25rem;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 40% 22%;
-    --sidebar-primary: 354 78% 52%;
+    --sidebar-foreground: 0 0% 12%;
+    --sidebar-primary: 0 85% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 200 55% 93%;
-    --sidebar-accent-foreground: 220 40% 22%;
-    --sidebar-border: 200 35% 88%;
-    --sidebar-ring: 354 78% 52%;
+    --sidebar-accent: 0 0% 93%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 0 85% 45%;
 
-    /* Brand colors — Chinese sky style */
-    --brand-red: 354 78% 52%;
-    --brand-navy: 220 45% 18%;
-    --brand-teal: 174 55% 38%;
+    /* Brand colors — Black & Red */
+    --brand-red: 0 85% 45%;
+    --brand-navy: 0 0% 8%;
+    --brand-teal: 0 0% 20%;
     --brand-yellow: 42 95% 62%;
-    --brand-cream: 200 60% 97%;
-    --brand-blue: 200 80% 55%;
-    --brand-sky: 200 85% 88%;
-    --brand-lilac: 255 55% 92%;
-    --brand-mint: 160 55% 90%;
-    --brand-peach: 25 90% 92%;
-    --brand-cloud: 200 65% 95%;
+    --brand-cream: 0 0% 97%;
+    --brand-blue: 0 85% 45%;
+    --brand-sky: 0 40% 93%;
+    --brand-lilac: 0 30% 94%;
+    --brand-mint: 0 20% 93%;
+    --brand-peach: 0 50% 94%;
+    --brand-cloud: 0 0% 95%;
     --brand-gold: 42 95% 62%;
   }
 }
@@ -66,7 +66,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Golos Text", sans-serif;
+    font-family: "Inter", "Golos Text", sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -76,19 +76,20 @@
   h2,
   h3,
   h4 {
-    font-family: "Manrope", sans-serif;
-    letter-spacing: -0.03em;
+    font-family: "Inter", "Manrope", sans-serif;
+    letter-spacing: -0.04em;
+    font-weight: 800;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: "Manrope", sans-serif;
-    letter-spacing: -0.03em;
+    font-family: "Inter", "Manrope", sans-serif;
+    letter-spacing: -0.04em;
   }
 
   .font-body {
-    font-family: "Golos Text", sans-serif;
+    font-family: "Inter", "Golos Text", sans-serif;
   }
 
   .text-gradient-teal {
@@ -126,17 +127,17 @@
   }
 
   .text-grad {
-    background: linear-gradient(135deg, hsl(354, 78%, 48%), hsl(25, 90%, 55%));
+    background: linear-gradient(135deg, hsl(0, 90%, 40%), hsl(0, 80%, 55%));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .btn-modern {
-    background: linear-gradient(135deg, hsl(354, 78%, 52%), hsl(25, 85%, 55%));
+    background: linear-gradient(135deg, hsl(0, 90%, 38%), hsl(0, 80%, 50%));
     box-shadow:
-      0 8px 20px -6px hsl(225, 85%, 55% / 0.5),
-      inset 0 1px 0 hsl(0, 0%, 100% / 0.25);
+      0 8px 20px -6px hsl(0, 85%, 40% / 0.45),
+      inset 0 1px 0 hsl(0, 0%, 100% / 0.2);
     transition:
       transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.25s ease;
@@ -145,8 +146,8 @@
   .btn-modern:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 14px 30px -8px hsl(354, 78%, 52% / 0.55),
-      inset 0 1px 0 hsl(0, 0%, 100% / 0.3);
+      0 14px 30px -8px hsl(0, 85%, 40% / 0.6),
+      inset 0 1px 0 hsl(0, 0%, 100% / 0.25);
   }
 
   .glow-aura::before {
@@ -170,33 +171,29 @@
   }
 
   .bg-navy {
-    background: hsl(220, 45%, 18%);
+    background: hsl(0, 0%, 8%);
   }
 
   .bg-cream {
-    background: hsl(200, 60%, 97%);
+    background: hsl(0, 0%, 97%);
   }
 
   .bg-gradient-soft {
-    background: linear-gradient(160deg, hsl(200, 65%, 95%), hsl(354, 50%, 96%));
+    background: linear-gradient(160deg, hsl(0, 0%, 96%), hsl(0, 40%, 96%));
   }
 
   .bg-hero-soft {
     background:
-      radial-gradient(
-        ellipse at 80% 0%,
-        hsl(200, 80%, 88%) 0%,
-        transparent 55%
-      ),
+      radial-gradient(ellipse at 80% 0%, hsl(0, 60%, 92%) 0%, transparent 55%),
       radial-gradient(
         ellipse at 10% 100%,
-        hsl(354, 60%, 93%) 0%,
+        hsl(0, 40%, 95%) 0%,
         transparent 45%
       ),
-      linear-gradient(180deg, hsl(200, 75%, 90%) 0%, hsl(200, 60%, 97%) 100%);
+      linear-gradient(180deg, hsl(0, 20%, 96%) 0%, hsl(0, 0%, 98%) 100%);
   }
 
-  /* Chinese sky cloud background */
+  /* Dark red bg */
   .bg-sky-chinese {
     background:
       radial-gradient(
@@ -204,22 +201,8 @@
         rgba(255, 255, 255, 0.9) 0%,
         transparent 40%
       ),
-      radial-gradient(
-        ellipse at 80% 15%,
-        rgba(255, 255, 255, 0.85) 0%,
-        transparent 35%
-      ),
-      radial-gradient(
-        ellipse at 50% 60%,
-        rgba(255, 255, 255, 0.7) 0%,
-        transparent 50%
-      ),
-      linear-gradient(
-        180deg,
-        hsl(200, 75%, 85%) 0%,
-        hsl(200, 65%, 92%) 50%,
-        hsl(200, 55%, 96%) 100%
-      );
+      radial-gradient(ellipse at 80% 15%, hsl(0, 60%, 95%) 0%, transparent 35%),
+      linear-gradient(180deg, hsl(0, 20%, 96%) 0%, hsl(0, 0%, 98%) 100%);
   }
 
   /* Soft pastel highlights */
