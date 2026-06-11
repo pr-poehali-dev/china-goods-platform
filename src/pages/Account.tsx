@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import BuyerAccount from "@/components/BuyerAccount";
 
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/85b6bcdd-d5cf-4378-82a8-480d59bcabcd.jpg";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/logos/f146b4f7b76b4789a405ce2176a4d4af.png";
 
 export default function Account() {
   return (
@@ -11,7 +11,7 @@ export default function Account() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain mix-blend-multiply" />
+            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
             <span className="font-bold text-xl tracking-wide" style={{color:"hsl(220,45%,18%)", fontFamily:"'Playfair Display', serif"}}>
               China<span style={{color:"hsl(200,80%,45%)"}}>Carts</span>
             </span>

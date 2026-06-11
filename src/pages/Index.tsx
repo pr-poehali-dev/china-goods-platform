@@ -18,7 +18,7 @@ const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-c
 const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/33b47b8a-be71-445f-a06d-3eedade9b217.jpg";
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/85b6bcdd-d5cf-4378-82a8-480d59bcabcd.jpg";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/logos/f146b4f7b76b4789a405ce2176a4d4af.png";
 
 
 const services = [
@@ -177,7 +177,7 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
-            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain mix-blend-multiply" />
+            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
             <span className="font-bold text-xl tracking-wide" style={{color: "hsl(220,45%,18%)", fontFamily: "'Playfair Display', serif", letterSpacing: "0.02em"}}>
               China<span style={{color: "hsl(200,80%,45%)"}}>Carts</span>
             </span>
