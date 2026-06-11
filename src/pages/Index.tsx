@@ -438,12 +438,12 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => scrollTo("services") },
-              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", action: () => scrollTo("services") },
-              { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => scrollTo("services") },
-              { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/sellers") },
+              { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => navigate("/service/search") },
+              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", action: () => navigate("/service/buyout") },
+              { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => navigate("/service/delivery") },
+              { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/service/suppliers") },
               { icon: "MessageSquare", label: "Чат с поставщиком", emoji: "💬", action: () => navigate("/sellers") },
-              { icon: "FileText", label: "Оставить заявку", emoji: "📋", action: () => scrollTo("contacts") },
+              { icon: "FileText", label: "Оставить заявку", emoji: "📋", action: () => navigate("/account") },
             ].map((s, i) => (
               <button
                 key={i}
