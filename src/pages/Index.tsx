@@ -473,6 +473,66 @@ export default function Index() {
       {/* services anchor */}
       <div id="services" />
 
+      {/* B2B MARKETPLACE BANNER */}
+      <section className="px-4 py-8" style={{background: "hsl(200,60%,97%)"}}>
+        <div className="container mx-auto">
+          <div className="relative rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10"
+            style={{background: "linear-gradient(135deg, hsl(210,40%,96%), hsl(200,60%,92%))", border: "1.5px solid rgba(255,255,255,0.9)", boxShadow: "0 8px 40px rgba(176,220,240,0.35)"}}>
+
+            {/* Менеджер */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1.5 w-32">
+              <div className="relative">
+                <div className="w-24 h-24 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                  <img src={MASCOT_IMAGE} alt="Менеджер" className="w-full h-full object-contain mix-blend-multiply" />
+                </div>
+                <span className="absolute -top-1.5 -right-1.5 flex items-center gap-1 px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow">
+                  <span className="w-1.5 h-1.5 bg-white rounded-full" />онлайн
+                </span>
+              </div>
+              <div className="text-sm font-bold text-brand-navy">ChinaCarts</div>
+              <div className="text-xs text-slate-500">персональный менеджер</div>
+              <div className="flex items-center gap-1 text-[10px] text-primary font-semibold mt-0.5">
+                <Icon name="Clock" size={11} /> ОТВЕЧАЕТ ЗА 2 МИН
+              </div>
+            </div>
+
+            {/* Контент */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2 h-2 bg-primary rounded-full" />
+                <span className="text-xs font-bold tracking-widest text-primary uppercase">Маркетплейс B2B</span>
+              </div>
+              <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-brand-navy mb-3 flex items-center gap-2">
+                Поставщики из Китая
+                <button onClick={() => navigate("/sellers")} className="text-primary hover:scale-110 transition-transform">
+                  <Icon name="ArrowUpRight" size={28} className="text-primary" />
+                </button>
+              </h2>
+              <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-5 max-w-xl">
+                Объединяем оптовых поставщиков и закупщиков в одной платформе. Заполняйте «корзины» оптовыми партиями, проверяйте поставщиков, договаривайтесь и отгружайте — всё в одном месте, без посредников.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { icon: "ShieldCheck", color: "hsl(142,60%,90%)", iconColor: "hsl(142,60%,40%)", title: "Проверенные", desc: "поставщики с верификацией" },
+                  { icon: "Package", color: "hsl(210,70%,90%)", iconColor: "hsl(210,70%,50%)", title: "Оптом", desc: "от минимальных партий" },
+                  { icon: "Zap", color: "hsl(42,95%,88%)", iconColor: "hsl(42,80%,50%)", title: "Быстро", desc: "сделка за пару дней" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/80 border border-white shadow-sm">
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{background: f.color}}>
+                      <Icon name={f.icon} size={16} style={{color: f.iconColor}} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-brand-navy leading-none">{f.title}</div>
+                      <div className="text-[11px] text-slate-400 mt-0.5">{f.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section id="about" className="py-24 px-4 relative overflow-hidden" style={{background: "hsl(200,60%,97%)"}}>
         {/* облака-декор */}
