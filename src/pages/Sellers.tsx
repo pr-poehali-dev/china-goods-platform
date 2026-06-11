@@ -12,7 +12,7 @@ export default function Sellers() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
+            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain mix-blend-multiply" />
             <span className="font-bold text-xl tracking-wide" style={{color:"hsl(220,45%,18%)", fontFamily:"'Playfair Display', serif"}}>
               China<span style={{color:"hsl(200,80%,45%)"}}>Carts</span>
             </span>
