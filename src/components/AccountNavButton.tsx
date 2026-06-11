@@ -45,7 +45,7 @@ export default function AccountNavButton({ className = "" }: { className?: strin
       className={`relative flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg text-sm hover:bg-secondary/80 transition-all ${className}`}
     >
       <Icon name="UserRound" size={16} />
-      <span>{loggedIn ? "Кабинет" : "Покупателям"}</span>
+      <span>{loggedIn ? "Личный кабинет" : "Личный кабинет"}</span>
       {unread > 0 && (
         <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1.5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shadow-md shadow-blue-500/30 animate-pulse">
           {unread}
