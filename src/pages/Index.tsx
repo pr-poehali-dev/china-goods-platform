@@ -4,6 +4,16 @@ import Icon from "@/components/ui/icon";
 import SellerVideos from "@/components/SellerVideos";
 import AccountNavButton from "@/components/AccountNavButton";
 
+const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
+
+interface SellerCard {
+  id: number;
+  company_name: string;
+  city: string;
+  avatar_url: string;
+  description: string;
+}
+
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/61cb79c7-649f-463e-b3ac-2da8e1dc13d9.jpg";
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
 const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5b125bbc-8e0c-4a31-84ad-dd9479d9bceb.jpg";
@@ -66,9 +76,17 @@ export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactForm, setContactForm] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
+  const [sellers, setSellers] = useState<SellerCard[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    fetch(`${SELLERS_URL}?action=list`)
+      .then(r => r.json())
+      .then(data => setSellers(data.sellers || []))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -486,54 +504,55 @@ export default function Index() {
 
       <div id="reviews" />
 
-      {/* CATEGORIES */}
-      <section className="pt-10 pb-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
-        <div className="container mx-auto">
-          <div className="text-center mb-10 reveal">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary" style={{background:"hsl(200,80%,90%)"}}>Поставщики товаров</div>
-          </div>
+      {/* SUPPLIERS */}
+      {sellers.length > 0 && (
+        <section className="pt-10 pb-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
+          <div className="container mx-auto">
+            <div className="text-center mb-10 reveal">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary" style={{background:"hsl(200,80%,90%)"}}>
+                Поставщики товаров
+              </div>
+            </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {[
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/08259d93-d86e-4c2e-a738-ab7bd64c10f1.jpg", name: "Мэй Лин", goods: "Одежда женская" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/b578a264-883c-4530-bff9-41a76d705629.jpg", name: "Чжан Вэй", goods: "Электроника" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/7017173b-1073-4340-aac2-23d277e085cf.jpg", name: "Сяо Хуа", goods: "Аксессуары" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/1ea23d98-f506-4107-b09c-9d77eaeac189.jpg", name: "Ли Фэн", goods: "Обувь" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/7c3d2292-9c50-4131-86ab-ad7a71acd0c8.jpg", name: "Юй Янь", goods: "Красота и уход" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/4b1e22e2-ac38-4126-8b17-c50f84227b80.jpg", name: "Ван Го", goods: "Всё для дома" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/20a92eb0-fb1c-4a49-8591-6414c87263d6.jpg", name: "Чэнь Ли", goods: "Игрушки" },
-              { img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/8081db8a-f9c2-403c-b4f4-a34c8b247412.jpg", name: "Тан Мин", goods: "Ткани и фурнитура" },
-            ].map((s, i) => (
-              <button
-                key={i}
-                onClick={() => navigate(`/supplier/${i}`)}
-                className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${i * 0.07}s` }}
-              >
-                <div
-                  className="w-full aspect-square overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:shadow-sky-300/30"
-                  style={{
-                    borderRadius: "22px",
-                    background: "rgba(255,255,255,0.85)",
-                    border: "2px solid rgba(255,255,255,0.9)",
-                    boxShadow: "0 4px 16px rgba(176,220,240,0.3), 0 1px 4px rgba(0,0,0,0.06)",
-                  }}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              {sellers.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => navigate(`/supplier/${s.id}`)}
+                  className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
+                  style={{ animationDelay: `${i * 0.07}s` }}
                 >
-                  <img
-                    src={s.img}
-                    alt={s.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="mt-2.5 text-center">
-                  <div className="text-sm font-bold text-brand-navy leading-tight">{s.name}</div>
-                  <div className="text-xs text-slate-500 mt-0.5 leading-tight">{s.goods}</div>
-                </div>
-              </button>
-            ))}
+                  <div
+                    className="w-full aspect-square overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:shadow-sky-300/30"
+                    style={{
+                      borderRadius: "22px",
+                      background: "rgba(255,255,255,0.85)",
+                      border: "2px solid rgba(255,255,255,0.9)",
+                      boxShadow: "0 4px 16px rgba(176,220,240,0.3), 0 1px 4px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    {s.avatar_url ? (
+                      <img
+                        src={s.avatar_url}
+                        alt={s.company_name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-4xl font-display font-bold text-primary" style={{background:"linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
+                        {s.company_name?.[0]?.toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-2.5 text-center">
+                    <div className="text-sm font-bold text-brand-navy leading-tight line-clamp-1">{s.company_name}</div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight">{s.city || "Китай"}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* SELLER VIDEOS */}
       <SellerVideos />
