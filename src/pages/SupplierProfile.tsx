@@ -1,8 +1,9 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
-import AccountNavButton from "@/components/AccountNavButton";
 import BuyerChat from "@/components/BuyerChat";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/34d465ef-9cc6-42bc-bc73-7069c0d29790.jpg";
@@ -92,24 +93,7 @@ export default function SupplierProfile() {
   return (
     <div className="min-h-screen font-body" style={{background: "hsl(200,60%,97%)"}}>
 
-      {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
-            <span className="font-bold text-xl tracking-wide" style={{color:"#111", fontFamily:"'Inter', 'Manrope', sans-serif", letterSpacing:"-0.03em"}}>
-              China<span style={{color:"#cc0000"}}>Carts</span>
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <AccountNavButton />
-            <Link to="/" className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-brand-navy hover:bg-white/60 transition-all">
-              <Icon name="ArrowLeft" size={16} />
-              <span className="hidden sm:inline">Назад</span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <SiteHeader />
 
       {/* HERO */}
       <section className="pt-24 pb-0 relative overflow-hidden">
@@ -375,6 +359,7 @@ export default function SupplierProfile() {
         />
       )}
 
+      <SiteFooter />
     </div>
   );
 }

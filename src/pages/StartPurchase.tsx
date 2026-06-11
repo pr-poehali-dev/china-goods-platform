@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
@@ -8,7 +10,8 @@ const StartPurchase = () => {
 
   return (
     <div className="min-h-screen" style={{ background: "hsl(200,60%,97%)" }}>
-      <section className="py-24 px-4 relative overflow-hidden">
+      <SiteHeader />
+      <section className="pt-28 pb-24 px-4 relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-10 right-[5%] w-80 h-40 rounded-full bg-white/70 blur-3xl" />
           <div className="absolute bottom-0 left-[8%] w-64 h-32 rounded-full bg-white/60 blur-2xl" />
@@ -88,6 +91,7 @@ const StartPurchase = () => {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 };

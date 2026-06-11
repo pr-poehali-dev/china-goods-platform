@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 const steps = [
   {
@@ -59,9 +61,10 @@ const HowItWorks = () => {
 
   return (
     <div className="min-h-screen" style={{ background: "hsl(200,60%,97%)" }}>
+      <SiteHeader />
 
       {/* Hero */}
-      <section className="pt-16 pb-12 px-4">
+      <section className="pt-28 pb-12 px-4">
         <div className="container mx-auto text-center max-w-3xl">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary mb-5" style={{ background: "hsl(200,80%,90%)" }}>
             Маркетплейс B2B
@@ -201,6 +204,7 @@ const HowItWorks = () => {
         </div>
       </section>
 
+      <SiteFooter />
     </div>
   );
 };

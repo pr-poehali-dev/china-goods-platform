@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import AccountNavButton from "@/components/AccountNavButton";
+import SiteFooter from "@/components/SiteFooter";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 
@@ -655,52 +656,7 @@ export default function Index() {
 
       <div id="contacts" />
 
-      {/* FOOTER */}
-      <footer className="py-12 px-4" style={{background: "hsl(220,45%,18%)"}}>
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8">
-            <div className="space-y-3">
-              <p className="text-sm text-white/60 leading-relaxed">Полный цикл закупок в Китае. </p>
-              <a href="tel:89191861222" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
-                <Icon name="Phone" size={14} className="text-primary flex-shrink-0" />
-                8 919 186-12-22
-              </a>
-              <a href="mailto:info@chinacarts.ru" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
-                <Icon name="Mail" size={14} className="text-primary flex-shrink-0" />
-                info@chinacarts.ru
-              </a>
-            </div>
-            {[
-              { title: "Услуги", links: ["Поиск товаров", "Выкуп", "Доставка", "Таможня"] },
-              { title: "Компания", links: ["О нас", "Отзывы", "Блог", "Партнёры"] },
-              { title: "Поддержка", links: ["FAQ", "Контакты", "Конфиденциальность", "Оферта"] },
-            ].map((col, i) => (
-              <div key={i}>
-                <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-4 text-white">{col.title}</h4>
-                <ul className="space-y-2">
-                  {col.links.map((l, j) => (
-                    <li key={j}><button className="text-sm text-white/60 hover:text-primary transition-colors">{l}</button></li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="pt-6 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-sm text-white/60">© 2025 ChinaCarts. Все права защищены.</span>
-            <div className="flex items-center gap-3">
-              <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#0077FF]/60 flex items-center justify-center transition-all" title="ВКонтакте">
-                <Icon name="Users" size={16} className="text-white" />
-              </a>
-              <a href="https://max.ru/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#FF6B35]/60 flex items-center justify-center transition-all" title="MAX">
-                <Icon name="Radio" size={16} className="text-white" />
-              </a>
-              <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#2AABEE]/60 flex items-center justify-center transition-all" title="Telegram">
-                <Icon name="Send" size={16} className="text-white" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* Фуллскрин видео */}
       {heroVideoFs && heroVideos[heroVideoIdx] && (
