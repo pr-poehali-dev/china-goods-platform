@@ -384,31 +384,38 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             {tab === "profile" && (
               <form onSubmit={saveProfile} className="bg-white card-soft rounded-2xl p-6 space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-2xl bg-secondary border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="w-24 h-24 rounded-2xl border-2 border-dashed border-primary/30 flex items-center justify-center overflow-hidden flex-shrink-0 relative group" style={{background:"linear-gradient(135deg,hsl(200,70%,92%),hsl(200,60%,95%))"}}>
                     {profile.avatar_url ? (
                       <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <Icon name="Building2" size={28} className="text-muted-foreground" />
+                      <div className="text-center">
+                        <Icon name="Camera" size={24} className="text-primary/50 mx-auto mb-1" />
+                        <span className="text-[10px] text-slate-400">фото</span>
+                      </div>
                     )}
                   </div>
-                  <label className="cursor-pointer text-sm font-medium text-primary">
-                    <span className="px-4 py-2 bg-accent rounded-lg inline-block hover:bg-accent/70 transition-all">
-                      {uploadingImg ? "Загрузка..." : "Загрузить лого"}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (!file || !token) return;
-                        setUploadingImg(true);
-                        const url = await uploadFile(file);
-                        setProfile((p) => ({ ...p, avatar_url: url }));
-                        setUploadingImg(false);
-                      }}
-                    />
-                  </label>
+                  <div>
+                    <label className="cursor-pointer block">
+                      <span className="px-4 py-2.5 rounded-xl text-sm font-bold inline-flex items-center gap-2 transition-all hover:-translate-y-0.5" style={{background:"linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))", color:"hsl(220,45%,18%)"}}>
+                        <Icon name="Upload" size={15} />
+                        {uploadingImg ? "Загружаю..." : "Загрузить фото"}
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file || !token) return;
+                          setUploadingImg(true);
+                          const url = await uploadFile(file);
+                          setProfile((p) => ({ ...p, avatar_url: url }));
+                          setUploadingImg(false);
+                        }}
+                      />
+                    </label>
+                    <p className="text-xs text-slate-400 mt-1.5">PNG, JPG до 5 МБ. Фото отображается на главной и в профиле</p>
+                  </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>

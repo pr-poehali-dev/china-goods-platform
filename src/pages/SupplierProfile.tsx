@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 import AccountNavButton from "@/components/AccountNavButton";
+import BuyerChat from "@/components/BuyerChat";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
@@ -37,6 +38,7 @@ export default function SupplierProfile() {
   const [supplier, setSupplier] = useState<Supplier | null>(null);
   const [loading, setLoading] = useState(true);
   const [fsVideo, setFsVideo] = useState<VideoItem | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
@@ -153,16 +155,14 @@ export default function SupplierProfile() {
             </div>
 
             <div className="flex gap-3 pb-2">
-              <a
-                href={supplier.phone ? `https://t.me/${supplier.phone.replace(/[^0-9]/g,"")}` : "https://t.me/taoseller_ru"}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setChatOpen(true)}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white font-bold text-sm shadow-lg transition-all hover:-translate-y-0.5"
                 style={{background:"linear-gradient(135deg, hsl(354,78%,52%), hsl(25,85%,55%))"}}
               >
                 <Icon name="MessageCircle" size={16} />
                 Написать поставщику
-              </a>
+              </button>
             </div>
           </div>
 
@@ -316,16 +316,14 @@ export default function SupplierProfile() {
                   )}
                 </div>
 
-                <a
-                  href="https://t.me/taoseller_ru"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => setChatOpen(true)}
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-white font-bold text-sm shadow-lg transition-all hover:-translate-y-0.5"
                   style={{background:"linear-gradient(135deg, hsl(354,78%,52%), hsl(25,85%,55%))"}}
                 >
                   <Icon name="MessageCircle" size={16} />
                   Написать поставщику
-                </a>
+                </button>
 
                 <p className="text-xs text-slate-400 text-center mt-3">
                   Перевод и помощь в переговорах — бесплатно
@@ -368,6 +366,15 @@ export default function SupplierProfile() {
             onClick={e => e.stopPropagation()}
           />
         </div>
+      )}
+
+      {/* Чат с поставщиком */}
+      {chatOpen && supplier && (
+        <BuyerChat
+          sellerId={supplier.id}
+          sellerName={supplier.company_name}
+          onClose={() => setChatOpen(false)}
+        />
       )}
 
     </div>
