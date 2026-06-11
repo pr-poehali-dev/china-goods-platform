@@ -113,6 +113,8 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [videoProgress, setVideoProgress] = useState(0);
   const [videoError, setVideoError] = useState("");
   const [videoDragOver, setVideoDragOver] = useState(false);
+  const [videoUploadMode, setVideoUploadMode] = useState<"file" | "url">("file");
+  const [videoUrlInput, setVideoUrlInput] = useState("");
 
   const MAX_VIDEO_MB = 150;
 
@@ -356,6 +358,8 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     setVideoForm({ title: "", video_url: "" });
     setVideoProgress(0);
     setVideoError("");
+    setVideoUrlInput("");
+    setVideoUploadMode("file");
     loadMe(token);
     loadPublic();
   };
@@ -580,11 +584,56 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             {tab === "videos" && (
               <div className="space-y-6">
                 <form onSubmit={addVideo} className="bg-white card-soft rounded-2xl p-6 space-y-4">
-                  <h3 className="font-display font-bold text-lg text-brand-navy">Загрузить видео</h3>
+                  <h3 className="font-display font-bold text-lg text-brand-navy">Добавить видео</h3>
                   <input className={inputCls} placeholder="Название видео (необязательно)" value={videoForm.title} onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })} />
 
-                  {/* Зона загрузки drag&drop */}
+                  {/* Переключатель способа добавления */}
                   {!videoForm.video_url && !uploadingVideo && (
+                    <div className="flex rounded-xl bg-secondary/50 p-1 gap-1">
+                      <button
+                        type="button"
+                        onClick={() => setVideoUploadMode("file")}
+                        className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${videoUploadMode === "file" ? "bg-white text-brand-navy shadow-sm" : "text-muted-foreground hover:text-brand-navy"}`}
+                      >
+                        Загрузить файл
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setVideoUploadMode("url")}
+                        className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${videoUploadMode === "url" ? "bg-white text-brand-navy shadow-sm" : "text-muted-foreground hover:text-brand-navy"}`}
+                      >
+                        Вставить ссылку
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Поле для ввода ссылки */}
+                  {videoUploadMode === "url" && !videoForm.video_url && !uploadingVideo && (
+                    <div className="space-y-3">
+                      <input
+                        className={inputCls}
+                        placeholder="https://... ссылка на видео (WeChat, облако и др.)"
+                        value={videoUrlInput}
+                        onChange={(e) => setVideoUrlInput(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        disabled={!videoUrlInput.trim()}
+                        onClick={() => {
+                          const url = videoUrlInput.trim();
+                          if (!url) return;
+                          setVideoForm((f) => ({ ...f, video_url: url }));
+                          setVideoUrlInput("");
+                        }}
+                        className={`${btnCls} w-full`}
+                      >
+                        Прикрепить ссылку
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Зона загрузки drag&drop */}
+                  {videoUploadMode === "file" && !videoForm.video_url && !uploadingVideo && (
                     <label
                       onDragOver={(e) => { e.preventDefault(); setVideoDragOver(true); }}
                       onDragLeave={() => setVideoDragOver(false)}
