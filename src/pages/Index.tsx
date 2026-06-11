@@ -439,7 +439,7 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
               { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => navigate("/service/search") },
-              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", action: () => navigate("/service/buyout") },
+              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/24af0b7d-b621-40d3-8eed-a085ffc71844.jpg", action: () => navigate("/service/buyout") },
               { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => navigate("/service/delivery") },
               { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/service/suppliers") },
               { icon: "MessageSquare", label: "Чат с поставщиком", emoji: "💬", action: () => navigate("/sellers") },
@@ -459,9 +459,11 @@ export default function Index() {
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 8px 32px rgba(176,220,240,0.55), 0 2px 8px rgba(0,0,0,0.08)")}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(176,220,240,0.35), 0 1px 4px rgba(0,0,0,0.06)")}
               >
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300"
+                <div className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300"
                   style={{background: "linear-gradient(135deg, hsl(200,75%,88%), hsl(200,65%,94%))"}}>
-                  {s.emoji}
+                  {('img' in s && s.img)
+                    ? <img src={s.img as string} alt={s.label} className="w-full h-full object-cover" />
+                    : s.emoji}
                 </div>
                 <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{s.label}</span>
               </button>
