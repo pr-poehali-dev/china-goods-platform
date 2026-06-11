@@ -541,6 +541,51 @@ export default function Index() {
         </div>
       </section>
 
+      {/* SUPPLIERS */}
+      {sellers.length > 0 && (
+        <section className="pt-4 pb-10 px-4" style={{background: "hsl(200,60%,97%)"}}>
+          <div className="container mx-auto">
+            <div className="text-center mb-8 reveal">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary" style={{background:"hsl(200,80%,90%)"}}>
+                Поставщики товаров
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              {sellers.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => navigate(`/supplier/${s.id}`)}
+                  className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
+                  style={{ animationDelay: `${i * 0.07}s` }}
+                >
+                  <div
+                    className="w-full aspect-square overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:shadow-sky-300/30"
+                    style={{
+                      borderRadius: "22px",
+                      background: "rgba(255,255,255,0.85)",
+                      border: "2px solid rgba(255,255,255,0.9)",
+                      boxShadow: "0 4px 16px rgba(176,220,240,0.3), 0 1px 4px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    {s.avatar_url ? (
+                      <img src={s.avatar_url} alt={s.company_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-4xl font-display font-bold text-primary" style={{background:"linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
+                        {s.company_name?.[0]?.toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-2.5 text-center">
+                    <div className="text-sm font-bold text-brand-navy leading-tight line-clamp-1">{s.company_name}</div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight">{s.city || "Китай"}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ABOUT */}
       <section id="about" className="py-24 px-4 relative overflow-hidden" style={{background: "hsl(200,60%,97%)"}}>
         {/* облака-декор */}
@@ -626,56 +671,6 @@ export default function Index() {
       </section>
 
       <div id="reviews" />
-
-      {/* SUPPLIERS */}
-      {sellers.length > 0 && (
-        <section className="pt-10 pb-20 px-4" style={{background: "hsl(200,60%,97%)"}}>
-          <div className="container mx-auto">
-            <div className="text-center mb-10 reveal">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-primary" style={{background:"hsl(200,80%,90%)"}}>
-                Поставщики товаров
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
-              {sellers.map((s, i) => (
-                <button
-                  key={s.id}
-                  onClick={() => navigate(`/supplier/${s.id}`)}
-                  className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
-                  style={{ animationDelay: `${i * 0.07}s` }}
-                >
-                  <div
-                    className="w-full aspect-square overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:shadow-sky-300/30"
-                    style={{
-                      borderRadius: "22px",
-                      background: "rgba(255,255,255,0.85)",
-                      border: "2px solid rgba(255,255,255,0.9)",
-                      boxShadow: "0 4px 16px rgba(176,220,240,0.3), 0 1px 4px rgba(0,0,0,0.06)",
-                    }}
-                  >
-                    {s.avatar_url ? (
-                      <img
-                        src={s.avatar_url}
-                        alt={s.company_name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-4xl font-display font-bold text-primary" style={{background:"linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
-                        {s.company_name?.[0]?.toUpperCase()}
-                      </div>
-                    )}
-                  </div>
-                  <div className="mt-2.5 text-center">
-                    <div className="text-sm font-bold text-brand-navy leading-tight line-clamp-1">{s.company_name}</div>
-                    <div className="text-xs text-slate-500 mt-0.5 leading-tight">{s.city || "Китай"}</div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
 
 
