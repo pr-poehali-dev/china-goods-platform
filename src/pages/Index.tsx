@@ -316,25 +316,18 @@ export default function Index() {
                   <div className="relative w-56 md:w-64 mx-auto">
                     {/* Карточка видео */}
                     <div
-                      className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70 cursor-pointer group"
-                      onClick={() => setHeroVideoFs(true)}
+                      className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70"
                     >
                       <video
                         key={heroVideos[heroVideoIdx].url}
                         src={heroVideos[heroVideoIdx].url}
-                        autoPlay
                         muted
                         loop
                         playsInline
+                        controls
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      {/* Иконка play при hover */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                          <Icon name="Play" size={24} className="text-primary ml-1" />
-                        </div>
-                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                       {/* Подпись */}
                       <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
                         <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
