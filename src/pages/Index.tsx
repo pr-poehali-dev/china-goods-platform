@@ -161,7 +161,6 @@ export default function Index() {
 
   const navLinks = [
     { id: "home", label: "Главная" },
-    { id: "blog", label: "Блог" },
   ];
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -210,6 +209,12 @@ export default function Index() {
               <Icon name="Store" size={14} />
               Поставщики
             </Link>
+            <button
+              onClick={() => scrollTo("blog")}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary"
+            >
+              Блог
+            </button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -255,6 +260,12 @@ export default function Index() {
               <Icon name="Store" size={16} />
               Поставщики
             </Link>
+            <button
+              onClick={() => { scrollTo("blog"); setMobileMenuOpen(false); }}
+              className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium"
+            >
+              Блог
+            </button>
             <Link
               to="/account"
               onClick={() => setMobileMenuOpen(false)}
