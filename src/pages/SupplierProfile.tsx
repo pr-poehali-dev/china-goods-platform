@@ -1,6 +1,9 @@
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 import AccountNavButton from "@/components/AccountNavButton";
+
+const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
 
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
 
@@ -164,9 +167,39 @@ const suppliers: Record<string, {
   },
 };
 
+interface VideoItem {
+  id: number;
+  title: string;
+  video_url: string;
+}
+
 export default function SupplierProfile() {
   const { id } = useParams<{ id: string }>();
   const supplier = suppliers[id ?? "0"];
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [fsVideo, setFsVideo] = useState<VideoItem | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!supplier) return;
+    fetch(`${SELLERS_URL}?action=list`)
+      .then(r => r.json())
+      .then(data => {
+        const found = (data.sellers || []).find(
+          (s: { company_name: string }) => s.company_name === supplier.name
+        );
+        if (found?.videos) setVideos(found.videos);
+      })
+      .catch(() => {});
+  }, [supplier]);
+
+  useEffect(() => {
+    if (!fsVideo) { document.body.style.overflow = ""; return; }
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setFsVideo(null); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
+  }, [fsVideo]);
 
   if (!supplier) {
     return (
@@ -313,14 +346,53 @@ export default function SupplierProfile() {
                 <h2 className="font-display font-bold text-xl text-brand-navy mb-6 flex items-center gap-2">
                   <span>🎬</span> Видео с производства
                 </h2>
-                <div className="rounded-2xl overflow-hidden aspect-video flex items-center justify-center" style={{background:"linear-gradient(135deg, hsl(200,70%,88%), hsl(200,60%,93%))"}}>
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center mx-auto mb-3 shadow-lg">
-                      <Icon name="Play" size={28} className="text-primary ml-1" />
-                    </div>
-                    <p className="text-slate-500 text-sm">Поставщик добавит видео с производства</p>
+
+                {videos.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {videos.map((v) => (
+                      <button
+                        key={v.id}
+                        onClick={() => setFsVideo(v)}
+                        className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-secondary"
+                        style={{boxShadow:"0 4px 16px rgba(176,220,240,0.3)"}}
+                      >
+                        <video
+                          src={v.video_url}
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          onMouseEnter={e => { e.currentTarget.currentTime = 0; e.currentTarget.play().catch(()=>{}); }}
+                          onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity">
+                          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                            <Icon name="Play" size={22} className="text-primary ml-0.5" />
+                          </div>
+                        </div>
+                        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Icon name="Maximize2" size={14} className="text-primary" />
+                        </div>
+                        {v.title && (
+                          <div className="absolute bottom-0 left-0 right-0 p-3">
+                            <p className="text-white text-xs font-medium line-clamp-2">{v.title}</p>
+                          </div>
+                        )}
+                      </button>
+                    ))}
                   </div>
-                </div>
+                ) : (
+                  <div className="rounded-2xl overflow-hidden aspect-video flex items-center justify-center" style={{background:"linear-gradient(135deg, hsl(200,70%,88%), hsl(200,60%,93%))"}}>
+                    <div className="text-center">
+                      <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center mx-auto mb-3 shadow-lg">
+                        <Icon name="Play" size={28} className="text-primary ml-1" />
+                      </div>
+                      <p className="text-slate-500 text-sm">Поставщик скоро добавит видео</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -393,6 +465,32 @@ export default function SupplierProfile() {
           </div>
         </div>
       </section>
+
+      {/* Фуллскрин видео */}
+      {fsVideo && (
+        <div
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setFsVideo(null)}
+          onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+          onTouchEnd={e => { if ((e.changedTouches[0].clientX - (touchStartX.current ?? 0)) < -50) setFsVideo(null); }}
+        >
+          <button
+            onClick={() => setFsVideo(null)}
+            className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center z-20"
+          >
+            <Icon name="X" size={22} className="text-white" />
+          </button>
+          <video
+            src={fsVideo.video_url}
+            autoPlay
+            loop
+            controls
+            playsInline
+            className="max-w-full max-h-full rounded-2xl"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
 
     </div>
   );
