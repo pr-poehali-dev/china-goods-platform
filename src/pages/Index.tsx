@@ -272,7 +272,7 @@ export default function Index() {
               </p>
               <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
                 <button
-                  onClick={() => scrollTo("contacts")}
+                  onClick={() => navigate("/start-purchase")}
                   className="btn-modern px-5 py-3 sm:px-8 sm:py-4 text-white font-body font-bold text-base sm:text-lg rounded-2xl shadow-lg"
                 >
                   Начать закупку
