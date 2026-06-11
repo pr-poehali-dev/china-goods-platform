@@ -219,10 +219,7 @@ export default function Index() {
 
           <div className="flex items-center gap-3">
             <AccountNavButton className="hidden lg:flex" />
-            <button
-              onClick={() => scrollTo("contacts")}
-              className="hidden lg:flex btn-modern px-5 py-2 text-white font-bold text-sm rounded-xl"
-            >Поставщики </button>
+
             <button
               className="lg:hidden p-2 rounded-lg bg-secondary"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
