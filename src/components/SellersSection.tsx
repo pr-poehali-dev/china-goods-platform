@@ -112,7 +112,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [videoError, setVideoError] = useState("");
   const [videoDragOver, setVideoDragOver] = useState(false);
 
-  const MAX_VIDEO_MB = 50;
+  const MAX_VIDEO_MB = 150;
 
   const loadPublic = useCallback(async () => {
     const res = await fetch(`${SELLERS_URL}?action=list`);
