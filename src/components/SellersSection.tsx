@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SellerChats from "@/components/SellerChats";
 import BuyerChat from "@/components/BuyerChat";
@@ -90,6 +91,7 @@ const fileToBase64 = (file: File): Promise<string> =>
   });
 
 export default function SellersSection({ embedded = false, compact = false }: { embedded?: boolean; compact?: boolean }) {
+  const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("seller_token"));
   const [me, setMe] = useState<Seller | null>(null);
   const [publicSellers, setPublicSellers] = useState<Seller[]>([]);
@@ -814,64 +816,97 @@ export default function SellersSection({ embedded = false, compact = false }: { 
         {/* Публичный каталог поставщиков */}
         {!compact && (
         <div className="max-w-6xl mx-auto">
-          <h3 className="font-display font-bold text-2xl text-brand-navy mb-6 text-center">Наши поставщики</h3>
           {publicSellers.length === 0 ? (
-            <p className="text-center text-muted-foreground text-sm py-6">Пока нет зарегистрированных поставщиков — станьте первым!</p>
+            <div className="text-center py-16">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Icon name="Store" size={28} className="text-primary" />
+              </div>
+              <p className="text-brand-navy font-bold text-lg mb-1">Пока нет поставщиков</p>
+              <p className="text-muted-foreground text-sm">Станьте первым — зарегистрируйтесь выше</p>
+            </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {publicSellers.map((s) => (
-                <div key={s.id} className="bg-white card-soft rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary border border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-                      {s.avatar_url ? (
-                        <img src={s.avatar_url} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="font-display font-bold text-white">{s.company_name?.[0]?.toUpperCase()}</span>
+                <div key={s.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-white/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col">
+
+                  {/* Шапка карточки */}
+                  <div className="relative h-28 flex-shrink-0" style={{background: "linear-gradient(135deg, hsl(210,60%,92%), hsl(200,70%,88%))"}}>
+                    {s.products.find(p => p.image_url) ? (
+                      <img src={s.products.find(p => p.image_url)!.image_url} alt="" className="w-full h-full object-cover opacity-40" />
+                    ) : null}
+                    <div className="absolute inset-0 flex items-end px-5 pb-0">
+                      <div className="w-16 h-16 rounded-2xl border-4 border-white shadow-lg overflow-hidden flex-shrink-0 translate-y-8 bg-white"
+                        style={{background: "linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))"}}>
+                        {s.avatar_url ? (
+                          <img src={s.avatar_url} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center font-display font-bold text-2xl text-primary">
+                            {s.company_name?.[0]?.toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {s.city && (
+                      <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[11px] font-medium text-slate-600">
+                        <Icon name="MapPin" size={11} /> {s.city}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Контент */}
+                  <div className="pt-10 px-5 pb-5 flex flex-col flex-1">
+                    <div className="mb-3">
+                      <div className="font-display font-bold text-brand-navy text-base leading-tight">{s.company_name}</div>
+                      {s.description && <p className="text-sm text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">{s.description}</p>}
+                    </div>
+
+                    {/* Превью товаров */}
+                    {s.products.length > 0 && (
+                      <div className="flex gap-1.5 mb-3">
+                        {s.products.slice(0, 5).map((p) => (
+                          <div key={p.id} className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden border border-slate-100 bg-secondary">
+                            {p.image_url
+                              ? <img src={p.image_url} alt={p.title} className="w-full h-full object-cover" />
+                              : <div className="w-full h-full flex items-center justify-center"><Icon name="Package" size={14} className="text-muted-foreground" /></div>
+                            }
+                          </div>
+                        ))}
+                        {s.products.length > 5 && (
+                          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-xs font-bold text-muted-foreground">
+                            +{s.products.length - 5}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Счётчики */}
+                    <div className="flex gap-3 mb-4 mt-auto">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-primary" style={{background:"hsl(200,80%,93%)"}}>
+                        <Icon name="Package" size={12} /> {s.products.length} товаров
+                      </div>
+                      {s.videos.length > 0 && (
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-violet-600" style={{background:"hsl(260,60%,93%)"}}>
+                          <Icon name="Video" size={12} /> {s.videos.length} видео
+                        </div>
                       )}
                     </div>
-                    <div className="min-w-0">
-                      <div className="font-display font-bold text-brand-navy truncate">{s.company_name}</div>
-                      {s.city && <div className="text-xs text-muted-foreground flex items-center gap-1"><Icon name="MapPin" size={12} /> {s.city}</div>}
+
+                    {/* Кнопки */}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => navigate(`/supplier/${s.id}`)}
+                        className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-brand-navy font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-1.5"
+                      >
+                        <Icon name="ExternalLink" size={14} /> Профиль
+                      </button>
+                      <button
+                        onClick={() => setChatWith({ id: s.id, name: s.company_name })}
+                        className="flex-1 btn-modern px-4 py-2.5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-1.5"
+                      >
+                        <Icon name="MessageSquare" size={14} /> Написать
+                      </button>
                     </div>
                   </div>
-                  {s.description && <p className="text-sm text-slate-600 mb-4 line-clamp-3">{s.description}</p>}
-
-                  {(s.wechat_id || s.phone) && (
-                    <div className="space-y-1 mb-4 text-sm">
-                      {s.wechat_id && <div className="flex items-center gap-2 text-brand-navy"><Icon name="MessageSquare" size={14} className="text-primary" /> {s.wechat_id}</div>}
-                      {s.phone && <div className="flex items-center gap-2 text-brand-navy"><Icon name="Phone" size={14} className="text-primary" /> {s.phone}</div>}
-                    </div>
-                  )}
-
-                  {s.products.length > 0 && (
-                    <div className="flex gap-2 mb-3 overflow-x-auto scrollbar-hide">
-                      {s.products.slice(0, 4).map((p) => (
-                        <div key={p.id} className="flex-shrink-0 w-16">
-                          {p.image_url ? (
-                            <img src={p.image_url} alt={p.title} className="w-16 h-16 rounded-lg object-cover border border-border" />
-                          ) : (
-                            <div className="w-16 h-16 rounded-lg bg-secondary flex items-center justify-center"><Icon name="Package" size={18} className="text-muted-foreground" /></div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {s.videos.length > 0 && (
-                    <video src={s.videos[0].video_url} controls className="w-full h-32 rounded-lg object-cover bg-black" />
-                  )}
-
-                  <div className="flex gap-4 mt-3 mb-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1"><Icon name="Package" size={12} /> {s.products.length} товаров</span>
-                    <span className="flex items-center gap-1"><Icon name="Video" size={12} /> {s.videos.length} видео</span>
-                  </div>
-
-                  <button
-                    onClick={() => setChatWith({ id: s.id, name: s.company_name })}
-                    className="w-full btn-modern px-4 py-2.5 text-white font-body font-bold text-sm rounded-xl flex items-center justify-center gap-2"
-                  >
-                    <Icon name="MessageSquare" size={16} /> Написать поставщику
-                  </button>
                 </div>
               ))}
             </div>
