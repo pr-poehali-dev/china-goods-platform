@@ -508,9 +508,7 @@ export default function Index() {
                   <Icon name="ArrowUpRight" size={28} className="text-primary" />
                 </button>
               </h2>
-              <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-5 max-w-xl">
-                Объединяем оптовых поставщиков и закупщиков в одной платформе. Заполняйте «корзины» оптовыми партиями, проверяйте поставщиков, договаривайтесь и отгружайте — всё в одном месте, без посредников.
-              </p>
+              <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-5 max-w-xl">Объединяем оптовых поставщиков и закупщиков в одной платформе. </p>
               <div className="flex flex-wrap gap-3">
                 {[
                   { icon: "ShieldCheck", color: "hsl(142,60%,90%)", iconColor: "hsl(142,60%,40%)", title: "Проверенные", desc: "поставщики с верификацией" },
