@@ -315,7 +315,7 @@ export default function Index() {
                 <img
                   src={DRAGON_IMAGE}
                   alt="Китайский дракон — символ удачи в торговле"
-                  className="w-full object-contain animate-float drop-shadow-2xl"
+                  className="w-full animate-float drop-shadow-2xl object-contain rounded-xl"
                   style={{
                     animationDuration: "6s",
                     filter: "drop-shadow(0 30px 50px rgba(180,30,30,0.25))",
