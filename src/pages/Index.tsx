@@ -439,7 +439,7 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
               { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => navigate("/service/search") },
-              { icon: "ShoppingCart", label: "Выкуп", emoji: "🛒", img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/24af0b7d-b621-40d3-8eed-a085ffc71844.jpg", action: () => navigate("/service/buyout") },
+              { icon: "ShoppingCart", label: "Taobao", emoji: "🛒", img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/24af0b7d-b621-40d3-8eed-a085ffc71844.jpg", action: () => navigate("/service/buyout") },
               { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => navigate("/service/delivery") },
               { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/service/suppliers") },
               { icon: "MessageSquare", label: "Чат с поставщиком", emoji: "💬", action: () => navigate("/sellers") },
