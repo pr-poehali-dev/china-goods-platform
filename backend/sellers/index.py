@@ -43,14 +43,17 @@ def handler(event: dict, context) -> dict:
         row = cur.fetchone()
         return row[0] if row else None
 
+    body = json.loads(event.get('body') or '{}')
+
     # Публичный список поставщиков с товарами и видео
     if method == 'GET' and action == 'list':
         cur.execute("SELECT id, company_name, wechat_id, phone, description, avatar_url, city FROM sellers ORDER BY created_at DESC")
         sellers = []
         for r in cur.fetchall():
             sid = r[0]
-            cur.execute(f"SELECT id, title, price, description, image_url FROM seller_products WHERE seller_id = {sid} ORDER BY created_at DESC")
-            products = [{'id': p[0], 'title': p[1], 'price': p[2], 'description': p[3], 'image_url': p[4]} for p in cur.fetchall()]
+            cur.execute(f"SELECT id, title, price, description, image_url, category, min_order, size, color, stock FROM seller_products WHERE seller_id = {sid} ORDER BY created_at DESC")
+            products = [{'id': p[0], 'title': p[1], 'price': p[2], 'description': p[3], 'image_url': p[4],
+                         'category': p[5], 'min_order': p[6], 'size': p[7], 'color': p[8], 'stock': p[9]} for p in cur.fetchall()]
             cur.execute(f"SELECT id, title, video_url FROM seller_videos WHERE seller_id = {sid} ORDER BY created_at DESC")
             videos = [{'id': v[0], 'title': v[1], 'video_url': v[2]} for v in cur.fetchall()]
             sellers.append({'id': sid, 'company_name': r[1], 'wechat_id': r[2], 'phone': r[3],
@@ -58,7 +61,49 @@ def handler(event: dict, context) -> dict:
                             'products': products, 'videos': videos})
         return respond(200, {'sellers': sellers})
 
-    body = json.loads(event.get('body') or '{}')
+    # Каталог всех товаров (для страницы /products)
+    if method == 'GET' and action == 'products':
+        search = (params.get('q') or '').strip().lower()
+        category = (params.get('category') or '').strip()
+        cur.execute("""
+            SELECT sp.id, sp.title, sp.price, sp.description, sp.image_url,
+                   sp.category, sp.min_order, sp.size, sp.color, sp.stock,
+                   sp.created_at, s.id, s.company_name, s.avatar_url, s.city
+            FROM seller_products sp
+            JOIN sellers s ON s.id = sp.seller_id
+            ORDER BY sp.created_at DESC
+        """)
+        rows = cur.fetchall()
+        products = []
+        for p in rows:
+            if search and search not in (p[1] or '').lower() and search not in (p[2] or '').lower() and search not in (p[5] or '').lower():
+                continue
+            if category and (p[5] or '') != category:
+                continue
+            cur.execute(f"SELECT id, author_name, rating, text, created_at FROM product_reviews WHERE product_id = {p[0]} ORDER BY created_at DESC")
+            reviews = [{'id': r[0], 'author_name': r[1], 'rating': r[2], 'text': r[3], 'created_at': str(r[4])} for r in cur.fetchall()]
+            avg_rating = round(sum(r['rating'] for r in reviews) / len(reviews), 1) if reviews else None
+            products.append({
+                'id': p[0], 'title': p[1], 'price': p[2], 'description': p[3], 'image_url': p[4],
+                'category': p[5], 'min_order': p[6], 'size': p[7], 'color': p[8], 'stock': p[9],
+                'seller': {'id': p[11], 'company_name': p[12], 'avatar_url': p[13], 'city': p[14]},
+                'reviews': reviews, 'avg_rating': avg_rating
+            })
+        return respond(200, {'products': products})
+
+    # Добавить отзыв к товару
+    if method == 'POST' and action == 'add_review':
+        body = json.loads(event.get('body') or '{}')
+        product_id = int(body.get('product_id') or 0)
+        author = (body.get('author_name') or 'Аноним').strip().replace("'", "''")
+        rating = int(body.get('rating') or 5)
+        text = (body.get('text') or '').strip().replace("'", "''")
+        if not product_id or rating < 1 or rating > 5:
+            return respond(400, {'error': 'Неверные данные'})
+        cur.execute(f"INSERT INTO product_reviews (product_id, author_name, rating, text) VALUES ({product_id}, '{author}', {rating}, '{text}') RETURNING id")
+        rid = cur.fetchone()[0]
+        conn.commit()
+        return respond(200, {'id': rid})
 
     # Регистрация
     if method == 'POST' and action == 'register':
@@ -104,8 +149,9 @@ def handler(event: dict, context) -> dict:
             return respond(401, {'error': 'Требуется вход'})
         cur.execute(f"SELECT id, email, company_name, wechat_id, phone, description, avatar_url, city FROM sellers WHERE id = {sid}")
         r = cur.fetchone()
-        cur.execute(f"SELECT id, title, price, description, image_url FROM seller_products WHERE seller_id = {sid} ORDER BY created_at DESC")
-        products = [{'id': p[0], 'title': p[1], 'price': p[2], 'description': p[3], 'image_url': p[4]} for p in cur.fetchall()]
+        cur.execute(f"SELECT id, title, price, description, image_url, category, min_order, size, color, stock FROM seller_products WHERE seller_id = {sid} ORDER BY created_at DESC")
+        products = [{'id': p[0], 'title': p[1], 'price': p[2], 'description': p[3], 'image_url': p[4],
+                     'category': p[5], 'min_order': p[6], 'size': p[7], 'color': p[8], 'stock': p[9]} for p in cur.fetchall()]
         cur.execute(f"SELECT id, title, video_url FROM seller_videos WHERE seller_id = {sid} ORDER BY created_at DESC")
         videos = [{'id': v[0], 'title': v[1], 'video_url': v[2]} for v in cur.fetchall()]
         return respond(200, {'seller': {'id': r[0], 'email': r[1], 'company_name': r[2], 'wechat_id': r[3],

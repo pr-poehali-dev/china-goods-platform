@@ -1,1 +1,5 @@
-{"tests": [{"name": "List sellers public", "method": "GET", "path": "/?action=list", "expectedStatus": 200}]}
+{"tests": [
+  {"name": "List sellers", "method": "GET", "path": "/?action=list", "expectedStatus": 200},
+  {"name": "Products catalog", "method": "GET", "path": "/?action=products", "expectedStatus": 200},
+  {"name": "Add review bad data", "method": "POST", "path": "/?action=add_review", "body": {"product_id": 0, "rating": 3}, "expectedStatus": 400, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}
+]}

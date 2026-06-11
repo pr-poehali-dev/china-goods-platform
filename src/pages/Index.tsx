@@ -197,6 +197,13 @@ export default function Index() {
               </button>
             ))}
             <Link
+              to="/products"
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center gap-1.5"
+            >
+              <Icon name="ShoppingBag" size={14} />
+              Товары
+            </Link>
+            <Link
               to="/sellers"
               className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center gap-1.5"
             >
@@ -232,6 +239,14 @@ export default function Index() {
               </button>
             ))}
 
+            <Link
+              to="/products"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-left px-4 py-3 rounded-lg hover:bg-secondary transition-all font-medium flex items-center gap-2"
+            >
+              <Icon name="ShoppingBag" size={16} />
+              Товары
+            </Link>
             <Link
               to="/sellers"
               onClick={() => setMobileMenuOpen(false)}

@@ -78,9 +78,12 @@ def handler(event: dict, context) -> dict:
         img = (body.get('image_url') or '').replace("'", "''")
         category = (body.get('category') or '').replace("'", "''")
         min_order = (body.get('min_order') or '').replace("'", "''")
+        size = (body.get('size') or '').replace("'", "''")
+        color = (body.get('color') or '').replace("'", "''")
+        stock = (body.get('stock') or '').replace("'", "''")
         cur.execute(
-            f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url, category, min_order) "
-            f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}', '{category}', '{min_order}') RETURNING id"
+            f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url, category, min_order, size, color, stock) "
+            f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}', '{category}', '{min_order}', '{size}', '{color}', '{stock}') RETURNING id"
         )
         pid = cur.fetchone()[0]
         conn.commit()

@@ -113,7 +113,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("Все");
 
-  const [productForm, setProductForm] = useState({ title: "", price: "", description: "", image_url: "", category: "", min_order: "" });
+  const [productForm, setProductForm] = useState({ title: "", price: "", description: "", image_url: "", category: "", min_order: "", size: "", color: "", stock: "" });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [csvImporting, setCsvImporting] = useState(false);
   const [csvResult, setCsvResult] = useState<{ imported: number; errors: string[] } | null>(null);
@@ -277,7 +277,7 @@ export default function SellersSection({ embedded = false, compact = false }: { 
       body: JSON.stringify(productForm),
     });
     setLoading(false);
-    setProductForm({ title: "", price: "", description: "", image_url: "", category: "", min_order: "" });
+    setProductForm({ title: "", price: "", description: "", image_url: "", category: "", min_order: "", size: "", color: "", stock: "" });
     loadMe(token);
     loadPublic();
   };
@@ -605,6 +605,11 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                   <div className="grid md:grid-cols-2 gap-4">
                     <input className={inputCls} placeholder="Категория (напр. Одежда)" value={productForm.category} onChange={(e) => setProductForm({ ...productForm, category: e.target.value })} />
                     <input className={inputCls} placeholder="Мин. заказ (напр. 50 шт)" value={productForm.min_order} onChange={(e) => setProductForm({ ...productForm, min_order: e.target.value })} />
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <input className={inputCls} placeholder="Размер (напр. S, M, L / 40-42)" value={productForm.size || ""} onChange={(e) => setProductForm({ ...productForm, size: e.target.value })} />
+                    <input className={inputCls} placeholder="Цвет (напр. красный, синий)" value={productForm.color || ""} onChange={(e) => setProductForm({ ...productForm, color: e.target.value })} />
+                    <input className={inputCls} placeholder="Наличие (напр. 500 шт)" value={productForm.stock || ""} onChange={(e) => setProductForm({ ...productForm, stock: e.target.value })} />
                   </div>
                   <textarea className={`${inputCls} resize-none`} rows={2} placeholder="Описание товара" value={productForm.description} onChange={(e) => setProductForm({ ...productForm, description: e.target.value })} />
                   <div className="flex items-center gap-4">
