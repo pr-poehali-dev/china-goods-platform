@@ -506,7 +506,7 @@ export default function Index() {
             ].map((s, i) => (
               <button
                 key={i}
-                onClick={() => scrollTo("contacts")}
+                onClick={() => navigate(`/supplier/${i}`)}
                 className="reveal group flex flex-col items-center gap-0 transition-all duration-300 hover:-translate-y-1"
                 style={{ animationDelay: `${i * 0.07}s` }}
               >
