@@ -528,6 +528,14 @@ export default function Index() {
                   </div>
                 ))}
               </div>
+              <button
+                onClick={() => navigate("/sellers")}
+                className="mt-5 inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-white font-bold text-sm shadow-lg transition-all hover:scale-[1.03] hover:shadow-xl"
+                style={{background: "linear-gradient(135deg, hsl(220,45%,28%), hsl(200,70%,40%))"}}
+              >
+                <Icon name="Store" size={16} />
+                Зарегистрируйтесь как поставщик
+              </button>
             </div>
           </div>
         </div>
