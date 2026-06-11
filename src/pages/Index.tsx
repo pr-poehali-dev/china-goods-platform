@@ -178,10 +178,10 @@ export default function Index() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center" style={{background: "linear-gradient(135deg, hsl(200,75%,85%), hsl(200,65%,92%))", border: "1.5px solid rgba(255,255,255,0.8)", boxShadow: "0 2px 8px rgba(176,220,240,0.4)"}}>
-              <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
+              <img src={DRAGON_IMAGE} alt="ChinaCarts" className="w-full h-full object-cover scale-110" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              Tao<span className="text-primary">Seller</span>
+              China<span className="text-primary">Carts</span>
             </span>
           </button>
 
@@ -490,7 +490,7 @@ export default function Index() {
             {/* Левая — фото / карточки статистики */}
             <div className="reveal relative">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-300/25 border-4 border-white/80">
-                <img src={MARKET_IMAGE} alt="О компании TaoSeller" className="w-full h-80 object-cover" />
+                <img src={MARKET_IMAGE} alt="О компании ChinaCarts" className="w-full h-80 object-cover" />
                 <div className="absolute inset-0" style={{background: "linear-gradient(to top, hsl(220,45%,18%,0.6) 0%, transparent 55%)"}} />
                 <div className="absolute bottom-6 left-6 right-6 flex gap-3">
                   {[
@@ -656,9 +656,9 @@ export default function Index() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-10 h-10 rounded-xl overflow-hidden" style={{background: "linear-gradient(135deg, hsl(200,75%,85%), hsl(200,65%,92%))"}}>
-                  <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
+                  <img src={DRAGON_IMAGE} alt="ChinaCarts" className="w-full h-full object-cover scale-110" />
                 </div>
-                <span className="font-display font-bold text-xl text-white">Tao<span className="text-primary">Seller</span></span>
+                <span className="font-display font-bold text-xl text-white">China<span className="text-primary">Carts</span></span>
               </div>
               <p className="text-sm text-white/60 leading-relaxed">Полный цикл закупок в Китае. Работаем с 2017 года.</p>
             </div>
@@ -678,7 +678,7 @@ export default function Index() {
             ))}
           </div>
           <div className="pt-6 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-sm text-white/60">© 2025 TaoSeller. Все права защищены.</span>
+            <span className="text-sm text-white/60">© 2025 ChinaCarts. Все права защищены.</span>
             <span className="text-sm text-white/60">🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
           </div>
         </div>

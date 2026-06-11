@@ -12,10 +12,10 @@ export default function Account() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
-              <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
+              <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-full h-full object-contain" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              Tao<span className="text-primary">Seller</span>
+              China<span className="text-primary">Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">
@@ -62,11 +62,11 @@ export default function Account() {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center overflow-hidden">
-              <img src={MASCOT_IMAGE} alt="TaoSeller" className="w-full h-full object-contain" />
+              <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-full h-full object-contain" />
             </div>
-            <span className="font-display font-bold text-xl text-white">Tao<span className="text-primary">Seller</span></span>
+            <span className="font-display font-bold text-xl text-white">China<span className="text-primary">Carts</span></span>
           </Link>
-          <span className="text-sm text-white/60">© 2025 TaoSeller · 🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
+          <span className="text-sm text-white/60">© 2025 ChinaCarts · 🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
         </div>
       </footer>
     </div>

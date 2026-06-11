@@ -161,10 +161,10 @@ export default function ServicePage() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl overflow-hidden" style={{background:"linear-gradient(135deg,hsl(200,75%,85%),hsl(200,65%,92%))"}}>
-              <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
+              <img src={DRAGON_IMAGE} alt="ChinaCarts" className="w-full h-full object-cover scale-110" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              Tao<span className="text-primary">Seller</span>
+              China<span className="text-primary">Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function ServicePage() {
         <div className="container mx-auto relative z-10 text-center max-w-3xl">
           <div className="text-6xl mb-5">{service.emoji}</div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-primary" style={{background:"rgba(255,255,255,0.8)"}}>
-            Услуга TaoSeller
+            Услуга ChinaCarts
           </div>
           <h1 className="font-display text-4xl md:text-5xl font-bold text-brand-navy mb-4 leading-tight">
             {service.title}
@@ -301,7 +301,7 @@ export default function ServicePage() {
 
       {/* Footer mini */}
       <footer className="py-8 px-4 text-center" style={{background:"hsl(220,45%,18%)"}}>
-        <span className="text-sm text-white/50">© 2025 TaoSeller · 🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
+        <span className="text-sm text-white/50">© 2025 ChinaCarts · 🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
       </footer>
 
     </div>

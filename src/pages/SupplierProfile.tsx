@@ -97,10 +97,10 @@ export default function SupplierProfile() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl overflow-hidden" style={{background:"linear-gradient(135deg,hsl(200,75%,85%),hsl(200,65%,92%))"}}>
-              <img src={DRAGON_IMAGE} alt="TaoSeller" className="w-full h-full object-cover scale-110" />
+              <img src={DRAGON_IMAGE} alt="ChinaCarts" className="w-full h-full object-cover scale-110" />
             </div>
             <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              Tao<span className="text-primary">Seller</span>
+              China<span className="text-primary">Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">
