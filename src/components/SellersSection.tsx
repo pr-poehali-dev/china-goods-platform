@@ -32,6 +32,28 @@ const playNotificationSound = () => {
   }
 };
 
+const requestPushPermission = async () => {
+  if (!("Notification" in window)) return;
+  if (Notification.permission === "default") {
+    await Notification.requestPermission();
+  }
+};
+
+const sendPushNotification = (title: string, body: string) => {
+  if (!("Notification" in window) || Notification.permission !== "granted") return;
+  try {
+    new Notification(title, {
+      body,
+      icon: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg",
+      badge: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg",
+      tag: "new-message",
+      renotify: true,
+    });
+  } catch {
+    /* push недоступен */
+  }
+};
+
 interface Product {
   id: number;
   title: string;
@@ -122,8 +144,22 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   }, [loadPublic]);
 
   useEffect(() => {
-    if (token) loadMe(token);
+    if (token) {
+      loadMe(token);
+      requestPushPermission();
+    }
   }, [token, loadMe]);
+
+  // Обновление заголовка вкладки при непрочитанных
+  useEffect(() => {
+    const base = "TaoSeller — Кабинет";
+    if (unreadTotal > 0) {
+      document.title = `(${unreadTotal}) 📩 ${base}`;
+    } else {
+      document.title = base;
+    }
+    return () => { document.title = "TaoSeller"; };
+  }, [unreadTotal]);
 
   const loadUnread = useCallback(async (t: string) => {
     const res = await fetch(`${CHAT_URL}?action=unread_total`, { headers: { "X-Auth-Token": t } });
@@ -136,6 +172,11 @@ export default function SellersSection({ embedded = false, compact = false }: { 
         toast("📩 Новое сообщение от покупателя", {
           description: "Откройте вкладку «Сообщения», чтобы ответить",
         });
+        // Браузерный push — работает даже когда вкладка свёрнута
+        sendPushNotification(
+          "📩 Новое сообщение",
+          "Покупатель написал вам на TaoSeller. Откройте сайт, чтобы ответить."
+        );
       }
       prevUnreadRef.current = count;
       setUnreadTotal(count);
@@ -348,9 +389,25 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                   <div className="text-sm text-muted-foreground">Кабинет поставщика</div>
                 </div>
               </div>
-              <button onClick={logout} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                <Icon name="LogOut" size={16} /> Выйти
-              </button>
+              <div className="flex items-center gap-3">
+                {"Notification" in window && Notification.permission === "default" && (
+                  <button
+                    onClick={requestPushPermission}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all hover:-translate-y-0.5"
+                    style={{background:"linear-gradient(135deg,hsl(200,70%,88%),hsl(200,60%,94%))", color:"hsl(220,45%,18%)"}}
+                  >
+                    <Icon name="Bell" size={14} /> Включить уведомления
+                  </button>
+                )}
+                {"Notification" in window && Notification.permission === "granted" && (
+                  <span className="flex items-center gap-1 text-xs text-brand-teal font-medium">
+                    <Icon name="BellRing" size={13} /> Уведомления вкл.
+                  </span>
+                )}
+                <button onClick={logout} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                  <Icon name="LogOut" size={16} /> Выйти
+                </button>
+              </div>
             </div>
 
             {/* Табы */}
