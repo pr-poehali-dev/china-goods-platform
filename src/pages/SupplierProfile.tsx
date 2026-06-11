@@ -96,11 +96,9 @@ export default function SupplierProfile() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl overflow-hidden" style={{background:"linear-gradient(135deg,hsl(200,75%,85%),hsl(200,65%,92%))"}}>
-              <img src={DRAGON_IMAGE} alt="ChinaCarts" className="w-full h-full object-cover scale-110" />
-            </div>
-            <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              China<span className="text-primary">Carts</span>
+            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
+            <span className="font-display font-bold text-xl tracking-wide" style={{color:"hsl(220,45%,18%)"}}>
+              China<span style={{color:"hsl(200,80%,45%)"}}>Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">

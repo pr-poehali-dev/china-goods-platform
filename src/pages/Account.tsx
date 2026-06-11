@@ -11,11 +11,9 @@ export default function Account() {
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-accent border border-border flex items-center justify-center overflow-hidden">
-              <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-display font-bold text-xl tracking-wide text-brand-navy">
-              China<span className="text-primary">Carts</span>
+            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
+            <span className="font-display font-bold text-xl tracking-wide" style={{color:"hsl(220,45%,18%)"}}>
+              China<span style={{color:"hsl(200,80%,45%)"}}>Carts</span>
             </span>
           </Link>
           <div className="flex items-center gap-2">
@@ -61,10 +59,8 @@ export default function Account() {
       <footer className="bg-navy py-10 px-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center overflow-hidden">
-              <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-display font-bold text-xl text-white">China<span className="text-primary">Carts</span></span>
+            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/682fb5e7-10e7-4c3f-b81a-814ca7f6bf12.jpg" alt="ChinaCarts" className="w-9 h-9 rounded-xl object-cover" />
+            <span className="font-display font-bold text-xl text-white">China<span style={{color:"hsl(200,80%,65%)"}}>Carts</span></span>
           </Link>
           <span className="text-sm text-white/60">© 2025 ChinaCarts · 🇨🇳 → 🇷🇺 Закупки из Китая в Россию</span>
         </div>
