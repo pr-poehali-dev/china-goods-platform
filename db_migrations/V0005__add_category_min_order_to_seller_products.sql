@@ -1,0 +1,2 @@
+ALTER TABLE seller_products ADD COLUMN IF NOT EXISTS category VARCHAR(128);
+ALTER TABLE seller_products ADD COLUMN IF NOT EXISTS min_order VARCHAR(64);

@@ -2,6 +2,8 @@ import json
 import os
 import base64
 import uuid
+import csv
+import io
 import psycopg2
 import boto3
 
@@ -74,13 +76,51 @@ def handler(event: dict, context) -> dict:
         price = (body.get('price') or '').replace("'", "''")
         desc = (body.get('description') or '').replace("'", "''")
         img = (body.get('image_url') or '').replace("'", "''")
+        category = (body.get('category') or '').replace("'", "''")
+        min_order = (body.get('min_order') or '').replace("'", "''")
         cur.execute(
-            f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url) "
-            f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}') RETURNING id"
+            f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url, category, min_order) "
+            f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}', '{category}', '{min_order}') RETURNING id"
         )
         pid = cur.fetchone()[0]
         conn.commit()
         return respond(200, {'id': pid})
+
+    # Удалить товар
+    if method == 'POST' and action == 'delete_product':
+        product_id = body.get('product_id')
+        if not product_id:
+            return respond(400, {'error': 'Нет product_id'})
+        cur.execute(f"DELETE FROM {S}.seller_products WHERE id = {int(product_id)} AND seller_id = {sid}")
+        conn.commit()
+        return respond(200, {'ok': True})
+
+    # Импорт товаров из CSV
+    if method == 'POST' and action == 'import_csv':
+        csv_text = body.get('csv_text') or ''
+        if not csv_text:
+            return respond(400, {'error': 'Пустой CSV'})
+        reader = csv.DictReader(io.StringIO(csv_text))
+        imported = 0
+        errors = []
+        for i, row in enumerate(reader):
+            title = (row.get('title') or row.get('название') or row.get('Название') or '').strip()
+            if not title:
+                errors.append(f'Строка {i+2}: нет названия')
+                continue
+            t = title.replace("'", "''")
+            price = (row.get('price') or row.get('цена') or row.get('Цена') or '').strip().replace("'", "''")
+            desc = (row.get('description') or row.get('описание') or row.get('Описание') or '').strip().replace("'", "''")
+            img = (row.get('image_url') or row.get('фото') or row.get('Фото') or '').strip().replace("'", "''")
+            category = (row.get('category') or row.get('категория') or row.get('Категория') or '').strip().replace("'", "''")
+            min_order = (row.get('min_order') or row.get('мин.заказ') or row.get('МинЗаказ') or '').strip().replace("'", "''")
+            cur.execute(
+                f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url, category, min_order) "
+                f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}', '{category}', '{min_order}')"
+            )
+            imported += 1
+        conn.commit()
+        return respond(200, {'imported': imported, 'errors': errors})
 
     # Добавить видео
     if method == 'POST' and action == 'add_video':

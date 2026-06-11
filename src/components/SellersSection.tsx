@@ -106,8 +106,10 @@ export default function SellersSection({ embedded = false, compact = false }: { 
   const [profile, setProfile] = useState({ company_name: "", wechat_id: "", phone: "", description: "", city: "", avatar_url: "" });
   const [savedMsg, setSavedMsg] = useState("");
 
-  const [productForm, setProductForm] = useState({ title: "", price: "", description: "", image_url: "" });
+  const [productForm, setProductForm] = useState({ title: "", price: "", description: "", image_url: "", category: "", min_order: "" });
   const [uploadingImg, setUploadingImg] = useState(false);
+  const [csvImporting, setCsvImporting] = useState(false);
+  const [csvResult, setCsvResult] = useState<{ imported: number; errors: string[] } | null>(null);
   const [videoForm, setVideoForm] = useState({ title: "", video_url: "" });
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
@@ -268,9 +270,39 @@ export default function SellersSection({ embedded = false, compact = false }: { 
       body: JSON.stringify(productForm),
     });
     setLoading(false);
-    setProductForm({ title: "", price: "", description: "", image_url: "" });
+    setProductForm({ title: "", price: "", description: "", image_url: "", category: "", min_order: "" });
     loadMe(token);
     loadPublic();
+  };
+
+  const deleteProduct = async (productId: number) => {
+    if (!token) return;
+    await fetch(`${CONTENT_URL}?action=delete_product`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Auth-Token": token },
+      body: JSON.stringify({ product_id: productId }),
+    });
+    loadMe(token);
+    loadPublic();
+  };
+
+  const onCsvPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+    setCsvImporting(true);
+    setCsvResult(null);
+    const text = await file.text();
+    const res = await fetch(`${CONTENT_URL}?action=import_csv`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Auth-Token": token },
+      body: JSON.stringify({ csv_text: text }),
+    });
+    const data = await res.json();
+    setCsvResult(data);
+    setCsvImporting(false);
+    loadMe(token);
+    loadPublic();
+    e.target.value = "";
   };
 
   const uploadVideoWithProgress = async (file: File): Promise<string> => {
@@ -540,10 +572,32 @@ export default function SellersSection({ embedded = false, compact = false }: { 
             {tab === "products" && (
               <div className="space-y-6">
                 <form onSubmit={addProduct} className="bg-white card-soft rounded-2xl p-6 space-y-4">
-                  <h3 className="font-display font-bold text-lg text-brand-navy">Добавить товар</h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display font-bold text-lg text-brand-navy">Добавить товар</h3>
+                    <label className="cursor-pointer">
+                      <span className="flex items-center gap-1.5 px-4 py-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-sm font-semibold hover:bg-emerald-100 transition-all">
+                        <Icon name="FileSpreadsheet" size={15} />
+                        {csvImporting ? "Импорт..." : "Загрузить из CSV"}
+                      </span>
+                      <input type="file" accept=".csv,text/csv" className="hidden" onChange={onCsvPick} disabled={csvImporting} />
+                    </label>
+                  </div>
+
+                  {csvResult && (
+                    <div className={`rounded-xl px-4 py-3 text-sm ${csvResult.imported > 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
+                      {csvResult.imported > 0 && <div>✓ Импортировано товаров: <b>{csvResult.imported}</b></div>}
+                      {csvResult.errors?.map((err, i) => <div key={i}>⚠ {err}</div>)}
+                      <div className="text-xs mt-1 text-slate-400">Колонки CSV: title, price, description, category, min_order, image_url</div>
+                    </div>
+                  )}
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <input className={inputCls} placeholder="Название товара" value={productForm.title} onChange={(e) => setProductForm({ ...productForm, title: e.target.value })} required />
                     <input className={inputCls} placeholder="Цена (напр. 5 ¥ / шт)" value={productForm.price} onChange={(e) => setProductForm({ ...productForm, price: e.target.value })} />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <input className={inputCls} placeholder="Категория (напр. Одежда)" value={productForm.category} onChange={(e) => setProductForm({ ...productForm, category: e.target.value })} />
+                    <input className={inputCls} placeholder="Мин. заказ (напр. 50 шт)" value={productForm.min_order} onChange={(e) => setProductForm({ ...productForm, min_order: e.target.value })} />
                   </div>
                   <textarea className={`${inputCls} resize-none`} rows={2} placeholder="Описание товара" value={productForm.description} onChange={(e) => setProductForm({ ...productForm, description: e.target.value })} />
                   <div className="flex items-center gap-4">
@@ -561,7 +615,13 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 {me.products.length > 0 ? (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {me.products.map((p) => (
-                      <div key={p.id} className="bg-white card-soft rounded-2xl overflow-hidden">
+                      <div key={p.id} className="bg-white card-soft rounded-2xl overflow-hidden group relative">
+                        <button
+                          onClick={() => deleteProduct(p.id)}
+                          className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-white/90 shadow flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"
+                        >
+                          <Icon name="Trash2" size={13} className="text-red-400" />
+                        </button>
                         {p.image_url ? (
                           <img src={p.image_url} alt={p.title} className="w-full h-32 object-cover" />
                         ) : (

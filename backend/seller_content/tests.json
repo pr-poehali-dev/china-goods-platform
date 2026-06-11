@@ -1,1 +1,5 @@
-{"tests": [{"name": "Unauthorized without token", "method": "POST", "path": "/?action=add_product", "body": {"title": "Test"}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}]}
+{"tests": [
+  {"name": "Unauthorized without token", "method": "POST", "path": "/?action=add_product", "body": {"title": "Test"}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"},
+  {"name": "Import CSV without token", "method": "POST", "path": "/?action=import_csv", "body": {"csv_text": "title\nТестовый товар"}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"},
+  {"name": "Delete product without token", "method": "POST", "path": "/?action=delete_product", "body": {"product_id": 1}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}
+]}
