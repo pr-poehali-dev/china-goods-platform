@@ -19,7 +19,7 @@ const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-c
 const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/33b47b8a-be71-445f-a06d-3eedade9b217.jpg";
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/4d4777b8-6df9-4ef3-ad06-89d0fc037a94.png";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/6836c517-1a47-463a-b0a2-c2a6dbfc0d1c.jpg";
 
 
 const services = [
