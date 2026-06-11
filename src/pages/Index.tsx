@@ -78,6 +78,7 @@ export default function Index() {
   const [sellers, setSellers] = useState<SellerCard[]>([]);
   const [heroVideos, setHeroVideos] = useState<{url: string; seller: string; avatar: string}[]>([]);
   const [heroVideoIdx, setHeroVideoIdx] = useState(0);
+  const [heroVideoFs, setHeroVideoFs] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
@@ -312,58 +313,66 @@ export default function Index() {
 
                 {/* Слайдер видео поставщиков / дракон-заглушка */}
                 {heroVideos.length > 0 ? (
-                  <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70">
-                    <video
-                      key={heroVideos[heroVideoIdx].url}
-                      src={heroVideos[heroVideoIdx].url}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Градиент снизу */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    {/* Подпись поставщика */}
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
-                        {heroVideos[heroVideoIdx].avatar ? (
-                          <img src={heroVideos[heroVideoIdx].avatar} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
-                            {heroVideos[heroVideoIdx].seller?.[0]}
-                          </div>
-                        )}
+                  <div className="relative w-56 md:w-64 mx-auto">
+                    {/* Карточка видео */}
+                    <div
+                      className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70 cursor-pointer group"
+                      onClick={() => setHeroVideoFs(true)}
+                    >
+                      <video
+                        key={heroVideos[heroVideoIdx].url}
+                        src={heroVideos[heroVideoIdx].url}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      {/* Иконка play при hover */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                          <Icon name="Play" size={24} className="text-primary ml-1" />
+                        </div>
                       </div>
-                      <span className="text-white text-sm font-semibold drop-shadow">{heroVideos[heroVideoIdx].seller}</span>
+                      {/* Подпись */}
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
+                          {heroVideos[heroVideoIdx].avatar
+                            ? <img src={heroVideos[heroVideoIdx].avatar} alt="" className="w-full h-full object-cover" />
+                            : <div className="w-full h-full flex items-center justify-center text-white font-bold text-xs">{heroVideos[heroVideoIdx].seller?.[0]}</div>
+                          }
+                        </div>
+                        <span className="text-white text-xs font-semibold drop-shadow truncate">{heroVideos[heroVideoIdx].seller}</span>
+                      </div>
                     </div>
+
                     {/* Стрелки */}
                     {heroVideos.length > 1 && (
-                      <>
+                      <div className="flex items-center justify-center gap-3 mt-3">
                         <button
                           onClick={() => setHeroVideoIdx(i => (i - 1 + heroVideos.length) % heroVideos.length)}
-                          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-lg transition-all z-10"
+                          className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
                         >
-                          <Icon name="ChevronLeft" size={18} className="text-brand-navy" />
+                          <Icon name="ChevronLeft" size={16} className="text-brand-navy" />
                         </button>
-                        <button
-                          onClick={() => setHeroVideoIdx(i => (i + 1) % heroVideos.length)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-lg transition-all z-10"
-                        >
-                          <Icon name="ChevronRight" size={18} className="text-brand-navy" />
-                        </button>
-                        {/* Точки */}
-                        <div className="absolute top-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+                        <div className="flex gap-1.5">
                           {heroVideos.map((_, i) => (
                             <button
                               key={i}
                               onClick={() => setHeroVideoIdx(i)}
                               className="h-1.5 rounded-full transition-all"
-                              style={{width: i === heroVideoIdx ? 20 : 6, background: i === heroVideoIdx ? "white" : "rgba(255,255,255,0.5)"}}
+                              style={{width: i === heroVideoIdx ? 16 : 5, background: i === heroVideoIdx ? "hsl(354,78%,52%)" : "rgba(0,0,0,0.2)"}}
                             />
                           ))}
                         </div>
-                      </>
+                        <button
+                          onClick={() => setHeroVideoIdx(i => (i + 1) % heroVideos.length)}
+                          className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
+                        >
+                          <Icon name="ChevronRight" size={16} className="text-brand-navy" />
+                        </button>
+                      </div>
                     )}
                   </div>
                 ) : (
@@ -679,6 +688,47 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Фуллскрин видео */}
+      {heroVideoFs && heroVideos[heroVideoIdx] && (
+        <div
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setHeroVideoFs(false)}
+        >
+          <button
+            onClick={() => setHeroVideoFs(false)}
+            className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center z-20"
+          >
+            <Icon name="X" size={22} className="text-white" />
+          </button>
+          {heroVideos.length > 1 && (
+            <>
+              <button
+                onClick={e => { e.stopPropagation(); setHeroVideoIdx(i => (i - 1 + heroVideos.length) % heroVideos.length); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center z-20"
+              >
+                <Icon name="ChevronLeft" size={24} className="text-white" />
+              </button>
+              <button
+                onClick={e => { e.stopPropagation(); setHeroVideoIdx(i => (i + 1) % heroVideos.length); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center z-20"
+              >
+                <Icon name="ChevronRight" size={24} className="text-white" />
+              </button>
+            </>
+          )}
+          <video
+            key={heroVideos[heroVideoIdx].url + "-fs"}
+            src={heroVideos[heroVideoIdx].url}
+            autoPlay
+            loop
+            controls
+            playsInline
+            className="max-w-full max-h-full rounded-2xl"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
 
     </div>
   );
