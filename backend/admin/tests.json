@@ -1,0 +1,4 @@
+{"tests": [
+  {"name": "Login wrong password", "method": "POST", "path": "/?action=login", "body": {"password": "wrongpassword"}, "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"},
+  {"name": "Get sellers unauthorized", "method": "GET", "path": "/?action=sellers", "expectedStatus": 401, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}
+]}
