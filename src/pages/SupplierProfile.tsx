@@ -5,7 +5,7 @@ import AccountNavButton from "@/components/AccountNavButton";
 import BuyerChat from "@/components/BuyerChat";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
-const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/039ee8c0-b2b5-43f3-b255-98f11b27d55a.jpg";
+const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/34d465ef-9cc6-42bc-bc73-7069c0d29790.jpg";
 
 interface Product {
   id: number;
