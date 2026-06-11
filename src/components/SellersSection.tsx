@@ -342,6 +342,17 @@ export default function SellersSection({ embedded = false, compact = false }: { 
     loadPublic();
   };
 
+  const deleteVideo = async (videoId: number) => {
+    if (!token) return;
+    await fetch(`${CONTENT_URL}?action=delete_video`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Auth-Token": token },
+      body: JSON.stringify({ video_id: videoId }),
+    });
+    loadMe(token);
+    loadPublic();
+  };
+
   const inputCls = "w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm";
   const btnCls = "btn-modern px-6 py-3 text-white font-body font-bold rounded-2xl disabled:opacity-60";
 
@@ -625,8 +636,15 @@ export default function SellersSection({ embedded = false, compact = false }: { 
                 {me.videos.length > 0 ? (
                   <div className="grid md:grid-cols-2 gap-4">
                     {me.videos.map((v) => (
-                      <div key={v.id} className="bg-white card-soft rounded-2xl overflow-hidden">
+                      <div key={v.id} className="bg-white card-soft rounded-2xl overflow-hidden relative group">
                         <video src={v.video_url} controls className="w-full h-48 object-cover bg-black" />
+                        <button
+                          onClick={() => deleteVideo(v.id)}
+                          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                          title="Удалить видео"
+                        >
+                          <Icon name="Trash2" size={14} />
+                        </button>
                         {v.title && <div className="p-3 font-semibold text-sm text-brand-navy">{v.title}</div>}
                       </div>
                     ))}

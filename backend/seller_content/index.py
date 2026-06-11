@@ -5,6 +5,8 @@ import uuid
 import psycopg2
 import boto3
 
+S = 't_p88180796_china_goods_platform'
+
 def handler(event: dict, context) -> dict:
     '''
     API контента поставщиков: загрузка товаров, видео и файлов в каталог.
@@ -14,7 +16,7 @@ def handler(event: dict, context) -> dict:
     method = event.get('httpMethod', 'GET')
     cors = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token',
         'Access-Control-Max-Age': '86400',
     }
@@ -37,7 +39,7 @@ def handler(event: dict, context) -> dict:
         if not token:
             return None
         safe = token.replace("'", "''")
-        cur.execute(f"SELECT id FROM sellers WHERE auth_token = '{safe}'")
+        cur.execute(f"SELECT id FROM {S}.sellers WHERE auth_token = '{safe}'")
         row = cur.fetchone()
         return row[0] if row else None
 
@@ -47,7 +49,7 @@ def handler(event: dict, context) -> dict:
 
     body = json.loads(event.get('body') or '{}')
 
-    # Загрузка файла (картинка товара / видео) в S3
+    # Загрузка файла (картинка / видео) в S3
     if method == 'POST' and action == 'upload':
         file_b64 = body.get('file_base64') or ''
         content_type = body.get('content_type') or 'application/octet-stream'
@@ -73,7 +75,7 @@ def handler(event: dict, context) -> dict:
         desc = (body.get('description') or '').replace("'", "''")
         img = (body.get('image_url') or '').replace("'", "''")
         cur.execute(
-            f"INSERT INTO seller_products (seller_id, title, price, description, image_url) "
+            f"INSERT INTO {S}.seller_products (seller_id, title, price, description, image_url) "
             f"VALUES ({sid}, '{t}', '{price}', '{desc}', '{img}') RETURNING id"
         )
         pid = cur.fetchone()[0]
@@ -88,11 +90,20 @@ def handler(event: dict, context) -> dict:
         u = url.replace("'", "''")
         title = (body.get('title') or '').replace("'", "''")
         cur.execute(
-            f"INSERT INTO seller_videos (seller_id, title, video_url) "
+            f"INSERT INTO {S}.seller_videos (seller_id, title, video_url) "
             f"VALUES ({sid}, '{title}', '{u}') RETURNING id"
         )
         vid = cur.fetchone()[0]
         conn.commit()
         return respond(200, {'id': vid})
+
+    # Удалить видео
+    if method == 'POST' and action == 'delete_video':
+        video_id = body.get('video_id')
+        if not video_id:
+            return respond(400, {'error': 'Нет video_id'})
+        cur.execute(f"DELETE FROM {S}.seller_videos WHERE id = {int(video_id)} AND seller_id = {sid}")
+        conn.commit()
+        return respond(200, {'ok': True})
 
     return respond(404, {'error': 'Неизвестное действие'})
