@@ -5,7 +5,7 @@ import AccountNavButton from "@/components/AccountNavButton";
 import BuyerChat from "@/components/BuyerChat";
 
 const SELLERS_URL = "https://functions.poehali.dev/d6dd7774-7d1c-436f-a1ac-d5342ecb46b4";
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/logos/f146b4f7b76b4789a405ce2176a4d4af.png";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/e57c997a-a016-4802-9da3-7cebb5cf03f4.jpg";
 const MANAGER_PHONE = "https://wa.me/79000000000";
 
 interface Review {
