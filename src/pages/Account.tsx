@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import BuyerAccount from "@/components/BuyerAccount";
 
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/47da4abf-8071-42d0-a7b6-732be8d56989.jpg";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/e91d7dd0-bdd6-4336-8887-f182fa10bc45.jpg";
 
 export default function Account() {
   return (
