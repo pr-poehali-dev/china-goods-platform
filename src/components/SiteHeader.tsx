@@ -22,7 +22,7 @@ export default function SiteHeader() {
         {/* Логотип */}
         <Link to="/" className="flex items-center gap-2.5">
           <img src={LOGO_IMAGE} alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
-          <span className="font-bold text-xl" style={{color:"#111", fontFamily:"'Inter','Manrope',sans-serif", letterSpacing:"-0.03em"}}>
+          <span className="text-2xl" style={{color:"#111", fontFamily:"'ZCOOL XiaoWei', serif", letterSpacing:"0.02em"}}>
             China<span style={{color:"#cc0000"}}>Carts</span>
           </span>
         </Link>
