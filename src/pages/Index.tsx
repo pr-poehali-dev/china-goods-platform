@@ -15,6 +15,7 @@ interface SellerCard {
 }
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/125ae5c5-2cc2-42dd-a86c-3ac0c227336f.jpg";
+const HERO_ILLUSTRATION = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/dd5b64c7-b220-451b-95f7-e687d4ec653f.jpg";
 const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
@@ -295,165 +296,107 @@ export default function Index() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="max-w-2xl will-change-transform" style={{ transform: `translateY(${scrollY * 0.06}px)` }}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/60 rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
-                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
-              </div>
-              <h1 className="font-display text-3xl sm:text-5xl md:text-5xl lg:text-6xl leading-[1.12] mb-6 animate-fade-in-up text-brand-navy font-extrabold text-left">
-                Платформа для <span className="text-grad">закупок</span> в Китае
-              </h1>
-              <p className="text-base sm:text-lg text-slate-600 mb-6 sm:mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
-                Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
-              </p>
-              <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
-                <button
-                  onClick={() => navigate("/start-purchase")}
-                  className="btn-modern px-5 py-3 sm:px-8 sm:py-4 text-white font-body font-bold text-base sm:text-lg rounded-2xl shadow-lg"
-                >
-                  Начать закупку
-                </button>
-                <button
-                  onClick={() => navigate("/how-it-works")}
-                  className="px-5 py-3 sm:px-8 sm:py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-base sm:text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
-                >
-                  <Icon name="Play" size={18} className="text-primary" />
-                  Как это работает
-                </button>
-              </div>
-
-              {/* Статистика под кнопками */}
-              <div className="flex gap-4 sm:gap-8 mt-8 sm:mt-10 flex-wrap animate-fade-in-up delay-400">
-                {[
-                  { value: "500+", label: "проверенных фабрик" },
-                  { value: "4.9★", label: "рейтинг клиентов" },
-                  { value: "5 лет", label: "на рынке" },
-                ].map((stat, i) => (
-                  <div key={i}>
-                    <div className="font-display font-bold text-2xl text-brand-navy">{stat.value}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+          <div className="max-w-3xl mx-auto flex flex-col items-center text-center will-change-transform" style={{ transform: `translateY(${scrollY * 0.04}px)` }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/60 rounded-full text-sm text-primary font-semibold mb-6 animate-fade-in shadow-sm">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              🇨🇳 → 🇷🇺 Доставляем из Китая в Россию
+            </div>
+            <h1 className="font-display text-3xl sm:text-5xl md:text-5xl lg:text-6xl leading-[1.12] mb-6 animate-fade-in-up text-brand-navy font-extrabold">
+              Платформа для <span className="text-grad">закупок</span> в Китае
+            </h1>
+            <p className="text-base sm:text-lg text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto animate-fade-in-up delay-200">
+              Найдём, выкупим и доставим любой товар из Китая. Проверенные поставщики, таможня под ключ, полная прозрачность на каждом этапе.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up delay-300">
+              <button
+                onClick={() => navigate("/start-purchase")}
+                className="btn-modern px-5 py-3 sm:px-8 sm:py-4 text-white font-body font-bold text-base sm:text-lg rounded-2xl shadow-lg"
+              >
+                Начать закупку
+              </button>
+              <button
+                onClick={() => navigate("/how-it-works")}
+                className="px-5 py-3 sm:px-8 sm:py-4 bg-white/80 backdrop-blur-sm border border-white/60 font-body font-semibold text-base sm:text-lg rounded-2xl hover:scale-[1.02] hover:bg-white/90 transition-all flex items-center gap-2 text-brand-navy shadow-sm"
+              >
+                <Icon name="Play" size={18} className="text-primary" />
+                Как это работает
+              </button>
             </div>
 
-            {/* Hero — дракон */}
-            <div className="relative animate-fade-in-up delay-200 flex items-center justify-center mt-4 lg:mt-0">
-              <div
-                className="relative will-change-transform w-full max-w-lg mx-auto"
-                style={{ transform: `translateY(${scrollY * -0.06}px)` }}
-              >
-
-
-                {/* Слайдер видео поставщиков / дракон-заглушка */}
-                {heroVideos.length > 0 ? (
-                  <div className="relative w-48 sm:w-56 md:w-64 mx-auto">
-                    {/* Карточка видео */}
-                    <div
-                      className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70"
-                    >
-                      <video
-                        key={heroVideos[heroVideoIdx].url}
-                        src={heroVideos[heroVideoIdx].url}
-                        muted
-                        loop
-                        playsInline
-                        controls
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                      {/* Подпись */}
-                      <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
-                          {heroVideos[heroVideoIdx].avatar
-                            ? <img src={heroVideos[heroVideoIdx].avatar} alt="" className="w-full h-full object-cover" />
-                            : <div className="w-full h-full flex items-center justify-center text-white font-bold text-xs">{heroVideos[heroVideoIdx].seller?.[0]}</div>
-                          }
-                        </div>
-                        <span className="text-white text-xs font-semibold drop-shadow truncate">{heroVideos[heroVideoIdx].seller}</span>
+            {/* Иллюстрация по центру */}
+            <div className="relative w-full max-w-2xl mx-auto mt-10 animate-fade-in-up delay-300">
+              {heroVideos.length > 0 ? (
+                <div className="relative w-48 sm:w-56 md:w-64 mx-auto">
+                  <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70">
+                    <video
+                      key={heroVideos[heroVideoIdx].url}
+                      src={heroVideos[heroVideoIdx].url}
+                      muted
+                      loop
+                      playsInline
+                      controls
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white/80 flex-shrink-0 bg-white/20">
+                        {heroVideos[heroVideoIdx].avatar
+                          ? <img src={heroVideos[heroVideoIdx].avatar} alt="" className="w-full h-full object-cover" />
+                          : <div className="w-full h-full flex items-center justify-center text-white font-bold text-xs">{heroVideos[heroVideoIdx].seller?.[0]}</div>
+                        }
                       </div>
+                      <span className="text-white text-xs font-semibold drop-shadow truncate">{heroVideos[heroVideoIdx].seller}</span>
                     </div>
-
-                    {/* Стрелки */}
-                    {heroVideos.length > 1 && (
-                      <div className="flex items-center justify-center gap-3 mt-3">
-                        <button
-                          onClick={() => setHeroVideoIdx(i => (i - 1 + heroVideos.length) % heroVideos.length)}
-                          className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
-                        >
-                          <Icon name="ChevronLeft" size={16} className="text-brand-navy" />
-                        </button>
-                        <div className="flex gap-1.5">
-                          {heroVideos.map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={() => setHeroVideoIdx(i)}
-                              className="h-1.5 rounded-full transition-all"
-                              style={{width: i === heroVideoIdx ? 16 : 5, background: i === heroVideoIdx ? "hsl(354,78%,52%)" : "rgba(0,0,0,0.2)"}}
-                            />
-                          ))}
-                        </div>
-                        <button
-                          onClick={() => setHeroVideoIdx(i => (i + 1) % heroVideos.length)}
-                          className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
-                        >
-                          <Icon name="ChevronRight" size={16} className="text-brand-navy" />
-                        </button>
+                  </div>
+                  {heroVideos.length > 1 && (
+                    <div className="flex items-center justify-center gap-3 mt-3">
+                      <button
+                        onClick={() => setHeroVideoIdx(i => (i - 1 + heroVideos.length) % heroVideos.length)}
+                        className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
+                      >
+                        <Icon name="ChevronLeft" size={16} className="text-brand-navy" />
+                      </button>
+                      <div className="flex gap-1.5">
+                        {heroVideos.map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setHeroVideoIdx(i)}
+                            className="h-1.5 rounded-full transition-all"
+                            style={{width: i === heroVideoIdx ? 16 : 5, background: i === heroVideoIdx ? "hsl(354,78%,52%)" : "rgba(0,0,0,0.2)"}}
+                          />
+                        ))}
                       </div>
-                    )}
-                  </div>
-                ) : (
-                  <img
-                    src={DRAGON_IMAGE}
-                    alt="Китайский дракон — символ удачи в торговле"
-                    className="w-full animate-float drop-shadow-2xl object-contain rounded-xl"
-                    style={{ animationDuration: "6s", filter: "drop-shadow(0 30px 50px rgba(180,30,30,0.25))" }}
-                  />
-                )}
-
-                {/* Плавающая карточка — доставлено */}
-                <div
-                  className="hidden sm:flex absolute top-[15%] -left-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 items-center gap-3 animate-float z-20"
-                  style={{ animationDelay: "0.8s", transform: `translateY(${scrollY * 0.08}px)` }}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-brand-mint flex items-center justify-center">
-                    <Icon name="PackageCheck" size={20} className="text-brand-teal" />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-lg text-brand-navy leading-none">47</div>
-                    <div className="text-[11px] text-muted-foreground">доставлено сегодня</div>
-                  </div>
+                      <button
+                        onClick={() => setHeroVideoIdx(i => (i + 1) % heroVideos.length)}
+                        className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow transition-all"
+                      >
+                        <Icon name="ChevronRight" size={16} className="text-brand-navy" />
+                      </button>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                <img
+                  src={HERO_ILLUSTRATION}
+                  alt="Доставка товаров из Китая в Россию"
+                  className="w-full max-w-xl mx-auto animate-float object-contain rounded-3xl"
+                  style={{ animationDuration: "6s", filter: "drop-shadow(0 30px 50px rgba(30,60,120,0.18))" }}
+                />
+              )}
+            </div>
 
-                {/* Плавающая карточка — рейтинг */}
-                <div
-                  className="hidden sm:flex absolute bottom-[12%] -right-4 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-4 py-3 items-center gap-3 animate-float z-20"
-                  style={{ animationDelay: "1.4s", transform: `translateY(${scrollY * -0.06}px)` }}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-                    <Icon name="Star" size={20} className="text-amber-500 fill-amber-500" />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-lg text-brand-navy leading-none">4.9</div>
-                    <div className="text-[11px] text-muted-foreground">рейтинг клиентов</div>
-                  </div>
+            {/* Статистика */}
+            <div className="flex gap-6 sm:gap-12 mt-10 flex-wrap justify-center animate-fade-in-up delay-400">
+              {[
+                { value: "500+", label: "проверенных фабрик" },
+                { value: "4.9★", label: "рейтинг клиентов" },
+                { value: "5 лет", label: "на рынке" },
+              ].map((stat, i) => (
+                <div key={i}>
+                  <div className="font-display font-bold text-2xl sm:text-3xl text-brand-navy">{stat.value}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">{stat.label}</div>
                 </div>
-
-                {/* Плавающая карточка — фабрики */}
-                <div
-                  className="absolute top-[48%] -right-6 bg-white rounded-2xl border border-white shadow-xl shadow-sky-300/25 px-3.5 py-2.5 flex items-center gap-2 animate-float hidden sm:flex z-20"
-                  style={{ animationDelay: "0.4s", transform: `translateY(calc(-50% + ${scrollY * 0.05}px))` }}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
-                    <Icon name="Store" size={16} className="text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-sm text-brand-navy leading-none">500+</div>
-                    <div className="text-[10px] text-muted-foreground">фабрик</div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
