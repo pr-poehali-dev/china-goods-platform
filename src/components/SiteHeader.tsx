@@ -21,7 +21,14 @@ export default function SiteHeader() {
 
         {/* Логотип */}
         <Link to="/" className="flex items-center gap-2.5">
-          <img src={LOGO_IMAGE} alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
+          <div className="w-10 h-10 rounded-xl bg-white shadow-md border border-gray-100 flex flex-col items-center justify-center" style={{padding:"2px"}}>
+            <span className="font-black text-[10px] leading-none" style={{color:"#1a2b4a"}}>B2B</span>
+            <div className="relative mt-0.5">
+              <Icon name="ShoppingCart" size={14} style={{color:"#1a2b4a"}} />
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-white" />
+            </div>
+            <span className="font-bold text-[6px] leading-none mt-0.5" style={{color:"#1a2b4a"}}>ChinaCarts</span>
+          </div>
           <span className="font-bold text-xl" style={{color:"#111", fontFamily:"'Inter','Manrope',sans-serif", letterSpacing:"-0.03em"}}>
             China<span style={{color:"#cc0000"}}>Carts</span>
           </span>
