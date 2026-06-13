@@ -89,7 +89,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-sm text-white/50">© 2025 ChinaCarts. Все права защищены.</span>
+          <span className="text-sm text-white/50">© 2025 Chinacarts.ru Все права защищены.</span>
           <span className="text-sm text-white/40">🇨🇳 → 🇷🇺 Прямые поставки из Китая в Россию</span>
         </div>
       </div>
