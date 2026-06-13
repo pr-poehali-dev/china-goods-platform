@@ -174,9 +174,9 @@ export default function Index() {
 
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center">
-            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/8f89a2fe-c5f8-44cb-b02e-050e28d49a89.jpg" alt="ChinaCarts" className="h-14 object-contain" style={{maxWidth: "240px", mixBlendMode: "multiply"}} />
+            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/5b2cbf41-c40c-4b52-9d91-906f4bf4f494.jpg" alt="ChinaCarts" className="h-16 object-contain" style={{maxWidth: "300px", mixBlendMode: "multiply"}} />
           </button>
 
           <div className="hidden lg:flex items-center gap-1">
