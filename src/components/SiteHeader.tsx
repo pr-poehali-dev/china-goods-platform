@@ -20,11 +20,8 @@ export default function SiteHeader() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
 
         {/* Логотип */}
-        <Link to="/" className="flex items-center gap-2.5">
-          <img src={LOGO_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
-          <span className="font-bold text-xl" style={{color:"#111", fontFamily:"'Inter','Manrope',sans-serif", letterSpacing:"-0.03em"}}>
-            China<span style={{color:"#cc0000"}}>Carts</span>
-          </span>
+        <Link to="/" className="flex items-center">
+          <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/8f89a2fe-c5f8-44cb-b02e-050e28d49a89.jpg" alt="ChinaCarts" className="h-10 object-contain" style={{maxWidth: "200px"}} />
         </Link>
 
         {/* Десктоп меню */}
