@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
-const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/370d71ab-7800-41dd-81de-b13e23a549a6.jpg";
+const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
 
 const services: Record<string, {
   emoji: string;

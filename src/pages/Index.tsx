@@ -15,8 +15,8 @@ interface SellerCard {
 }
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/125ae5c5-2cc2-42dd-a86c-3ac0c227336f.jpg";
-const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/370d71ab-7800-41dd-81de-b13e23a549a6.jpg";
-const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/370d71ab-7800-41dd-81de-b13e23a549a6.jpg";
+const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
+const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/33b47b8a-be71-445f-a06d-3eedade9b217.jpg";
 const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
