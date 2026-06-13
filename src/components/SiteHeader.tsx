@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import AccountNavButton from "@/components/AccountNavButton";
 
-export const LOGO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/f7d66306-1a78-4de3-a7cf-1b0d31480790.jpg";
+export const LOGO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/c2d0cedb-03f9-4884-9315-5f55690ba735.jpg";
 
 const navItems = [
   { label: "Товары", to: "/products", icon: "ShoppingBag" },
