@@ -323,9 +323,10 @@ export default function Index() {
               </button>
             </div>
 
-            {/* Иллюстрация по центру */}
+            {/* Слайдер видео по центру */}
+            {heroVideos.length > 0 && (
             <div className="relative w-full max-w-2xl mx-auto mt-10 animate-fade-in-up delay-300">
-              {heroVideos.length > 0 ? (
+              {(
                 <div className="relative w-48 sm:w-56 md:w-64 mx-auto">
                   <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl shadow-sky-400/30 border-4 border-white/70">
                     <video
@@ -375,15 +376,9 @@ export default function Index() {
                     </div>
                   )}
                 </div>
-              ) : (
-                <img
-                  src={HERO_ILLUSTRATION}
-                  alt="Доставка товаров из Китая в Россию"
-                  className="w-full max-w-xl mx-auto animate-float object-contain rounded-3xl"
-                  style={{ animationDuration: "6s", filter: "drop-shadow(0 30px 50px rgba(30,60,120,0.18))" }}
-                />
               )}
             </div>
+            )}
 
             {/* Статистика */}
             <div className="flex gap-6 sm:gap-12 mt-10 flex-wrap justify-center animate-fade-in-up delay-400">
