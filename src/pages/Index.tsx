@@ -409,36 +409,40 @@ export default function Index() {
       {/* QUICK SERVICES GRID (портальная сетка) */}
       <section className="px-1 py-0" style={{background: "hsl(200,60%,97%)"}}>
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
             {[
-              { icon: "Search", label: "Поиск товара", emoji: "🔍", action: () => navigate("/service/search") },
-              { icon: "ShoppingCart", label: "Taobao", emoji: "🛒", img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/24af0b7d-b621-40d3-8eed-a085ffc71844.jpg", action: () => navigate("/service/buyout") },
-              { icon: "Truck", label: "Доставка", emoji: "✈️", action: () => navigate("/service/delivery") },
-              { icon: "Store", label: "Продавцы", emoji: "🏪", action: () => navigate("/service/suppliers") },
-              { icon: "MessageSquare", label: "Чат с поставщиком", emoji: "💬", action: () => navigate("/sellers") },
-              { icon: "FileText", label: "Оставить заявку", emoji: "📋", action: () => navigate("/account") },
+              { icon: "Search", label: "Поиск товара", desc: "Найдём любой товар", emoji: "🔍", action: () => navigate("/service/search") },
+              { icon: "ShoppingCart", label: "Taobao", desc: "Выкуп с площадок", emoji: "🛒", img: "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/24af0b7d-b621-40d3-8eed-a085ffc71844.jpg", action: () => navigate("/service/buyout") },
+              { icon: "Truck", label: "Доставка", desc: "Под ключ в Россию", emoji: "✈️", action: () => navigate("/service/delivery") },
+              { icon: "Store", label: "Продавцы", desc: "Проверенные фабрики", emoji: "🏪", action: () => navigate("/service/suppliers") },
+              { icon: "MessageSquare", label: "Чат с поставщиком", desc: "Прямая связь", emoji: "💬", action: () => navigate("/sellers") },
+              { icon: "FileText", label: "Оставить заявку", desc: "Ответим за 2 минуты", emoji: "📋", action: () => navigate("/account") },
             ].map((s, i) => (
               <button
                 key={i}
                 onClick={s.action}
-                className="reveal group flex flex-col items-center gap-3 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                className="reveal group flex items-center gap-4 sm:gap-5 p-5 sm:p-7 rounded-3xl transition-all duration-300 hover:-translate-y-1 text-left"
                 style={{
                   animationDelay: `${i * 0.06}s`,
-                  background: "rgba(255,255,255,0.72)",
+                  background: "rgba(255,255,255,0.8)",
                   backdropFilter: "blur(12px)",
-                  border: "1.5px solid rgba(255,255,255,0.8)",
-                  boxShadow: "0 4px 20px rgba(176,220,240,0.35), 0 1px 4px rgba(0,0,0,0.06)",
+                  border: "1.5px solid rgba(255,255,255,0.9)",
+                  boxShadow: "0 6px 24px rgba(176,220,240,0.4), 0 1px 4px rgba(0,0,0,0.06)",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 8px 32px rgba(176,220,240,0.55), 0 2px 8px rgba(0,0,0,0.08)")}
-                onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(176,220,240,0.35), 0 1px 4px rgba(0,0,0,0.06)")}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 12px 40px rgba(176,220,240,0.6), 0 2px 8px rgba(0,0,0,0.08)")}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 6px 24px rgba(176,220,240,0.4), 0 1px 4px rgba(0,0,0,0.06)")}
               >
-                <div className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300"
-                  style={{background: "linear-gradient(135deg, hsl(200,75%,88%), hsl(200,65%,94%))"}}>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden flex items-center justify-center text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                  style={{background: "linear-gradient(135deg, hsl(220,45%,28%), hsl(200,70%,45%))"}}>
                   {('img' in s && s.img)
                     ? <img src={s.img as string} alt={s.label} className="w-full h-full object-cover" />
-                    : s.emoji}
+                    : <Icon name={s.icon} size={32} className="text-white" />}
                 </div>
-                <span className="text-sm font-semibold text-brand-navy text-center leading-tight">{s.label}</span>
+                <div className="min-w-0">
+                  <span className="block text-base sm:text-lg font-bold text-brand-navy leading-tight mb-0.5">{s.label}</span>
+                  <span className="block text-xs sm:text-sm text-slate-500 leading-tight">{s.desc}</span>
+                </div>
+                <Icon name="ChevronRight" size={20} className="text-primary ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </button>
             ))}
           </div>
