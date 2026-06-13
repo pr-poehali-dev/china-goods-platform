@@ -177,7 +177,7 @@ export default function Index() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
             <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
-            <span className="text-2xl" style={{color: "#111", fontFamily: "'ZCOOL XiaoWei', serif", letterSpacing: "0.02em"}}>
+            <span className="font-bold text-xl" style={{color: "#111", fontFamily: "'Inter', 'Manrope', sans-serif", letterSpacing: "-0.03em"}}>
               China<span style={{color: "#cc0000"}}>Carts</span>
             </span>
           </button>

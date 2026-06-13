@@ -30,7 +30,7 @@ export default function SiteFooter() {
           <div className="col-span-2 md:col-span-1 space-y-3">
             <Link to="/" className="flex items-center gap-2.5">
               <img src={LOGO_IMAGE} alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
-              <span className="text-2xl" style={{color:"#fff", fontFamily:"'ZCOOL XiaoWei', serif", letterSpacing:"0.02em"}}>
+              <span className="font-bold text-xl" style={{color:"#fff", fontFamily:"'Inter','Manrope',sans-serif", letterSpacing:"-0.03em"}}>
                 China<span style={{color:"#ff4444"}}>Carts</span>
               </span>
             </Link>
