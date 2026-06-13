@@ -1,0 +1,1 @@
+{"tests": [{"name": "Remove bg test", "method": "GET", "path": "/?url=https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg", "expectedStatus": 200, "expectedBody": {"url": "string"}, "bodyMatcher": "partial"}]}

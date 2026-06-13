@@ -1,0 +1,4 @@
+rembg
+requests
+boto3
+Pillow
