@@ -21,7 +21,7 @@ export default function SiteHeader() {
 
         {/* Логотип */}
         <Link to="/" className="flex items-center">
-          <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/8f89a2fe-c5f8-44cb-b02e-050e28d49a89.jpg" alt="ChinaCarts" className="h-10 object-contain" style={{maxWidth: "200px"}} />
+          <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/8f89a2fe-c5f8-44cb-b02e-050e28d49a89.jpg" alt="ChinaCarts" className="h-14 object-contain" style={{maxWidth: "240px", mixBlendMode: "multiply"}} />
         </Link>
 
         {/* Десктоп меню */}
