@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import AccountNavButton from "@/components/AccountNavButton";
 
-export const LOGO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
+export const LOGO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/f7d66306-1a78-4de3-a7cf-1b0d31480790.jpg";
 
 const navItems = [
   { label: "Товары", to: "/products", icon: "ShoppingBag" },
@@ -17,11 +17,14 @@ export default function SiteHeader() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
 
         {/* Логотип */}
-        <Link to="/" className="flex items-center">
-          <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/5b2cbf41-c40c-4b52-9d91-906f4bf4f494.jpg" alt="ChinaCarts" className="h-16 object-contain" style={{maxWidth: "300px", mixBlendMode: "multiply"}} />
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={LOGO_IMAGE} alt="ChinaCarts" className="w-10 h-10 rounded-xl object-cover" />
+          <span className="font-bold text-xl" style={{color:"#111", fontFamily:"'Inter','Manrope',sans-serif", letterSpacing:"-0.03em"}}>
+            China<span style={{color:"#cc0000"}}>Carts</span>
+          </span>
         </Link>
 
         {/* Десктоп меню */}

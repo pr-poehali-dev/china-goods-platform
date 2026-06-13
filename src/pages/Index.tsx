@@ -15,11 +15,11 @@ interface SellerCard {
 }
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/125ae5c5-2cc2-42dd-a86c-3ac0c227336f.jpg";
-const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
-const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
+const DRAGON_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
+const ORNAMENT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/5ee6ffe6-6dee-47e9-831b-18b6966d28b1.jpg";
 const MARKET_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/39bffd80-1854-4029-b2bc-7d4b1a9b3b92.jpg";
 const DELIVERY_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/33b47b8a-be71-445f-a06d-3eedade9b217.jpg";
-const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/3d43ec74-ce4e-403e-97ca-4c35b7dc4f9f.jpg";
+const MASCOT_IMAGE = "https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/files/f7d66306-1a78-4de3-a7cf-1b0d31480790.jpg";
 
 
 const services = [
@@ -174,9 +174,12 @@ export default function Index() {
 
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/40 shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <button onClick={() => scrollTo("home")} className="flex items-center">
-            <img src="https://cdn.poehali.dev/projects/edb6cf3c-b4b5-4994-bb1e-ca5122151314/bucket/5b2cbf41-c40c-4b52-9d91-906f4bf4f494.jpg" alt="ChinaCarts" className="h-16 object-contain" style={{maxWidth: "300px", mixBlendMode: "multiply"}} />
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <button onClick={() => scrollTo("home")} className="flex items-center gap-2">
+            <img src={MASCOT_IMAGE} alt="ChinaCarts" className="w-10 h-10 object-contain" />
+            <span className="font-bold text-xl" style={{color: "#111", fontFamily: "'Inter', 'Manrope', sans-serif", letterSpacing: "-0.03em"}}>
+              China<span style={{color: "#cc0000"}}>Carts</span>
+            </span>
           </button>
 
           <div className="hidden lg:flex items-center gap-1">
